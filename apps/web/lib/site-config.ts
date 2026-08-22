@@ -20,13 +20,25 @@ export const SITE = {
     linkedin: "https://linkedin.com/company/sinaispark",
     youtube: "https://youtube.com/@sinaispark",
   },
+  /** MOCK addresses — replace with real office locations (PENDING_CLIENT_DATA.md). */
   offices: [
-    { city: "Riyadh", label: "Riyadh", note: "Capital & economic center" },
-    { city: "Jeddah", label: "Jeddah", note: "Kingdom's trade gateway" },
+    {
+      city: "Riyadh",
+      label: "Riyadh",
+      note: "Capital & economic center",
+      address: "King Fahd Road, Olaya District, Riyadh",
+    },
+    {
+      city: "Jeddah",
+      label: "Jeddah",
+      note: "Kingdom's trade gateway",
+      address: "Tahlia Street, Al Ruwais District, Jeddah",
+    },
     {
       city: "Dammam",
       label: "Dammam",
       note: "Eastern Province industrial hub",
+      address: "Corniche Road, Al Shati District, Dammam",
     },
   ],
 } as const

@@ -92,9 +92,9 @@ export default function ContactPage() {
                     <li key={office.city}>
                       <span className="font-medium">{office.label}</span>
                       <span className="block text-xs text-muted-foreground">
-                        {office.note} — address available shortly.
+                        {office.address}
                       </span>
-                      {/* PENDING_CLIENT_DATA — office street addresses pending. */}
+                      {/* MOCK address — confirm with BD team (PENDING_CLIENT_DATA.md). */}
                     </li>
                   ))}
                 </ul>

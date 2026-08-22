@@ -92,7 +92,7 @@ export function SiteFooter() {
                   {office.label}
                 </span>
                 <span className="block text-xs text-primary-foreground/60">
-                  {office.note}
+                  {office.address}
                 </span>
               </div>
             ))}
