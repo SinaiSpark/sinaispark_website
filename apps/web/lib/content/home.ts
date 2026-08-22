@@ -124,7 +124,7 @@ export const HOME = {
         title: "Compliance",
         description: "Ongoing regulatory upkeep, renewals and annual filings.",
         href: "/services/compliance/",
-        imageKey: null,
+        imageKey: "serviceCompliance",
       },
       {
         title: "Property Management",
