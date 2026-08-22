@@ -138,7 +138,7 @@ export const IMAGES = {
     focal: "center",
     credit: "AI Generated",
     license: "Proprietary",
-    status: "approved",
+    status: "client",
   },
   aboutMeeting: {
     src: "/images/about/sinaispark-meeting.jpg",
@@ -146,7 +146,7 @@ export const IMAGES = {
     focal: "center",
     credit: "AI Generated",
     license: "Proprietary",
-    status: "approved",
+    status: "client",
   },
   aboutDocument: {
     src: "/images/about/sinaispark-document.jpg",
@@ -154,7 +154,7 @@ export const IMAGES = {
     focal: "center",
     credit: "AI Generated",
     license: "Proprietary",
-    status: "approved",
+    status: "client",
   },
 } as const satisfies Record<string, ImageAsset>
 
