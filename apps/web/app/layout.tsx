@@ -6,6 +6,7 @@ import "@workspace/ui/globals.css"
 import { MotionProvider } from "@/components/motion/motion-provider"
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
+import { WhatsAppButton } from "@/components/site/whatsapp-button"
 import { SITE } from "@/lib/site-config"
 import { cn } from "@workspace/ui/lib/utils"
 
@@ -43,6 +44,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />
+          <WhatsAppButton />
         </MotionProvider>
       </body>
     </html>

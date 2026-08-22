@@ -6,7 +6,6 @@ import { REPORTS } from "@/lib/content/research"
 import { Breadcrumbs } from "@/components/site/breadcrumbs"
 import { Badge } from "@workspace/ui/components/badge"
 import { CTASection } from "@/components/site/cta-section"
-import { WhatsAppButton } from "@/components/site/whatsapp-button"
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -72,9 +71,6 @@ export default async function ReportPage({ params }: Props) {
             variant: "gold",
           },
         ]}
-      />
-      <WhatsAppButton
-        message={`Hello, I'd like to know more about "${report.title}".`}
       />
     </>
   )

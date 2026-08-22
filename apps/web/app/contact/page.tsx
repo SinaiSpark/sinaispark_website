@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 
 import { Breadcrumbs } from "@/components/site/breadcrumbs"
 import { ContactForm } from "@/components/forms/contact-form"
-import { WhatsAppButton } from "@/components/site/whatsapp-button"
 import { SITE } from "@/lib/site-config"
 import {
   InstagramGlyph,
@@ -123,8 +122,6 @@ export default function ContactPage() {
           </Reveal>
         </div>
       </section>
-
-      <WhatsAppButton message="Hello Sinai Spark Global, I would like a free consultation." />
     </>
   )
 }
