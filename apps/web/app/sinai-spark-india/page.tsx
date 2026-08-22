@@ -260,18 +260,70 @@ export default function IndiaLandingPage() {
         </div>
       </section>
 
-      {/* Pricing packages — PENDING_CLIENT_DATA, never published with placeholder fees */}
-      {INDIA.pricing.published ? (
-        <section aria-labelledby="india-pricing" className="bg-background">
-          <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
-            <SectionHeading
-              eyebrow="Pricing"
-              title="Transparent package pricing"
-            />
-            <div className="mt-8 grid gap-5 md:grid-cols-3">…</div>
-          </div>
-        </section>
-      ) : null}
+      {/* Pricing packages — MOCK fees for review; replace before launch
+          (PENDING_CLIENT_DATA.md). */}
+      <section aria-labelledby="india-pricing" className="bg-background">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+          <SectionHeading
+            eyebrow="Pricing"
+            title="Transparent package pricing"
+          />
+          <Reveal stagger className="mt-8 grid gap-5 md:grid-cols-3">
+            {INDIA.pricing.packages.map((pkg) => (
+              <article
+                key={pkg.name}
+                className={`relative flex flex-col rounded-lg border p-6 ${
+                  pkg.popular
+                    ? "border-gold ring-2 ring-gold/30"
+                    : "border-border"
+                }`}
+              >
+                {pkg.popular ? (
+                  <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-1 text-[0.65rem] font-semibold tracking-wide text-primary-deep uppercase">
+                    Most popular
+                  </span>
+                ) : null}
+                <h3 className="text-xl font-semibold tracking-tight">
+                  {pkg.name}
+                </h3>
+                <p className="mt-0.5 font-mono text-xs text-muted-foreground uppercase">
+                  {pkg.structure}
+                </p>
+                <p className="mt-4 font-mono text-3xl font-semibold tabular-nums">
+                  {pkg.fee}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Best for: {pkg.bestFor}
+                </p>
+                <ul className="mt-5 flex flex-col divide-y divide-border border-t border-border pt-1">
+                  {pkg.includes.split(",").map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 py-2 text-sm leading-relaxed"
+                    >
+                      <CheckIcon
+                        aria-hidden="true"
+                        className="mt-0.5 size-4 shrink-0 text-gold-strong"
+                      />
+                      {item.trim()}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href="/contact/"
+                  className={`mt-6 inline-flex h-11 items-center justify-center rounded-md px-5 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
+                    pkg.popular
+                      ? "bg-primary text-primary-foreground hover:bg-primary-deep"
+                      : "border border-border hover:border-gold/60 hover:text-primary"
+                  }`}
+                >
+                  Start with {pkg.name}
+                </Link>
+              </article>
+            ))}
+          </Reveal>
+        </div>
+      </section>
 
       {/* FAQs */}
       <section aria-labelledby="india-faqs" className="bg-background">

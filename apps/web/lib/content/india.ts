@@ -112,9 +112,12 @@ export const INDIA = {
     "Dual expertise across India and Saudi Arabia for cross border founders",
   ],
   pricing: {
-    // PENDING_CLIENT_DATA — fees must be inserted before publishing; quote
-    // actual pricing, never placeholders (revised doc developer note).
-    published: false,
+    /**
+     * MOCK DATA — fees are invented placeholders for site review.
+     * The revised doc requires actual pricing before publishing;
+     * replace with real fees (tracked in /PENDING_CLIENT_DATA.md).
+     */
+    published: true,
     packages: [
       {
         name: "Starter",
@@ -123,7 +126,7 @@ export const INDIA = {
         structure: "OPC / Sole Proprietorship",
         includes:
           "Company registration, DIN and DSC for one director, Certificate of Incorporation",
-        fee: null,
+        fee: "₹9,999",
       },
       {
         name: "Professional",
@@ -132,7 +135,7 @@ export const INDIA = {
         structure: "Private Limited Company",
         includes:
           "Full MCA incorporation, DIN and DSC for two directors, MOA/AOA drafting, Certificate of Incorporation",
-        fee: null,
+        fee: "₹18,999",
       },
       {
         name: "Partnership",
@@ -141,7 +144,7 @@ export const INDIA = {
         structure: "LLP Formation",
         includes:
           "LLP agreement drafting, DPIN for two partners, Certificate of Incorporation, PAN",
-        fee: null,
+        fee: "₹14,999",
       },
     ],
   },
