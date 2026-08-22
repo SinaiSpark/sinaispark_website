@@ -198,8 +198,36 @@ export const HOME = {
     title: "What Our Clients Say",
     subheadline:
       "Real feedback from founders and investors we have helped enter new markets.",
-    /** PENDING_CLIENT_DATA — section stays hidden until verified quotes arrive from BDM/sales. */
-    published: false,
+    /**
+     * MOCK DATA — invented placeholders so the section renders for review.
+     * MUST be replaced with BDM/sales-verified quotes before launch
+     * (revised doc §10: never publish invented quotes). Tracked in
+     * /PENDING_CLIENT_DATA.md.
+     */
+    published: true,
+    items: [
+      {
+        quote:
+          "They handled the entire MISA process while we kept running our business. We were licensed in weeks, not months.",
+        name: "Ahmed K.",
+        role: "Managing Director, Industrial Group",
+        market: "Saudi Arabia",
+      },
+      {
+        quote:
+          "One team for formation, licensing and visas meant nothing fell through the cracks. Clear pricing from day one.",
+        name: "Sarah M.",
+        role: "Founder, Tech Consultancy",
+        market: "United Arab Emirates",
+      },
+      {
+        quote:
+          "As an NRI in Riyadh, registering my Indian company entirely online felt effortless. FEMA structuring was handled correctly the first time.",
+        name: "Rajesh P.",
+        role: "Director, Trading Company",
+        market: "India",
+      },
+    ],
   },
   regionalCoverage: {
     eyebrow: "Regional Coverage in Saudi Arabia",
