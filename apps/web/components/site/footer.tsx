@@ -44,8 +44,8 @@ export function SiteFooter() {
 
           <nav aria-label="Footer services" className="flex flex-col gap-2.5">
             {SERVICE_GROUPS.map((group) => (
-              <div key={group.label}>
-                <p className="mb-1.5 text-xs font-semibold tracking-[0.14em] text-gold uppercase">
+              <div key={group.label} className="flex flex-col gap-1">
+                <p className="mb-0.5 text-xs font-semibold tracking-[0.14em] text-gold uppercase">
                   {group.label}
                 </p>
                 {group.items.map((service) => (
