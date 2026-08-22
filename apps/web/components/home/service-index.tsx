@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRightIcon } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 import { HOME } from "@/lib/content/home"
 import { IMAGES, type ImageKey } from "@/lib/images"
@@ -75,24 +76,34 @@ export function ServiceIndex() {
           {/* Image reveal area — hidden on mobile */}
           <div className="relative hidden lg:block">
             <div className="sticky top-24 aspect-[4/5] w-full overflow-hidden rounded-xl border border-border shadow-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/60">
-              <div className="absolute top-4 right-0 bottom-0 left-4 rounded-xl border-2 border-gold md:top-6 md:left-6" />
               <div className="relative h-full w-full overflow-hidden rounded-xl bg-muted">
-                {activeAsset ? (
-                  <Image
-                    key={activeAsset.src}
-                    src={activeAsset.src}
-                    alt={activeAsset.alt}
-                    fill
-                    sizes="(min-width: 1024px) 45vw, 100vw"
-                    quality={85}
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    style={
-                      activeAsset.focal
-                        ? { objectPosition: activeAsset.focal }
-                        : undefined
-                    }
-                  />
-                ) : null}
+                <AnimatePresence mode="wait">
+                  {activeAsset && (
+                    <motion.div
+                      key={activeAsset.src}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute inset-0 h-full w-full"
+                    >
+                      <Image
+                        src={activeAsset.src}
+                        alt={activeAsset.alt}
+                        fill
+                        sizes="(min-width: 1024px) 45vw, 100vw"
+                        quality={85}
+                        priority
+                        className="object-cover"
+                        style={
+                          activeAsset.focal
+                            ? { objectPosition: activeAsset.focal }
+                            : undefined
+                        }
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </div>
