@@ -76,20 +76,26 @@ export default function HomePage() {
       {/* 3 · Who We Are — editorial split */}
       <section aria-labelledby="who-we-are-title" className="bg-background">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-32 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
-          <Reveal>
-            <SectionHeading
-              eyebrow={HOME.whoWeAre.eyebrow}
-              title={<span id="who-we-are-title">{HOME.whoWeAre.title}</span>}
-            />
-            <p className="mt-6 leading-relaxed text-muted-foreground">
-              {HOME.whoWeAre.body}
-            </p>
-            <blockquote className="mt-8 border-l-2 border-gold pl-5">
-              <p className="text-lg leading-relaxed font-medium tracking-tight text-primary italic md:text-xl">
-                “{HOME.whoWeAre.pullQuote}”
+          <div>
+            <Reveal>
+              <SectionHeading
+                eyebrow={HOME.whoWeAre.eyebrow}
+                title={<span id="who-we-are-title">{HOME.whoWeAre.title}</span>}
+              />
+            </Reveal>
+            <Reveal delay={0.15}>
+              <p className="mt-6 leading-relaxed text-muted-foreground">
+                {HOME.whoWeAre.body}
               </p>
-            </blockquote>
-          </Reveal>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <blockquote className="mt-8 border-l-2 border-gold pl-5">
+                <p className="text-lg leading-relaxed font-medium tracking-tight text-primary italic md:text-xl">
+                  “{HOME.whoWeAre.pullQuote}”
+                </p>
+              </blockquote>
+            </Reveal>
+          </div>
           <Reveal
             delay={0.1}
             className="relative min-h-[350px] pr-4 pb-4 md:min-h-[450px] md:pr-6 md:pb-6 lg:min-h-full"
