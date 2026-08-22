@@ -17,6 +17,7 @@ import { ProcessTimeline } from "@/components/home/process-timeline"
 import { TestimonialSection } from "@/components/home/testimonial-section"
 import { RegionalCoverage } from "@/components/home/regional-coverage"
 import { Reveal } from "@/components/motion/reveal"
+import { cn } from "@workspace/ui/lib/utils"
 
 export const metadata: Metadata = {
   title: `${SITE.name}: Business Setup Services in Saudi Arabia and Beyond`,
@@ -34,7 +35,7 @@ const heroCtas = [
     label: HOME.hero.secondaryCta.label,
     href: HOME.hero.secondaryCta.href,
     className:
-      "border-primary-foreground/40 text-primary-foreground hover:border-gold hover:text-gold",
+      "border border-primary-foreground/40 text-primary-foreground hover:border-gold hover:text-gold",
   },
 ]
 
@@ -58,7 +59,10 @@ export default function HomePage() {
           <Link
             key={cta.label}
             href={cta.href}
-            className={`inline-flex h-11 items-center rounded-md border border-transparent px-6 text-sm transition-all duration-200 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${cta.className}`}
+            className={cn(
+              "inline-flex h-11 items-center rounded-md border border-transparent px-6 text-sm transition-all duration-200 outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
+              cta.className
+            )}
           >
             {cta.label}
           </Link>
@@ -70,7 +74,7 @@ export default function HomePage() {
 
       {/* 3 · Who We Are — editorial split */}
       <section aria-labelledby="who-we-are-title" className="bg-background">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-32 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
           <Reveal>
             <SectionHeading
               eyebrow={HOME.whoWeAre.eyebrow}
@@ -87,11 +91,12 @@ export default function HomePage() {
           </Reveal>
           <Reveal
             delay={0.1}
-            className="relative min-h-72 overflow-hidden rounded-lg lg:min-h-full"
+            className="relative min-h-72 pr-4 pb-4 md:pr-6 md:pb-6 lg:min-h-full"
           >
+            <div className="absolute top-4 right-0 bottom-0 left-4 rounded-lg border-2 border-gold md:top-6 md:left-6" />
             <Link
               href="/about-us/"
-              className="absolute inset-0 outline-none focus-visible:ring-3 focus-visible:ring-ring/60"
+              className="relative block h-full w-full overflow-hidden rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/60"
               aria-label="Learn more about us"
             >
               <Image
@@ -100,7 +105,7 @@ export default function HomePage() {
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 quality={80}
-                className="object-cover"
+                className="object-cover transition-transform duration-500 hover:scale-105"
                 style={
                   teamAsset.focal
                     ? { objectPosition: teamAsset.focal }
@@ -114,7 +119,7 @@ export default function HomePage() {
 
       {/* 4 · Mission / Vision — quiet paper band */}
       <section aria-label="Mission and vision" className="bg-background-alt">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-2 lg:gap-14 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-2 lg:gap-14 lg:px-8">
           {[HOME.missionVision.mission, HOME.missionVision.vision].map(
             (item) => (
               <Reveal key={item.title} className="border-t-2 border-gold pt-6">
@@ -138,7 +143,7 @@ export default function HomePage() {
 
       {/* 7 · Why Choose Us — mist tiles */}
       <section aria-labelledby="why-us-title" className="bg-muted/60">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
           <SectionHeading
             eyebrow={HOME.whyChooseUs.eyebrow}
             title={

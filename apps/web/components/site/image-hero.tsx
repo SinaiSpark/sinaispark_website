@@ -64,7 +64,7 @@ export function ImageHero({
       )}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-primary-deep/95 via-primary/70 to-transparent"
+        className="absolute inset-0 bg-gradient-to-r from-primary-deep/95 via-primary-deep/80 to-primary/40"
       />
       <div className="relative mx-auto w-full max-w-7xl px-4 pt-24 pb-14 sm:px-6 md:pb-20 lg:px-8">
         <motion.div

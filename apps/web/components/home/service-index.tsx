@@ -21,7 +21,7 @@ export function ServiceIndex() {
 
   return (
     <section aria-labelledby="what-we-do-title" className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
         <div className="mb-10 max-w-2xl">
           <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
             {HOME.whatWeDo.eyebrow}
@@ -79,26 +79,29 @@ export function ServiceIndex() {
           </ol>
 
           <div
-            className="relative hidden overflow-hidden rounded-lg lg:block"
+            className="relative hidden min-h-[400px] pr-6 pb-6 lg:block"
             aria-hidden="true"
           >
-            {activeAsset ? (
-              <Image
-                src={activeAsset.src}
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 45vw, 0px"
-                quality={80}
-                className="object-cover"
-                style={
-                  activeAsset.focal
-                    ? { objectPosition: activeAsset.focal }
-                    : undefined
-                }
-              />
-            ) : (
-              <div className="absolute inset-0 bg-primary" />
-            )}
+            <div className="absolute top-6 right-6 bottom-0 left-0 rounded-lg border-2 border-gold" />
+            <div className="relative h-full w-full overflow-hidden rounded-lg">
+              {activeAsset ? (
+                <Image
+                  src={activeAsset.src}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 0px"
+                  quality={80}
+                  className="object-cover transition-opacity duration-300"
+                  style={
+                    activeAsset.focal
+                      ? { objectPosition: activeAsset.focal }
+                      : undefined
+                  }
+                />
+              ) : (
+                <div className="absolute inset-0 bg-primary" />
+              )}
+            </div>
           </div>
         </div>
       </div>

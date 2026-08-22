@@ -49,10 +49,10 @@ describe("CountryTiles", () => {
 
     // The first market is featured initially.
     // Only the featured market has its tag rendered.
-    expect(screen.getByText(markets[0].tag)).toBeInTheDocument()
+    expect(screen.getByText(markets[0]!.tag)).toBeInTheDocument()
 
     // Non-featured markets should not have their tags rendered
-    expect(screen.queryByText(markets[1].tag)).not.toBeInTheDocument()
+    expect(screen.queryByText(markets[1]!.tag)).not.toBeInTheDocument()
 
     // Fast-forward 5 seconds
     act(() => {
@@ -60,8 +60,8 @@ describe("CountryTiles", () => {
     })
 
     // Now the second market should be featured
-    expect(screen.getByText(markets[1].tag)).toBeInTheDocument()
-    expect(screen.queryByText(markets[0].tag)).not.toBeInTheDocument()
+    expect(screen.getByText(markets[1]!.tag)).toBeInTheDocument()
+    expect(screen.queryByText(markets[0]!.tag)).not.toBeInTheDocument()
 
     // Fast-forward another 5 seconds
     act(() => {
@@ -69,6 +69,6 @@ describe("CountryTiles", () => {
     })
 
     // Now the third market should be featured
-    expect(screen.getByText(markets[2].tag)).toBeInTheDocument()
+    expect(screen.getByText(markets[2]!.tag)).toBeInTheDocument()
   })
 })
