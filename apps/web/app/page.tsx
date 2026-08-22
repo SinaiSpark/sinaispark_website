@@ -108,9 +108,9 @@ export default function HomePage() {
             >
               <AboutImageStack
                 assets={[
-                  IMAGES.serviceBusinessSetup,
-                  IMAGES.serviceLegal,
-                  IMAGES.serviceLicensing,
+                  IMAGES.aboutHandshake,
+                  IMAGES.aboutMeeting,
+                  IMAGES.aboutDocument,
                 ]}
               />
             </Link>

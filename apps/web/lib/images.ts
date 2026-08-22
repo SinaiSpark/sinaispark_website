@@ -6,17 +6,17 @@
  * and must be replaced with client-provided or purchased photography before launch.
  */
 
-export type ImageAssetStatus = "placeholder" | "licensed" | "client";
+export type ImageAssetStatus = "placeholder" | "licensed" | "client"
 
 export interface ImageAsset {
-  src: string;
+  src: string
   /** Descriptive alt text per SEO checklist — natural keyword use, no stuffing. */
-  alt: string;
+  alt: string
   /** CSS object-position value documenting the focal point. */
-  focal?: string;
-  credit?: string;
-  license?: string;
-  status: ImageAssetStatus;
+  focal?: string
+  credit?: string
+  license?: string
+  status: ImageAssetStatus
 }
 
 export const IMAGES = {
@@ -132,13 +132,37 @@ export const IMAGES = {
     license: "CC BY-SA 2.0 via Wikimedia Commons",
     status: "placeholder",
   },
-} as const satisfies Record<string, ImageAsset>;
+  aboutHandshake: {
+    src: "/images/about/sinaispark-handshake.jpg",
+    alt: "Two business professionals shaking hands in a modern Riyadh office",
+    focal: "center",
+    credit: "AI Generated",
+    license: "Proprietary",
+    status: "approved",
+  },
+  aboutMeeting: {
+    src: "/images/about/sinaispark-meeting.jpg",
+    alt: "Corporate strategy meeting in a sleek boardroom",
+    focal: "center",
+    credit: "AI Generated",
+    license: "Proprietary",
+    status: "approved",
+  },
+  aboutDocument: {
+    src: "/images/about/sinaispark-document.jpg",
+    alt: "Signing a corporate document with a gold pen",
+    focal: "center",
+    credit: "AI Generated",
+    license: "Proprietary",
+    status: "approved",
+  },
+} as const satisfies Record<string, ImageAsset>
 
-export type ImageKey = keyof typeof IMAGES;
+export type ImageKey = keyof typeof IMAGES
 
 /** Lookup helper returning null when an asset slot has no approved asset yet. */
 export function getImage(key: ImageKey): ImageAsset | null {
-  return (IMAGES as Record<ImageKey, ImageAsset>)[key] ?? null;
+  return (IMAGES as Record<ImageKey, ImageAsset>)[key] ?? null
 }
 
 /**
@@ -148,4 +172,4 @@ export function getImage(key: ImageKey): ImageAsset | null {
 export const PENDING_IMAGE_SLOTS = [
   "services/compliance-planning",
   "research/reports-analysis-desk",
-] as const;
+] as const
