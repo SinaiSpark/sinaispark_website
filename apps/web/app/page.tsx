@@ -48,7 +48,7 @@ export default function HomePage() {
 
       {/* 1 · Hero */}
       <ImageHero
-        asset={IMAGES.homeHero}
+        assets={[IMAGES.homeHero, IMAGES.countrySaudiArabia, IMAGES.countryUae]}
         eyebrow={HOME.hero.eyebrow}
         title={HOME.hero.headline}
         subtitle={HOME.hero.subheadline}

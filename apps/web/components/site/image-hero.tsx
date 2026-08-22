@@ -1,14 +1,16 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 import type { ImageAsset } from "@/lib/images"
 import { heroStagger, revealVariants } from "@/lib/transitions"
 import { cn } from "@workspace/ui/lib/utils"
 
 type ImageHeroProps = {
-  asset: ImageAsset | null
+  asset?: ImageAsset | null
+  assets?: ImageAsset[]
   eyebrow?: string
   title: string
   subtitle?: string
@@ -31,6 +33,7 @@ const staggerItem = {
  */
 export function ImageHero({
   asset,
+  assets,
   eyebrow,
   title,
   subtitle,
@@ -40,6 +43,18 @@ export function ImageHero({
   children,
   className,
 }: ImageHeroProps) {
+  const images = assets && assets.length > 0 ? assets : asset ? [asset] : []
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    if (images.length <= 1) return
+    const timer = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [images.length])
+
+  const activeAsset = images[activeIndex]
   return (
     <section
       className={cn(
@@ -48,17 +63,38 @@ export function ImageHero({
         className
       )}
     >
-      {asset ? (
-        <Image
-          src={asset.src}
-          alt={asset.alt}
-          fill
-          priority={priority}
-          sizes="100vw"
-          quality={85}
-          className="object-cover"
-          style={asset.focal ? { objectPosition: asset.focal } : undefined}
-        />
+      {activeAsset ? (
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={activeAsset.src}
+            initial={{ scale: 1.05, opacity: 0, x: "-3%", filter: "blur(8px)" }}
+            animate={{ scale: 1, opacity: 1, x: "0%", filter: "blur(0px)" }}
+            exit={{
+              opacity: 0,
+              x: "3%",
+              filter: "blur(4px)",
+              position: "absolute",
+              zIndex: -1,
+            }}
+            transition={{ duration: 1.8, ease: "easeInOut" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={activeAsset.src}
+              alt={activeAsset.alt}
+              fill
+              priority={priority && activeIndex === 0}
+              sizes="100vw"
+              quality={85}
+              className="object-cover"
+              style={
+                activeAsset.focal
+                  ? { objectPosition: activeAsset.focal }
+                  : undefined
+              }
+            />
+          </motion.div>
+        </AnimatePresence>
       ) : (
         <div aria-hidden="true" className="absolute inset-0 bg-primary" />
       )}

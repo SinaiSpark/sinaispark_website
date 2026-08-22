@@ -8,6 +8,7 @@ import { ArrowUpRightIcon } from "lucide-react"
 import { HOME } from "@/lib/content/home"
 import { IMAGES, type ImageKey } from "@/lib/images"
 import { cn } from "@workspace/ui/lib/utils"
+import { Reveal } from "@/components/motion/reveal"
 
 /**
  * What We Do — editorial index rows (§13): divider-separated numbered list,
@@ -22,7 +23,7 @@ export function ServiceIndex() {
   return (
     <section aria-labelledby="what-we-do-title" className="bg-background">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
-        <div className="mb-10 max-w-2xl">
+        <Reveal className="mb-10 max-w-2xl">
           <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
             {HOME.whatWeDo.eyebrow}
           </p>
@@ -32,78 +33,70 @@ export function ServiceIndex() {
           >
             {HOME.whatWeDo.title}
           </h2>
-        </div>
+        </Reveal>
 
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+        <Reveal
+          delay={0.15}
+          className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14"
+        >
           <ol className="divide-y divide-border border-t border-b border-border">
             {HOME.whatWeDo.items.map((item, index) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  onMouseEnter={() => setActiveKey(item.imageKey)}
-                  onFocus={() => setActiveKey(item.imageKey)}
-                  className={cn(
-                    "group relative flex items-center gap-5 py-5 pr-2 pl-1 transition-colors outline-none focus-visible:bg-accent",
-                    "hover:bg-accent/50"
-                  )}
+                  className="group flex flex-col items-start gap-4 py-6 outline-none focus-visible:ring-3 focus-visible:ring-ring/60 sm:flex-row sm:items-center sm:gap-6 sm:py-8"
+                  onMouseEnter={() => {
+                    if (item.imageKey) setActiveKey(item.imageKey)
+                  }}
+                  onFocus={() => {
+                    if (item.imageKey) setActiveKey(item.imageKey)
+                  }}
                 >
-                  <span
-                    aria-hidden="true"
-                    className="w-8 font-mono text-sm text-muted-foreground tabular-nums"
-                  >
-                    {String(index + 1).padStart(2, "0")}
+                  <span className="font-mono text-sm font-semibold tracking-widest text-gold-strong/60 transition-colors group-hover:text-gold">
+                    {(index + 1).toString().padStart(2, "0")}
                   </span>
-                  <span className="min-w-0 flex-1">
-                    <span
-                      className={cn(
-                        "block text-lg font-medium tracking-tight transition-colors",
-                        "group-hover:text-primary group-focus-visible:text-primary"
-                      )}
-                    >
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-gold sm:text-2xl">
                       {item.title}
-                    </span>
-                    <span className="mt-0.5 block text-sm leading-relaxed text-muted-foreground">
+                    </h3>
+                    <p className="mt-2 leading-relaxed text-muted-foreground sm:text-lg">
                       {item.description}
-                    </span>
-                  </span>
+                    </p>
+                  </div>
                   <ArrowUpRightIcon
                     aria-hidden="true"
-                    className={cn(
-                      "size-5 shrink-0 transition-all duration-200",
-                      "-translate-x-1 translate-y-1 text-primary opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
-                    )}
+                    className="size-6 shrink-0 text-muted-foreground opacity-50 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-gold group-hover:opacity-100"
                   />
                 </Link>
               </li>
             ))}
           </ol>
 
-          <div
-            className="relative hidden min-h-[400px] pr-6 pb-6 lg:block"
-            aria-hidden="true"
-          >
-            <div className="absolute top-6 right-6 bottom-0 left-0 rounded-lg border-2 border-gold" />
-            <div className="relative h-full w-full overflow-hidden rounded-lg">
-              {activeAsset ? (
-                <Image
-                  src={activeAsset.src}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 45vw, 0px"
-                  quality={80}
-                  className="object-cover transition-opacity duration-300"
-                  style={
-                    activeAsset.focal
-                      ? { objectPosition: activeAsset.focal }
-                      : undefined
-                  }
-                />
-              ) : (
-                <div className="absolute inset-0 bg-primary" />
-              )}
+          {/* Image reveal area — hidden on mobile */}
+          <div className="relative hidden lg:block">
+            <div className="sticky top-24 aspect-[4/5] w-full overflow-hidden rounded-xl border border-border shadow-sm outline-none focus-visible:ring-3 focus-visible:ring-ring/60">
+              <div className="absolute top-4 right-0 bottom-0 left-4 rounded-xl border-2 border-gold md:top-6 md:left-6" />
+              <div className="relative h-full w-full overflow-hidden rounded-xl bg-muted">
+                {activeAsset ? (
+                  <Image
+                    key={activeAsset.src}
+                    src={activeAsset.src}
+                    alt={activeAsset.alt}
+                    fill
+                    sizes="(min-width: 1024px) 45vw, 100vw"
+                    quality={85}
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    style={
+                      activeAsset.focal
+                        ? { objectPosition: activeAsset.focal }
+                        : undefined
+                    }
+                  />
+                ) : null}
+              </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

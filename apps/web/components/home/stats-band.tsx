@@ -1,15 +1,16 @@
 import { HOME } from "@/lib/content/home"
+import { Reveal } from "@/components/motion/reveal"
 import { CountUp } from "@/components/motion/count-up"
 
-/**
- * Snapshot Stats — navy full-bleed band with count-up tabular numerals (§13).
- */
 export function StatsBand() {
   return (
     <section aria-label="Company statistics" className="bg-primary">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-16 lg:px-8">
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
-          {HOME.stats.map((stat) => (
+        <Reveal
+          delay={0.1}
+          className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 md:gap-x-12"
+        >
+          {HOME.stats.map((stat, index) => (
             <div
               key={stat.label}
               className="flex flex-col items-center gap-1 text-center"
@@ -22,7 +23,7 @@ export function StatsBand() {
               </dt>
             </div>
           ))}
-        </dl>
+        </Reveal>
       </div>
     </section>
   )
