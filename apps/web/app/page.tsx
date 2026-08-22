@@ -11,6 +11,7 @@ import { ImageHero } from "@/components/site/image-hero"
 import { CTASection } from "@/components/site/cta-section"
 import { SectionHeading } from "@/components/site/section-heading"
 import { CountryTiles } from "@/components/home/country-tiles"
+import { AboutImageStack } from "@/components/home/about-image-stack"
 import { ServiceIndex } from "@/components/home/service-index"
 import { StatsBand } from "@/components/home/stats-band"
 import { ProcessTimeline } from "@/components/home/process-timeline"
@@ -91,26 +92,20 @@ export default function HomePage() {
           </Reveal>
           <Reveal
             delay={0.1}
-            className="relative min-h-72 pr-4 pb-4 md:pr-6 md:pb-6 lg:min-h-full"
+            className="relative min-h-[350px] pr-4 pb-4 md:min-h-[450px] md:pr-6 md:pb-6 lg:min-h-full"
           >
             <div className="absolute top-4 right-0 bottom-0 left-4 rounded-lg border-2 border-gold md:top-6 md:left-6" />
             <Link
               href="/about-us/"
-              className="relative block h-full w-full overflow-hidden rounded-lg outline-none focus-visible:ring-3 focus-visible:ring-ring/60"
+              className="relative block h-full w-full outline-none focus-visible:ring-3 focus-visible:ring-ring/60"
               aria-label="Learn more about us"
             >
-              <Image
-                src={teamAsset.src}
-                alt={teamAsset.alt}
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                quality={80}
-                className="object-cover transition-transform duration-500 hover:scale-105"
-                style={
-                  teamAsset.focal
-                    ? { objectPosition: teamAsset.focal }
-                    : undefined
-                }
+              <AboutImageStack
+                assets={[
+                  IMAGES.serviceBusinessSetup,
+                  IMAGES.serviceLegal,
+                  IMAGES.serviceLicensing,
+                ]}
               />
             </Link>
           </Reveal>
