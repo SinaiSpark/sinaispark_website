@@ -39,7 +39,7 @@ export default function RootLayout({
       lang="en"
       className={cn("antialiased", fontMono.variable, geist.variable)}
     >
-      <body className="flex min-h-svh flex-col">
+      <body className="flex min-h-svh flex-col overflow-x-hidden">
         <MotionProvider>
           <SiteHeader />
           <main className="flex-1">{children}</main>
