@@ -15,7 +15,7 @@ const ctaClasses: Record<NonNullable<CtaButton["variant"]>, string> = {
   // Gold reserved for the single most important action on navy bands (§11.6).
   gold: "bg-gold text-primary-deep hover:bg-gold/90 hover:-translate-y-px font-semibold",
   secondary:
-    "border-primary-foreground/40 text-primary-foreground hover:border-gold hover:text-gold",
+    "border border-primary-foreground/40 text-primary-foreground hover:border-gold hover:text-gold",
 }
 
 /**

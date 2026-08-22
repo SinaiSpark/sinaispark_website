@@ -18,7 +18,7 @@ function NavLink({ href, title }: { href: string; title: string }) {
     <Link
       href={href}
       className={cn(
-        "relative rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50",
+        "group relative rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50",
         active ? "text-primary" : "text-muted-foreground"
       )}
     >
@@ -26,7 +26,7 @@ function NavLink({ href, title }: { href: string; title: string }) {
       <span
         aria-hidden="true"
         className={cn(
-          "absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-200",
+          "absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-200 group-hover:scale-x-100",
           active && "scale-x-100"
         )}
       />
@@ -40,12 +40,16 @@ function ServicesDropdown() {
       <button
         type="button"
         aria-haspopup="true"
-        className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors outline-none group-focus-within:text-primary group-hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50"
+        className="relative flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors outline-none group-focus-within:text-primary group-hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50"
       >
         Services
         <ChevronDownIcon
           className="size-4 transition-transform duration-200 group-focus-within:rotate-180 group-hover:rotate-180"
           aria-hidden="true"
+        />
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-200 group-focus-within:scale-x-100 group-hover:scale-x-100"
         />
       </button>
       <div className="invisible absolute top-full left-1/2 z-40 -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">

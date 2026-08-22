@@ -54,11 +54,6 @@ export function ServicesDirectory() {
 
   return (
     <div className="flex flex-col gap-16">
-      {/* 1 · Flagship Service Spotlight Card */}
-      {flagship && searchQuery === "" && activeTab !== "license" ? (
-        <FlagshipSpotlightCard service={flagship} />
-      ) : null}
-
       {/* 2 · Interactive Filter Bar & Instant Practice Search */}
       <div className="rounded-xl border border-border/80 bg-background-alt p-6 shadow-sm">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -504,12 +499,10 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
   }
 
   return (
-    <article className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/80 hover:shadow-lg">
-      <span
-        aria-hidden="true"
-        className="absolute top-0 right-0 left-0 h-[3px] bg-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-      />
-
+    <Link
+      href={`/services/${service.slug}/`}
+      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+    >
       <div>
         <div className="flex items-center justify-between gap-2">
           <div className="inline-flex size-10 items-center justify-center rounded-lg bg-gold/15">
@@ -520,14 +513,11 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
           </span>
         </div>
 
-        <Link
-          href={`/services/${service.slug}/`}
-          className="mt-4 block outline-none"
-        >
+        <div className="mt-4 block outline-none">
           <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
             {service.title}
           </h3>
-        </Link>
+        </div>
 
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {service.tagline}
@@ -556,27 +546,22 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
         <span className="text-xs font-medium text-muted-foreground">
           {service.assurances[0] || "Full Compliance"}
         </span>
-        <Link
-          href={`/services/${service.slug}/`}
-          className="inline-flex items-center gap-1 text-xs font-bold text-gold-strong transition-colors hover:text-gold"
-        >
+        <div className="inline-flex items-center gap-1 text-xs font-bold text-gold-strong transition-colors hover:text-gold">
           View Practice
           <ArrowRightIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-        </Link>
+        </div>
       </div>
-    </article>
+    </Link>
   )
 }
 
 /** License Practice Card for Saudi Licensing Pathways */
 function LicensePracticeCard({ service }: { service: ServiceContent }) {
   return (
-    <article className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/80 hover:shadow-lg">
-      <span
-        aria-hidden="true"
-        className="absolute top-0 right-0 left-0 h-[3px] bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-      />
-
+    <Link
+      href={`/services/${service.slug}/`}
+      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+    >
       <div>
         <div className="flex items-center justify-between gap-2">
           <Badge
@@ -590,14 +575,11 @@ function LicensePracticeCard({ service }: { service: ServiceContent }) {
           </span>
         </div>
 
-        <Link
-          href={`/services/${service.slug}/`}
-          className="mt-3.5 block outline-none"
-        >
+        <div className="mt-3.5 block outline-none">
           <h3 className="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
             {service.title}
           </h3>
-        </Link>
+        </div>
 
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {service.tagline}
@@ -619,14 +601,11 @@ function LicensePracticeCard({ service }: { service: ServiceContent }) {
 
       <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-3.5">
         <span className="text-xs text-muted-foreground">MISA Approved</span>
-        <Link
-          href={`/services/${service.slug}/`}
-          className="inline-flex items-center gap-1 text-xs font-bold text-foreground transition-colors group-hover:text-gold"
-        >
+        <div className="inline-flex items-center gap-1 text-xs font-bold text-foreground transition-colors group-hover:text-gold">
           Details
           <ArrowRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-1" />
-        </Link>
+        </div>
       </div>
-    </article>
+    </Link>
   )
 }
