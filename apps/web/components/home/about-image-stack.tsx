@@ -30,10 +30,17 @@ export function AboutImageStack({ assets, className }: AboutImageStackProps) {
       <AnimatePresence initial={false}>
         <motion.div
           key={assets[activeIndex]?.src}
-          initial={{ scale: 0.9, opacity: 0, y: 40 }}
-          animate={{ scale: 1, opacity: 1, y: 0, zIndex: 10 }}
-          exit={{ scale: 1.05, opacity: 0, y: -40, zIndex: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          initial={{ scale: 0.85, opacity: 0, y: 30, rotate: -4 }}
+          animate={{ scale: 1, opacity: 1, y: 0, x: 0, rotate: 0, zIndex: 10 }}
+          exit={{
+            scale: 0.9,
+            opacity: 0,
+            x: 120,
+            y: -20,
+            rotate: 12,
+            zIndex: 0,
+          }}
+          transition={{ type: "spring", stiffness: 200, damping: 22 }}
           className="absolute inset-0 overflow-hidden rounded-lg shadow-xl"
         >
           {assets[activeIndex] && (
