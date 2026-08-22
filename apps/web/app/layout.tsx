@@ -1,15 +1,32 @@
+import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
+import { MotionProvider } from "@/components/motion/motion-provider"
+import { SiteFooter } from "@/components/site/footer"
+import { SiteHeader } from "@/components/site/header"
+import { SITE } from "@/lib/site-config"
+import { cn } from "@workspace/ui/lib/utils"
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name}: Business Setup Services in Saudi Arabia and Beyond`,
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.description,
+}
 
 export default function RootLayout({
   children,
@@ -19,11 +36,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn("antialiased", fontMono.variable, geist.variable)}
     >
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="flex min-h-svh flex-col">
+        <MotionProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   )
