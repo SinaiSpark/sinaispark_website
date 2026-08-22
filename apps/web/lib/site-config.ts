@@ -14,7 +14,7 @@ export const SITE = {
   email: "info@sinaispark.com",
   /** PENDING_CLIENT_DATA — seeded from current live site; confirm with client. */
   phone: "+966 51 001 3160",
-  whatsappNumber: "9665100131600",
+  whatsappNumber: "966510013160",
   socials: {
     instagram: "https://instagram.com/sinaispark",
     linkedin: "https://linkedin.com/company/sinaispark",
@@ -23,7 +23,11 @@ export const SITE = {
   offices: [
     { city: "Riyadh", label: "Riyadh", note: "Capital & economic center" },
     { city: "Jeddah", label: "Jeddah", note: "Kingdom's trade gateway" },
-    { city: "Dammam", label: "Dammam", note: "Eastern Province industrial hub" },
+    {
+      city: "Dammam",
+      label: "Dammam",
+      note: "Eastern Province industrial hub",
+    },
   ],
 } as const
 
