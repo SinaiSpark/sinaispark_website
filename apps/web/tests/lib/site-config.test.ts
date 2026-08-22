@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest"
 
-import { CTA_LABEL, NAV_LINKS, SERVICES, SITE } from "@/lib/site-config"
+import {
+  CTA_LABEL,
+  LICENSE_SERVICES,
+  NAV_LINKS,
+  SERVICE_GROUPS,
+  SERVICES,
+  SITE,
+} from "@/lib/site-config"
 
 /**
  * Seam: lib/site-config
@@ -10,6 +17,31 @@ import { CTA_LABEL, NAV_LINKS, SERVICES, SITE } from "@/lib/site-config"
 describe("site config integrity", () => {
   it("exposes exactly the ten approved service routes", () => {
     expect(SERVICES).toHaveLength(10)
+  })
+
+  it("groups licensing separately from core services for navigation", () => {
+    expect(SERVICE_GROUPS.map((group) => group.label)).toEqual([
+      "Services",
+      "Business Licensing",
+    ])
+    const groupItems = SERVICE_GROUPS.flatMap((group) => group.items)
+    expect(groupItems).toHaveLength(10)
+  })
+
+  it("keeps the five license pages inside the Business Licensing group only", () => {
+    const licensingGroup = SERVICE_GROUPS.find(
+      (group) => group.label === "Business Licensing"
+    )
+    expect(licensingGroup?.items.map((item) => item.href)).toEqual(
+      LICENSE_SERVICES.map((item) => item.href)
+    )
+    // No license route leaks into any other nav group.
+    for (const group of SERVICE_GROUPS) {
+      if (group.label === "Business Licensing") continue
+      for (const item of group.items) {
+        expect(item.href.includes("license")).toBe(false)
+      }
+    }
   })
 
   it("gives every service a unique href under /services/", () => {

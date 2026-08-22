@@ -37,8 +37,8 @@ export interface ServiceNavItem {
   description?: string
 }
 
-/** All ten approved service/license routes (Decision #2/#3). */
-export const SERVICES: ServiceNavItem[] = [
+/** Core service routes (Decision #2/#3). */
+export const CORE_SERVICES: ServiceNavItem[] = [
   {
     title: "Business Setup in Saudi Arabia",
     href: "/services/administrative-solutions/",
@@ -49,6 +49,25 @@ export const SERVICES: ServiceNavItem[] = [
     href: "/services/legal-services/",
     description: "Contracts, regulatory interpretation and structuring advice.",
   },
+  {
+    title: "PRO & Visa Services",
+    href: "/services/pro-visa-services/",
+    description: "Government liaison, work visas and labor documentation.",
+  },
+  {
+    title: "Compliance",
+    href: "/services/compliance/",
+    description: "Ongoing regulatory compliance, renewals and filings.",
+  },
+  {
+    title: "Property Management",
+    href: "/services/property-management/",
+    description: "Commercial and residential property management.",
+  },
+]
+
+/** Business Licensing — its own navigable group holding all five licenses. */
+export const LICENSE_SERVICES: ServiceNavItem[] = [
   {
     title: "Commercial License",
     href: "/services/commercial-license/",
@@ -69,21 +88,18 @@ export const SERVICES: ServiceNavItem[] = [
     title: "Real Estate License",
     href: "/services/real-estate-license/",
   },
-  {
-    title: "PRO & Visa Services",
-    href: "/services/pro-visa-services/",
-    description: "Government liaison, work visas and labor documentation.",
-  },
-  {
-    title: "Compliance",
-    href: "/services/compliance/",
-    description: "Ongoing regulatory compliance, renewals and filings.",
-  },
-  {
-    title: "Property Management",
-    href: "/services/property-management/",
-    description: "Commercial and residential property management.",
-  },
+]
+
+/** Nav grouping used by header dropdown, mobile sheet and footer. */
+export const SERVICE_GROUPS = [
+  { label: "Services", items: CORE_SERVICES },
+  { label: "Business Licensing", items: LICENSE_SERVICES },
+] as const
+
+/** All ten approved service/license routes (Decision #2/#3). */
+export const SERVICES: ServiceNavItem[] = [
+  ...CORE_SERVICES,
+  ...LICENSE_SERVICES,
 ]
 
 export const NAV_LINKS = [
