@@ -18,6 +18,8 @@ import { ProcessTimeline } from "@/components/home/process-timeline"
 import { TestimonialSection } from "@/components/home/testimonial-section"
 import { RegionalCoverage } from "@/components/home/regional-coverage"
 import { Reveal } from "@/components/motion/reveal"
+import { MissionVision } from "@/components/home/mission-vision"
+import { WhyChooseUsGrid } from "@/components/home/why-choose-us-grid"
 import { cn } from "@workspace/ui/lib/utils"
 
 export const metadata: Metadata = {
@@ -118,23 +120,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4 · Mission / Vision — quiet paper band */}
-      <section aria-label="Mission and vision" className="bg-background-alt">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-2 lg:gap-14 lg:px-8">
-          {[HOME.missionVision.mission, HOME.missionVision.vision].map(
-            (item) => (
-              <Reveal key={item.title} className="border-t-2 border-gold pt-6">
-                <h2 className="text-xl font-semibold tracking-tight">
-                  {item.title}
-                </h2>
-                <p className="mt-3 max-w-lg leading-relaxed text-muted-foreground">
-                  {item.body}
-                </p>
-              </Reveal>
-            )
-          )}
-        </div>
-      </section>
+      {/* 4 · Mission / Vision — animated typography band */}
+      <MissionVision />
 
       {/* 5 · Snapshot Stats */}
       <StatsBand />
@@ -153,21 +140,7 @@ export default function HomePage() {
               </span>
             }
           />
-          <Reveal
-            stagger
-            className="mt-10 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {HOME.whyChooseUs.points.map((point) => (
-              <div key={point.title} className="bg-background p-6">
-                <h3 className="text-base font-semibold tracking-tight">
-                  {point.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  {point.description}
-                </p>
-              </div>
-            ))}
-          </Reveal>
+          <WhyChooseUsGrid points={HOME.whyChooseUs.points} />
         </div>
       </section>
 
