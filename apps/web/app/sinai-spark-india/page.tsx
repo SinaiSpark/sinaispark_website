@@ -207,7 +207,7 @@ export default function IndiaLandingPage() {
                   ) : null}
                   <span
                     aria-hidden="true"
-                    className="relative z-10 inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-brand bg-primary font-mono text-sm font-semibold text-primary-foreground"
+                    className="relative z-10 inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-brand bg-primary text-sm font-semibold text-primary-foreground"
                   >
                     {index + 1}
                   </span>
@@ -289,10 +289,10 @@ export default function IndiaLandingPage() {
                 <h3 className="text-xl font-semibold tracking-tight">
                   {pkg.name}
                 </h3>
-                <p className="mt-0.5 font-mono text-xs text-muted-foreground uppercase">
+                <p className="mt-0.5 text-xs text-muted-foreground uppercase">
                   {pkg.structure}
                 </p>
-                <p className="mt-4 font-mono text-3xl font-semibold tabular-nums">
+                <p className="mt-4 text-3xl font-semibold tabular-nums">
                   {pkg.fee}
                 </p>
                 <p className="mt-1 text-xs text-muted-foreground">

@@ -90,7 +90,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
-        <LogoLockup />
+        <LogoLockup height={44} priority />
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           <NavLink href="/" title="Home" />
@@ -143,7 +143,7 @@ function MobileNav({
           className="flex flex-col gap-1 overflow-y-auto pb-16"
         >
           {SERVICE_GROUPS.map((group) => (
-            <div key={group.label}>
+            <div key={group.label} className="flex flex-col gap-1">
               <p className="mt-6 mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
                 {group.label}
               </p>
