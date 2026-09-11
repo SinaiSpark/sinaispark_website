@@ -80,7 +80,7 @@ export default function AboutPage() {
             <div className="mt-4 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-3">
               {values.map((value) => (
                 <div key={value.title} className="bg-background p-5">
-                  <h3 className="inline-block border-t-2 border-gold pt-2 font-semibold">
+                  <h3 className="inline-block border-t-2 border-brand pt-2 font-semibold">
                     {value.title}
                   </h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
@@ -101,7 +101,7 @@ export default function AboutPage() {
           {
             label: "Book a Free Consultation",
             href: "/contact/",
-            variant: "gold",
+            variant: "brand",
           },
         ]}
       />

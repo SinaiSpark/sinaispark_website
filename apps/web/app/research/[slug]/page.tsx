@@ -68,7 +68,7 @@ export default async function ReportPage({ params }: Props) {
           {
             label: "Contact Our Research Team",
             href: "/contact/",
-            variant: "gold",
+            variant: "brand",
           },
         ]}
       />

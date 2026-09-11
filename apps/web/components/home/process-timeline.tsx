@@ -2,7 +2,7 @@ import { HOME } from "@/lib/content/home"
 import { Reveal } from "@/components/motion/reveal"
 
 /**
- * How It Works — horizontal four-step timeline with a gold connector (§13).
+ * How It Works — horizontal four-step timeline with a brand connector (§13).
  * Numbering is justified: the steps are a real sequence.
  */
 export function ProcessTimeline() {
@@ -10,7 +10,7 @@ export function ProcessTimeline() {
     <section aria-labelledby="how-it-works-title" className="bg-background-alt">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
         <Reveal className="mb-12 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             {HOME.howItWorks.eyebrow}
           </p>
           <h2
@@ -29,12 +29,12 @@ export function ProcessTimeline() {
                 {index < HOME.howItWorks.steps.length - 1 ? (
                   <span
                     aria-hidden="true"
-                    className="absolute top-4 left-[2.75rem] hidden h-px w-[calc(100%-1.5rem)] bg-gold/60 md:block"
+                    className="absolute top-4 left-[2.75rem] hidden h-px w-[calc(100%-1.5rem)] bg-brand/60 md:block"
                   />
                 ) : null}
                 <span
                   aria-hidden="true"
-                  className="relative z-10 inline-flex size-9 items-center justify-center rounded-full border-2 border-gold bg-primary font-mono text-sm font-semibold text-primary-foreground"
+                  className="relative z-10 inline-flex size-9 items-center justify-center rounded-full border-2 border-brand bg-primary font-mono text-sm font-semibold text-primary-foreground"
                 >
                   {index + 1}
                 </span>

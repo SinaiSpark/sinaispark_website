@@ -117,7 +117,7 @@ export default async function CountryPage({ params }: Props) {
           {/* India gets its own landing page (Decision #6); KSA links into its service. */}
           <Link
             href={data.relatedService ?? "/contact/"}
-            className="mt-8 inline-flex h-11 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors outline-none hover:border-gold/60 focus-visible:ring-3 focus-visible:ring-ring/50"
+            className="mt-8 inline-flex h-11 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors outline-none hover:border-brand/60 focus-visible:ring-3 focus-visible:ring-ring/50"
           >
             Explore our services in {data.name}
           </Link>
@@ -130,7 +130,7 @@ export default async function CountryPage({ params }: Props) {
           {
             label: "Book a Free Consultation",
             href: "/contact/",
-            variant: "gold",
+            variant: "brand",
           },
         ]}
       />

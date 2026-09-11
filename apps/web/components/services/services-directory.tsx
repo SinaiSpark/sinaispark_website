@@ -65,7 +65,7 @@ export function ServicesDirectory() {
                 "rounded-md px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                 activeTab === "all"
                   ? "bg-primary text-primary-foreground shadow-sm"
-                  : "border border-border bg-background text-muted-foreground hover:border-gold/60 hover:text-foreground"
+                  : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
               )}
             >
               All Practices ({allServices.length})
@@ -77,7 +77,7 @@ export function ServicesDirectory() {
                 "rounded-md px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                 activeTab === "core"
                   ? "bg-primary text-primary-foreground shadow-sm"
-                  : "border border-border bg-background text-muted-foreground hover:border-gold/60 hover:text-foreground"
+                  : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
               )}
             >
               Core Corporate Advisory (5)
@@ -89,7 +89,7 @@ export function ServicesDirectory() {
                 "rounded-md px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
                 activeTab === "license"
                   ? "bg-primary text-primary-foreground shadow-sm"
-                  : "border border-border bg-background text-muted-foreground hover:border-gold/60 hover:text-foreground"
+                  : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
               )}
             >
               Saudi Business Licenses (5)
@@ -104,7 +104,7 @@ export function ServicesDirectory() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search practices, licenses, or keywords..."
-              className="h-10 w-full rounded-md border border-border bg-background pr-3 pl-9 text-sm text-foreground transition-colors outline-none placeholder:text-muted-foreground/60 focus-visible:border-gold focus-visible:ring-3 focus-visible:ring-gold/30"
+              className="h-10 w-full rounded-md border border-border bg-background pr-3 pl-9 text-sm text-foreground transition-colors outline-none placeholder:text-muted-foreground/60 focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/30"
             />
           </div>
         </div>
@@ -115,7 +115,7 @@ export function ServicesDirectory() {
         <section aria-labelledby="core-practices-heading">
           <div className="mb-6 flex flex-col gap-1 border-b border-border/80 pb-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold tracking-[0.14em] text-gold-strong uppercase">
+              <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
                 Foundational Corporate Services
               </p>
               <h2
@@ -143,7 +143,7 @@ export function ServicesDirectory() {
         <section aria-labelledby="licenses-heading" className="mt-4">
           <div className="mb-6 flex flex-col gap-1 border-b border-border/80 pb-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold tracking-[0.14em] text-gold-strong uppercase">
+              <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
                 Saudi Investment Law Framework
               </p>
               <h2
@@ -182,7 +182,7 @@ export function ServicesDirectory() {
               setSearchQuery("")
               setActiveTab("all")
             }}
-            className="mt-4 inline-flex h-9 items-center rounded-md bg-gold px-4 text-xs font-semibold text-primary-deep hover:bg-gold/90"
+            className="mt-4 inline-flex h-9 items-center rounded-md bg-brand px-4 text-xs font-semibold text-primary-deep hover:bg-brand/90"
           >
             Reset Filters
           </button>
@@ -192,7 +192,7 @@ export function ServicesDirectory() {
       {/* 5 · "Find Your Route" Decision Matrix */}
       <div className="rounded-2xl border border-border/80 bg-background-alt p-8 sm:p-10">
         <div className="max-w-2xl">
-          <p className="text-xs font-bold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
             Market Entry Navigator
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">
@@ -207,10 +207,10 @@ export function ServicesDirectory() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/services/administrative-solutions/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-gold hover:shadow-md"
+            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
           >
             <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-gold/15 text-gold-strong">
+              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
                 <Building2Icon className="size-4" />
               </div>
               <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
@@ -221,17 +221,17 @@ export function ServicesDirectory() {
                 registration with MISA.
               </p>
             </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-gold-strong">
+            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
               View Business Setup →
             </span>
           </Link>
 
           <Link
             href="/services/commercial-license/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-gold hover:shadow-md"
+            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
           >
             <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-gold/15 text-gold-strong">
+              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
                 <LayersIcon className="size-4" />
               </div>
               <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
@@ -242,17 +242,17 @@ export function ServicesDirectory() {
                 for foreign goods.
               </p>
             </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-gold-strong">
+            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
               View Commercial License →
             </span>
           </Link>
 
           <Link
             href="/services/industrial-license/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-gold hover:shadow-md"
+            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
           >
             <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-gold/15 text-gold-strong">
+              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
                 <CompassIcon className="size-4" />
               </div>
               <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
@@ -263,17 +263,17 @@ export function ServicesDirectory() {
                 duty exemptions.
               </p>
             </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-gold-strong">
+            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
               View Industrial License →
             </span>
           </Link>
 
           <Link
             href="/sinai-spark-india/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-gold hover:shadow-md"
+            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
           >
             <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-gold/15 text-gold-strong">
+              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
                 <Globe2Icon className="size-4" />
               </div>
               <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
@@ -284,7 +284,7 @@ export function ServicesDirectory() {
                 for Gulf NRIs.
               </p>
             </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-gold-strong">
+            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
               View India Gateway →
             </span>
           </Link>
@@ -294,7 +294,7 @@ export function ServicesDirectory() {
       {/* 6 · Advisory Lifecycle Architecture */}
       <div className="rounded-2xl border border-border/80 bg-background p-8 shadow-sm sm:p-10">
         <div className="max-w-2xl">
-          <p className="text-xs font-bold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
             Lifecycle Partnership
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">
@@ -387,7 +387,7 @@ function FlagshipSpotlightCard({ service }: { service: ServiceContent }) {
         <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/95 via-primary/40 to-transparent lg:bg-gradient-to-r" />
 
         <div className="absolute top-5 left-5 flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded bg-gold px-3 py-1 text-xs font-bold tracking-wider text-primary-deep uppercase shadow-sm">
+          <span className="inline-flex items-center gap-1.5 rounded bg-brand px-3 py-1 text-xs font-bold tracking-wider text-primary-deep uppercase shadow-sm">
             <SparklesIcon className="size-3.5" />
             Flagship Corporate Practice
           </span>
@@ -415,7 +415,7 @@ function FlagshipSpotlightCard({ service }: { service: ServiceContent }) {
             </Badge>
             <Badge
               variant="outline"
-              className="border-gold text-xs text-gold-strong"
+              className="border-brand text-xs text-brand"
             >
               Dispute Support Scoped
             </Badge>
@@ -441,7 +441,7 @@ function FlagshipSpotlightCard({ service }: { service: ServiceContent }) {
                 key={bullet}
                 className="flex items-start gap-2 text-xs text-foreground/90"
               >
-                <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 text-gold-strong" />
+                <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 text-brand" />
                 <span>{bullet}</span>
               </div>
             ))}
@@ -454,7 +454,7 @@ function FlagshipSpotlightCard({ service }: { service: ServiceContent }) {
                 key={item}
                 className="inline-flex items-center gap-1 rounded bg-background-alt px-2.5 py-1 text-xs font-semibold text-muted-foreground"
               >
-                <ShieldCheckIcon className="size-3.5 text-gold-strong" />
+                <ShieldCheckIcon className="size-3.5 text-brand" />
                 {item}
               </span>
             ))}
@@ -464,14 +464,14 @@ function FlagshipSpotlightCard({ service }: { service: ServiceContent }) {
         <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-4">
           <Link
             href={`/services/${service.slug}/`}
-            className="inline-flex h-11 items-center gap-2 rounded-md bg-gold px-6 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-gold/90"
+            className="inline-flex h-11 items-center gap-2 rounded-md bg-brand px-6 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-brand/90"
           >
             Explore Business Setup Practice
             <ArrowRightIcon className="size-4" />
           </Link>
           <Link
             href="/contact/"
-            className="inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-5 text-xs font-semibold text-foreground transition-colors hover:border-gold hover:text-primary"
+            className="inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-5 text-xs font-semibold text-foreground transition-colors hover:border-brand hover:text-primary"
           >
             Speak with Setup Director
           </Link>
@@ -486,26 +486,26 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
   const getIcon = (slug: string) => {
     switch (slug) {
       case "legal-services":
-        return <ScaleIcon className="size-5 text-gold-strong" />
+        return <ScaleIcon className="size-5 text-brand" />
       case "pro-visa-services":
-        return <UsersIcon className="size-5 text-gold-strong" />
+        return <UsersIcon className="size-5 text-brand" />
       case "compliance":
-        return <FileCheckIcon className="size-5 text-gold-strong" />
+        return <FileCheckIcon className="size-5 text-brand" />
       case "property-management":
-        return <Building2Icon className="size-5 text-gold-strong" />
+        return <Building2Icon className="size-5 text-brand" />
       default:
-        return <LayersIcon className="size-5 text-gold-strong" />
+        return <LayersIcon className="size-5 text-brand" />
     }
   }
 
   return (
     <Link
       href={`/services/${service.slug}/`}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-lg"
     >
       <div>
         <div className="flex items-center justify-between gap-2">
-          <div className="inline-flex size-10 items-center justify-center rounded-lg bg-gold/15">
+          <div className="inline-flex size-10 items-center justify-center rounded-lg bg-brand/15">
             {getIcon(service.slug)}
           </div>
           <span className="text-xs font-semibold text-muted-foreground">
@@ -534,7 +534,7 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
                 key={bullet}
                 className="flex items-start gap-2 text-xs text-foreground/90"
               >
-                <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 text-gold-strong" />
+                <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 text-brand" />
                 <span className="line-clamp-2">{bullet}</span>
               </li>
             ))}
@@ -546,7 +546,7 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
         <span className="text-xs font-medium text-muted-foreground">
           {service.assurances[0] || "Full Compliance"}
         </span>
-        <div className="inline-flex items-center gap-1 text-xs font-bold text-gold-strong transition-colors hover:text-gold">
+        <div className="inline-flex items-center gap-1 text-xs font-bold text-brand transition-colors hover:text-brand">
           View Practice
           <ArrowRightIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
         </div>
@@ -560,7 +560,7 @@ function LicensePracticeCard({ service }: { service: ServiceContent }) {
   return (
     <Link
       href={`/services/${service.slug}/`}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-lg"
+      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-lg"
     >
       <div>
         <div className="flex items-center justify-between gap-2">
@@ -570,7 +570,7 @@ function LicensePracticeCard({ service }: { service: ServiceContent }) {
           >
             Saudi License
           </Badge>
-          <span className="text-[0.7rem] font-medium text-gold-strong">
+          <span className="text-[0.7rem] font-medium text-brand">
             ISIC4 Mapped
           </span>
         </div>
@@ -592,7 +592,7 @@ function LicensePracticeCard({ service }: { service: ServiceContent }) {
               key={item}
               className="inline-flex items-center gap-1 rounded bg-background-alt px-2 py-0.5 text-[0.68rem] font-medium text-muted-foreground"
             >
-              <ShieldCheckIcon className="size-3 text-gold" />
+              <ShieldCheckIcon className="size-3 text-brand" />
               {item}
             </span>
           ))}
@@ -601,7 +601,7 @@ function LicensePracticeCard({ service }: { service: ServiceContent }) {
 
       <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-3.5">
         <span className="text-xs text-muted-foreground">MISA Approved</span>
-        <div className="inline-flex items-center gap-1 text-xs font-bold text-foreground transition-colors group-hover:text-gold">
+        <div className="inline-flex items-center gap-1 text-xs font-bold text-foreground transition-colors group-hover:text-brand">
           Details
           <ArrowRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-1" />
         </div>

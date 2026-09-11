@@ -70,7 +70,7 @@ export function Breadcrumbs({
                     className={
                       tone === "light"
                         ? "transition-colors outline-none hover:text-foreground focus-visible:text-foreground"
-                        : "transition-colors outline-none hover:text-gold focus-visible:text-gold"
+                        : "transition-colors outline-none hover:text-brand focus-visible:text-brand"
                     }
                   >
                     {crumb.label}

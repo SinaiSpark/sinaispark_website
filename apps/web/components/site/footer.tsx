@@ -16,7 +16,10 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto bg-primary-deep text-primary-foreground">
+    <footer
+      data-surface="navy"
+      className="mt-auto bg-primary-deep text-primary-foreground"
+    >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div className="flex flex-col gap-5">
@@ -34,7 +37,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="inline-flex size-10 items-center justify-center rounded-md border border-primary-foreground/20 text-primary-foreground/80 transition-colors outline-none hover:border-gold hover:text-gold focus-visible:ring-3 focus-visible:ring-gold/40"
+                  className="inline-flex size-10 items-center justify-center rounded-md border border-primary-foreground/20 text-primary-foreground/80 transition-colors outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-brand/40"
                 >
                   <Glyph className="size-4" />
                 </a>
@@ -45,14 +48,14 @@ export function SiteFooter() {
           <nav aria-label="Footer services" className="flex flex-col gap-2.5">
             {SERVICE_GROUPS.map((group) => (
               <div key={group.label} className="flex flex-col gap-1">
-                <p className="mb-0.5 text-xs font-semibold tracking-[0.14em] text-gold uppercase">
+                <p className="mb-0.5 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
                   {group.label}
                 </p>
                 {group.items.map((service) => (
                   <Link
                     key={service.href}
                     href={service.href}
-                    className="w-fit py-1 text-sm text-primary-foreground/75 transition-colors outline-none hover:text-gold focus-visible:text-gold"
+                    className="w-fit py-1 text-sm text-primary-foreground/75 transition-colors outline-none hover:text-brand focus-visible:text-brand"
                   >
                     {service.title}
                   </Link>
@@ -62,28 +65,28 @@ export function SiteFooter() {
           </nav>
 
           <nav aria-label="Footer company" className="flex flex-col gap-2.5">
-            <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-gold uppercase">
+            <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
               Company
             </p>
             {NAV_LINKS.filter((l) => l.href !== "/").map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="w-fit text-sm text-primary-foreground/75 transition-colors outline-none hover:text-gold focus-visible:text-gold"
+                className="w-fit text-sm text-primary-foreground/75 transition-colors outline-none hover:text-brand focus-visible:text-brand"
               >
                 {link.title === "India" ? "Sinai Spark India" : link.title}
               </Link>
             ))}
             <Link
               href="/contact/"
-              className="w-fit text-sm text-primary-foreground/75 transition-colors outline-none hover:text-gold focus-visible:text-gold"
+              className="w-fit text-sm text-primary-foreground/75 transition-colors outline-none hover:text-brand focus-visible:text-brand"
             >
               Contact Us
             </Link>
           </nav>
 
           <div className="flex flex-col gap-2.5">
-            <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-gold uppercase">
+            <p className="mb-1 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
               Offices
             </p>
             {SITE.offices.map((office) => (
@@ -100,13 +103,13 @@ export function SiteFooter() {
             <div className="mt-3 flex flex-col gap-1 text-sm text-primary-foreground/75">
               <a
                 href={`mailto:${SITE.email}`}
-                className="transition-colors hover:text-gold"
+                className="transition-colors hover:text-brand"
               >
                 {SITE.email}
               </a>
               <a
                 href={`tel:${SITE.phone.replace(/\s/g, "")}`}
-                className="transition-colors hover:text-gold"
+                className="transition-colors hover:text-brand"
               >
                 {SITE.phone}
               </a>
@@ -121,11 +124,11 @@ export function SiteFooter() {
           <div className="flex items-center gap-4">
             <Link
               href="/privacy-policy/"
-              className="transition-colors hover:text-gold"
+              className="transition-colors hover:text-brand"
             >
               Privacy Policy
             </Link>
-            <Link href="/terms/" className="transition-colors hover:text-gold">
+            <Link href="/terms/" className="transition-colors hover:text-brand">
               Terms &amp; Conditions
             </Link>
           </div>

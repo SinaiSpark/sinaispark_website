@@ -26,7 +26,7 @@ function NavLink({ href, title }: { href: string; title: string }) {
       <span
         aria-hidden="true"
         className={cn(
-          "absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-200 group-hover:scale-x-100",
+          "absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-brand transition-transform duration-200 group-hover:scale-x-100",
           active && "scale-x-100"
         )}
       />
@@ -49,14 +49,14 @@ function ServicesDropdown() {
         />
         <span
           aria-hidden="true"
-          className="absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-gold transition-transform duration-200 group-focus-within:scale-x-100 group-hover:scale-x-100"
+          className="absolute inset-x-3 -bottom-px h-0.5 origin-left scale-x-0 bg-brand transition-transform duration-200 group-focus-within:scale-x-100 group-hover:scale-x-100"
         />
       </button>
       <div className="invisible absolute top-full left-1/2 z-40 -translate-x-1/2 pt-2 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
         <div className="grid w-[36rem] grid-cols-2 gap-x-6 gap-y-3 rounded-lg border bg-popover p-4 text-popover-foreground shadow-lg">
           {SERVICE_GROUPS.map((group) => (
             <div key={group.label} className="flex flex-col gap-1">
-              <p className="px-3 pb-1 text-[0.65rem] font-semibold tracking-[0.14em] text-gold-strong uppercase">
+              <p className="px-3 pb-1 text-[0.65rem] font-semibold tracking-[0.14em] text-brand uppercase">
                 {group.label}
               </p>
               {group.items.map((service) => (
@@ -140,7 +140,7 @@ function MobileNav({
         >
           {SERVICE_GROUPS.map((group) => (
             <div key={group.label}>
-              <p className="mt-6 mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+              <p className="mt-6 mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
                 {group.label}
               </p>
               {group.items.map((service) => (
@@ -155,7 +155,7 @@ function MobileNav({
               ))}
             </div>
           ))}
-          <p className="mt-6 mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mt-6 mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             Company
           </p>
           {NAV_LINKS.map((link) => (

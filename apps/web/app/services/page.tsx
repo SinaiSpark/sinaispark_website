@@ -24,6 +24,7 @@ export default function ServicesHubPage() {
     <>
       {/* 1 · Prestigious Editorial Hero Header */}
       <div
+        data-surface="navy"
         className="relative border-b border-border/60 bg-primary bg-cover bg-center"
         style={{
           backgroundImage:
@@ -37,7 +38,7 @@ export default function ServicesHubPage() {
 
         <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-xs font-bold tracking-[0.15em] text-gold uppercase">
+            <p className="text-xs font-bold tracking-[0.15em] text-brand uppercase">
               Global Market Entry & Corporate Advisory Practices
             </p>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-balance text-white sm:text-4xl lg:text-5xl">
@@ -53,14 +54,14 @@ export default function ServicesHubPage() {
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href="/contact/"
-                className="inline-flex h-11 items-center gap-2 rounded-md bg-gold px-6 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-gold/90"
+                className="inline-flex h-11 items-center gap-2 rounded-md bg-brand px-6 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-brand/90"
               >
                 Schedule Practice Consultation
                 <ArrowRightIcon className="size-4" />
               </Link>
               <Link
                 href="/sinai-spark-india/"
-                className="inline-flex h-11 items-center gap-2 rounded-md border border-white/20 bg-white/5 px-5 text-xs font-semibold text-white backdrop-blur-sm transition-colors hover:border-gold hover:text-gold"
+                className="inline-flex h-11 items-center gap-2 rounded-md border border-white/20 bg-white/5 px-5 text-xs font-semibold text-white backdrop-blur-sm transition-colors hover:border-brand hover:text-brand"
               >
                 Explore India Cross-Border Gateway →
               </Link>
@@ -70,7 +71,7 @@ export default function ServicesHubPage() {
           {/* Institutional Highlights Grid */}
           <div className="mt-12 grid grid-cols-2 gap-4 border-t border-white/10 pt-8 sm:grid-cols-4">
             <div className="flex items-start gap-3">
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand/15 text-brand">
                 <Building2Icon className="size-4" />
               </span>
               <div>
@@ -82,7 +83,7 @@ export default function ServicesHubPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand/15 text-brand">
                 <Globe2Icon className="size-4" />
               </span>
               <div>
@@ -94,7 +95,7 @@ export default function ServicesHubPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand/15 text-brand">
                 <ShieldCheckIcon className="size-4" />
               </span>
               <div>
@@ -106,7 +107,7 @@ export default function ServicesHubPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold">
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-brand/15 text-brand">
                 <FileTextIcon className="size-4" />
               </span>
               <div>
@@ -139,7 +140,7 @@ export default function ServicesHubPage() {
           {
             label: "Book a Free Consultation",
             href: "/contact/",
-            variant: "gold",
+            variant: "brand",
           },
           {
             label: "Explore Research Reports",

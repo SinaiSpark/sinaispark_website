@@ -32,13 +32,13 @@ const heroCtas = [
     label: HOME.hero.primaryCta.label,
     href: HOME.hero.primaryCta.href,
     className:
-      "bg-gold text-primary-deep hover:bg-gold/90 font-semibold hover:-translate-y-px",
+      "bg-brand text-primary-deep hover:bg-brand/90 font-semibold hover:-translate-y-px",
   },
   {
     label: HOME.hero.secondaryCta.label,
     href: HOME.hero.secondaryCta.href,
     className:
-      "border border-primary-foreground/40 text-primary-foreground hover:border-gold hover:text-gold",
+      "border border-primary-foreground/40 text-primary-foreground hover:border-brand hover:text-brand",
   },
 ]
 
@@ -91,7 +91,7 @@ export default function HomePage() {
               </p>
             </Reveal>
             <Reveal delay={0.3}>
-              <blockquote className="mt-8 border-l-2 border-gold pl-5">
+              <blockquote className="mt-8 border-l-2 border-brand pl-5">
                 <p className="text-lg leading-relaxed font-medium tracking-tight text-primary italic md:text-xl">
                   “{HOME.whoWeAre.pullQuote}”
                 </p>
@@ -102,7 +102,7 @@ export default function HomePage() {
             delay={0.1}
             className="relative min-h-[350px] pr-4 pb-4 md:min-h-[450px] md:pr-6 md:pb-6 lg:min-h-full"
           >
-            <div className="absolute top-4 right-0 bottom-0 left-4 rounded-lg border-2 border-gold md:top-6 md:left-6" />
+            <div className="absolute top-4 right-0 bottom-0 left-4 rounded-lg border-2 border-brand md:top-6 md:left-6" />
             <Link
               href="/about-us/"
               className="relative block h-full w-full outline-none focus-visible:ring-3 focus-visible:ring-ring/60"

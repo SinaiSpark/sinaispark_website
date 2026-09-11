@@ -18,7 +18,7 @@ import { cn } from "@workspace/ui/lib/utils"
 /**
  * Research catalog — Stitch Institutional Excellence edition.
  * Features a high-impact flagship report with dual action CTAs,
- * dual-tier market & topic filters with live search, and gold-capped publication cards.
+ * dual-tier market & topic filters with live search, and brand-capped publication cards.
  */
 export function ReportCatalog() {
   const [market, setMarket] = useState<string>("All")
@@ -72,7 +72,7 @@ export function ReportCatalog() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search reports..."
-              className="h-10 w-full rounded-md border border-border bg-background pr-3 pl-9 text-sm text-foreground transition-colors outline-none placeholder:text-muted-foreground/60 focus-visible:border-gold focus-visible:ring-3 focus-visible:ring-gold/30"
+              className="h-10 w-full rounded-md border border-border bg-background pr-3 pl-9 text-sm text-foreground transition-colors outline-none placeholder:text-muted-foreground/60 focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/30"
             />
           </div>
         </div>
@@ -114,7 +114,7 @@ export function ReportCatalog() {
               setTopic("All")
               setSearch("")
             }}
-            className="mt-4 inline-flex h-9 items-center rounded-md bg-gold px-4 text-xs font-semibold text-primary-deep hover:bg-gold/90"
+            className="mt-4 inline-flex h-9 items-center rounded-md bg-brand px-4 text-xs font-semibold text-primary-deep hover:bg-brand/90"
           >
             Reset Filters
           </button>
@@ -151,7 +151,7 @@ function ChipRow({
               "shrink-0 snap-start rounded-md border px-3.5 py-1.5 text-xs font-medium transition-all outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
               value === option
                 ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                : "border-border bg-background text-foreground hover:border-gold/60 hover:text-primary"
+                : "border-border bg-background text-foreground hover:border-brand/60 hover:text-primary"
             )}
           >
             {option}
@@ -181,11 +181,11 @@ function FeaturedReport({ report }: { report: Report }) {
         ) : null}
         <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/90 via-primary/40 to-transparent lg:bg-gradient-to-r" />
         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-          <span className="rounded bg-gold px-2.5 py-1 text-[0.7rem] font-bold tracking-wider text-primary-deep uppercase shadow-sm">
+          <span className="rounded bg-brand px-2.5 py-1 text-[0.7rem] font-bold tracking-wider text-primary-deep uppercase shadow-sm">
             Annual Flagship Report
           </span>
           <span className="inline-flex items-center gap-1 rounded bg-primary-deep/80 px-2 py-0.5 text-xs text-primary-foreground/90 backdrop-blur-sm">
-            <FileTextIcon className="size-3 text-gold" />
+            <FileTextIcon className="size-3 text-brand" />
             24-Page Whitepaper
           </span>
         </div>
@@ -210,19 +210,19 @@ function FeaturedReport({ report }: { report: Report }) {
 
           <div className="mt-4 grid gap-2 rounded-lg bg-background-alt p-4 text-xs text-muted-foreground sm:grid-cols-2">
             <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-gold" />
+              <span className="size-1.5 rounded-full bg-brand" />
               <span>Foreign Direct Investment metrics</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-gold" />
+              <span className="size-1.5 rounded-full bg-brand" />
               <span>Ministry approval timeline benchmarks</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-gold" />
+              <span className="size-1.5 rounded-full bg-brand" />
               <span>Regional Headquarter (RHQ) case studies</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-full bg-gold" />
+              <span className="size-1.5 rounded-full bg-brand" />
               <span>Full statutory tax & ZATCA analysis</span>
             </div>
           </div>
@@ -231,14 +231,14 @@ function FeaturedReport({ report }: { report: Report }) {
         <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-4">
           <Link
             href={`/research/${report.slug}/`}
-            className="inline-flex h-11 items-center gap-2 rounded-md bg-gold px-6 text-sm font-semibold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-gold/90"
+            className="inline-flex h-11 items-center gap-2 rounded-md bg-brand px-6 text-sm font-semibold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-brand/90"
           >
             <ArrowDownToLineIcon className="size-4" />
             Download Executive PDF (Free)
           </Link>
           <Link
             href={`/research/${report.slug}/`}
-            className="inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-5 text-sm font-medium text-foreground transition-colors hover:border-gold hover:text-primary"
+            className="inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-5 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-primary"
           >
             Read Full Analysis
             <ArrowRightIcon className="size-4" />
@@ -251,11 +251,11 @@ function FeaturedReport({ report }: { report: Report }) {
 
 function ReportCard({ report }: { report: Report }) {
   return (
-    <li className="group relative flex flex-col justify-between overflow-hidden rounded-lg border border-border bg-background p-6 transition-all duration-200 hover:-translate-y-1 hover:border-gold/80 hover:shadow-md">
-      {/* Stitch signature 3px gold cap */}
+    <li className="group relative flex flex-col justify-between overflow-hidden rounded-lg border border-border bg-background p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand/80 hover:shadow-md">
+      {/* Stitch signature 3px brand cap */}
       <span
         aria-hidden="true"
-        className="absolute top-0 right-0 left-0 h-[3px] bg-gold"
+        className="absolute top-0 right-0 left-0 h-[3px] bg-brand"
       />
 
       <div>
@@ -297,7 +297,7 @@ function ReportCard({ report }: { report: Report }) {
         </time>
         <Link
           href={`/research/${report.slug}/`}
-          className="inline-flex items-center gap-1 font-semibold text-gold-strong transition-colors hover:text-gold"
+          className="inline-flex items-center gap-1 font-semibold text-brand transition-colors hover:text-brand"
         >
           {report.gated ? "Download PDF" : "Read Briefing"}
           <ArrowRightIcon className="size-3 transition-transform group-hover:translate-x-0.5" />

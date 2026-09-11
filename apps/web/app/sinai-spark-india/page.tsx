@@ -54,13 +54,13 @@ export default function IndiaLandingPage() {
       >
         <Link
           href={INDIA.hero.primaryCta.href}
-          className="inline-flex h-11 items-center rounded-md bg-gold px-6 text-sm font-semibold text-primary-deep transition-all outline-none hover:-translate-y-px hover:bg-gold/90 focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="inline-flex h-11 items-center rounded-md bg-brand px-6 text-sm font-semibold text-primary-deep transition-all outline-none hover:-translate-y-px hover:bg-brand/90 focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           {INDIA.hero.primaryCta.label}
         </Link>
         <Link
           href={INDIA.hero.secondaryCta.href}
-          className="inline-flex h-11 items-center rounded-md border border-primary-foreground/40 px-6 text-sm text-primary-foreground transition-colors outline-none hover:border-gold hover:text-gold focus-visible:ring-3 focus-visible:ring-ring/50"
+          className="inline-flex h-11 items-center rounded-md border border-primary-foreground/40 px-6 text-sm text-primary-foreground transition-colors outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           {INDIA.hero.secondaryCta.label}
         </Link>
@@ -119,7 +119,7 @@ export default function IndiaLandingPage() {
                       <td className="p-4 font-medium">
                         {row.structure}
                         {row.popular ? (
-                          <span className="ml-2 rounded-full bg-gold/15 px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide text-gold-strong uppercase">
+                          <span className="ml-2 rounded-full bg-brand/15 px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide text-brand uppercase">
                             Most popular
                           </span>
                         ) : null}
@@ -144,7 +144,7 @@ export default function IndiaLandingPage() {
                   <p className="font-medium">
                     {row.structure}
                     {row.popular ? (
-                      <span className="ml-2 rounded-full bg-gold/15 px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide text-gold-strong uppercase">
+                      <span className="ml-2 rounded-full bg-brand/15 px-2 py-0.5 text-[0.65rem] font-semibold tracking-wide text-brand uppercase">
                         Most popular
                       </span>
                     ) : null}
@@ -182,7 +182,7 @@ export default function IndiaLandingPage() {
                 >
                   <span
                     aria-hidden="true"
-                    className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-gold/15 text-gold-strong"
+                    className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand"
                   >
                     <CheckIcon className="size-3" />
                   </span>
@@ -207,7 +207,7 @@ export default function IndiaLandingPage() {
                   ) : null}
                   <span
                     aria-hidden="true"
-                    className="relative z-10 inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-gold bg-primary font-mono text-sm font-semibold text-primary-foreground"
+                    className="relative z-10 inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-brand bg-primary font-mono text-sm font-semibold text-primary-foreground"
                   >
                     {index + 1}
                   </span>
@@ -227,7 +227,10 @@ export default function IndiaLandingPage() {
       {/* NRI / FEMA callout */}
       <section aria-labelledby="india-nri" className="bg-background-alt">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
-          <Alert variant="gold" className="max-w-4xl p-6 md:p-8 [&>svg]:size-5">
+          <Alert
+            variant="brand"
+            className="max-w-4xl p-6 md:p-8 [&>svg]:size-5"
+          >
             <AlertTitle id="india-nri" className="mb-2 text-lg">
               {INDIA.nri.title}
             </AlertTitle>
@@ -238,7 +241,7 @@ export default function IndiaLandingPage() {
                   <li key={point} className="flex items-start gap-2.5">
                     <CheckIcon
                       aria-hidden="true"
-                      className="mt-0.5 size-4 shrink-0 text-gold-strong"
+                      className="mt-0.5 size-4 shrink-0 text-brand"
                     />
                     {point}
                   </li>
@@ -274,12 +277,12 @@ export default function IndiaLandingPage() {
                 key={pkg.name}
                 className={`relative flex flex-col rounded-lg border p-6 ${
                   pkg.popular
-                    ? "border-gold ring-2 ring-gold/30"
+                    ? "border-brand ring-2 ring-brand/30"
                     : "border-border"
                 }`}
               >
                 {pkg.popular ? (
-                  <span className="absolute -top-3 left-6 rounded-full bg-gold px-3 py-1 text-[0.65rem] font-semibold tracking-wide text-primary-deep uppercase">
+                  <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-[0.65rem] font-semibold tracking-wide text-primary-deep uppercase">
                     Most popular
                   </span>
                 ) : null}
@@ -303,7 +306,7 @@ export default function IndiaLandingPage() {
                     >
                       <CheckIcon
                         aria-hidden="true"
-                        className="mt-0.5 size-4 shrink-0 text-gold-strong"
+                        className="mt-0.5 size-4 shrink-0 text-brand"
                       />
                       {item.trim()}
                     </li>
@@ -314,7 +317,7 @@ export default function IndiaLandingPage() {
                   className={`mt-6 inline-flex h-11 items-center justify-center rounded-md px-5 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
                     pkg.popular
                       ? "bg-primary text-primary-foreground hover:bg-primary-deep"
-                      : "border border-border hover:border-gold/60 hover:text-primary"
+                      : "border border-border hover:border-brand/60 hover:text-primary"
                   }`}
                 >
                   Start with {pkg.name}
@@ -357,11 +360,15 @@ export default function IndiaLandingPage() {
           {
             label: INDIA.hero.primaryCta.label,
             href: "/contact/",
-            variant: "gold",
+            variant: "brand",
           },
         ]}
       />
-      <section aria-label="Contact options" className="bg-primary-deep">
+      <section
+        aria-label="Contact options"
+        data-surface="navy"
+        className="bg-primary-deep"
+      >
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {INDIA.trustStrip2.map((item) => (
@@ -378,7 +385,7 @@ export default function IndiaLandingPage() {
               )}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 items-center rounded-md bg-[#25D366] px-5 text-sm font-medium text-white transition-transform outline-none hover:-translate-y-px focus-visible:ring-3 focus-visible:ring-gold/50"
+              className="inline-flex h-10 items-center rounded-md bg-[#25D366] px-5 text-sm font-medium text-white transition-transform outline-none hover:-translate-y-px focus-visible:ring-3 focus-visible:ring-brand/50"
             >
               Chat on WhatsApp
             </a>

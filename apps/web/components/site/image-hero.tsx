@@ -57,6 +57,7 @@ export function ImageHero({
   const activeAsset = images[activeIndex]
   return (
     <section
+      data-surface="navy"
       className={cn(
         "relative flex items-end overflow-hidden",
         size === "full" ? "min-h-[70svh] md:min-h-[85svh]" : "min-h-[46svh]",
@@ -112,7 +113,7 @@ export function ImageHero({
           {eyebrow ? (
             <motion.p
               variants={staggerItem}
-              className="mb-4 text-xs font-semibold tracking-[0.18em] text-gold uppercase"
+              className="mb-4 text-xs font-semibold tracking-[0.18em] text-brand uppercase"
             >
               {eyebrow}
             </motion.p>
@@ -131,7 +132,7 @@ export function ImageHero({
           {tagline ? (
             <motion.p
               variants={staggerItem}
-              className="mt-4 text-sm font-medium tracking-[0.08em] text-gold uppercase"
+              className="mt-4 text-sm font-medium tracking-[0.08em] text-brand uppercase"
             >
               {tagline}
             </motion.p>

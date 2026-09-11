@@ -25,7 +25,7 @@ export function ServiceIndex() {
     <section aria-labelledby="what-we-do-title" className="bg-background">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
         <Reveal className="mb-10 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             {HOME.whatWeDo.eyebrow}
           </p>
           <h2
@@ -53,11 +53,11 @@ export function ServiceIndex() {
                     if (item.imageKey) setActiveKey(item.imageKey)
                   }}
                 >
-                  <span className="font-mono text-sm font-semibold tracking-widest text-gold-strong/60 transition-colors group-hover:text-gold">
+                  <span className="font-mono text-sm font-semibold tracking-widest text-brand/60 transition-colors group-hover:text-brand">
                     {(index + 1).toString().padStart(2, "0")}
                   </span>
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-gold sm:text-2xl">
+                    <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-brand sm:text-2xl">
                       {item.title}
                     </h3>
                     <p className="mt-2 leading-relaxed text-muted-foreground sm:text-lg">
@@ -66,7 +66,7 @@ export function ServiceIndex() {
                   </div>
                   <ArrowUpRightIcon
                     aria-hidden="true"
-                    className="size-6 shrink-0 text-muted-foreground opacity-50 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-gold group-hover:opacity-100"
+                    className="size-6 shrink-0 text-muted-foreground opacity-50 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-brand group-hover:opacity-100"
                   />
                 </Link>
               </li>

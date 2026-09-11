@@ -10,7 +10,7 @@ type SectionHeadingProps = {
 }
 
 /**
- * Consistent section rhythm device (§11.3): gold eyebrow, H2, optional lede.
+ * Consistent section rhythm device (§11.3): brand eyebrow, H2, optional lede.
  * `tone="navy"` for use on full-bleed navy bands.
  */
 export function SectionHeading({
@@ -25,7 +25,7 @@ export function SectionHeading({
     <div
       className={cn(
         "flex max-w-3xl flex-col gap-3",
-        align === "center" && "items-center text-center mx-auto",
+        align === "center" && "mx-auto items-center text-center",
         className
       )}
     >
@@ -33,7 +33,7 @@ export function SectionHeading({
         aria-hidden="true"
         className={cn(
           "text-xs font-semibold tracking-[0.14em] uppercase",
-          tone === "light" ? "text-gold-strong" : "text-gold"
+          tone === "light" ? "text-brand" : "text-brand"
         )}
       >
         {eyebrow}
@@ -50,7 +50,9 @@ export function SectionHeading({
         <p
           className={cn(
             "text-lg leading-relaxed",
-            tone === "light" ? "text-muted-foreground" : "text-primary-foreground/75"
+            tone === "light"
+              ? "text-muted-foreground"
+              : "text-primary-foreground/75"
           )}
         >
           {lede}

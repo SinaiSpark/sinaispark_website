@@ -31,7 +31,7 @@ export default function ContactPage() {
           <Breadcrumbs pathname="/contact/" />
         </div>
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             Free Consultation
           </p>
           {/* One H1 per page — matches the revised document's headline. */}
@@ -111,7 +111,7 @@ export default function ContactPage() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="inline-flex size-10 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors outline-none hover:border-gold hover:text-gold-strong focus-visible:ring-3 focus-visible:ring-ring/50"
+                      className="inline-flex size-10 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-ring/50"
                     >
                       <Glyph className="size-4" />
                     </a>

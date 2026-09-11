@@ -39,7 +39,7 @@ export default function TermsPage() {
       </section>
       <CTASection
         title="Questions?"
-        buttons={[{ label: "Contact Us", href: "/contact/", variant: "gold" }]}
+        buttons={[{ label: "Contact Us", href: "/contact/", variant: "brand" }]}
       />
     </>
   )

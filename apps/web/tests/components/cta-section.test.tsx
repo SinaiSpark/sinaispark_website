@@ -30,7 +30,7 @@ describe("CTASection", () => {
             href: "/secondary",
             variant: "secondary",
           },
-          { label: "Gold Button", href: "/gold", variant: "gold" },
+          { label: "Brand Button", href: "/brand", variant: "brand" },
           { label: "Default Button", href: "/default" },
         ]}
       />
@@ -47,8 +47,8 @@ describe("CTASection", () => {
     expect(secondaryButton).toHaveClass("border")
     expect(secondaryButton).toHaveClass("border-primary-foreground/40")
 
-    const goldButton = screen.getByRole("link", { name: /gold button/i })
-    expect(goldButton).toHaveAttribute("href", "/gold")
-    expect(goldButton).toHaveClass("bg-gold")
+    const brandButton = screen.getByRole("link", { name: /brand button/i })
+    expect(brandButton).toHaveAttribute("href", "/brand")
+    expect(brandButton).toHaveClass("bg-brand")
   })
 })

@@ -38,7 +38,7 @@ export function CountryTiles() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-16 lg:px-8">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+            <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
               Global Presence
             </p>
             <h2
@@ -115,7 +115,7 @@ function MarketTile({
       <div className="relative flex items-end justify-between gap-3 p-5 md:p-6">
         <div>
           {featured ? (
-            <span className="mb-2 inline-block rounded-sm bg-gold/20 px-2 py-0.5 text-[0.65rem] font-bold tracking-widest text-gold uppercase shadow-sm">
+            <span className="mb-2 inline-block rounded-sm bg-brand/20 px-2 py-0.5 text-[0.65rem] font-bold tracking-widest text-brand uppercase shadow-sm">
               {market.tag}
             </span>
           ) : null}
@@ -134,7 +134,7 @@ function MarketTile({
         </div>
         <ArrowRightIcon
           aria-hidden="true"
-          className="size-5 shrink-0 -translate-x-1 text-gold opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+          className="size-5 shrink-0 -translate-x-1 text-brand opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
         />
       </div>
     </Link>

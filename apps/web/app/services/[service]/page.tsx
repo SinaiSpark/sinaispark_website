@@ -83,7 +83,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 key={assurance}
                 className="flex items-center gap-2.5 rounded-lg border border-border/60 bg-background p-3.5 shadow-xs"
               >
-                <ShieldCheckIcon className="size-4 shrink-0 text-gold-strong" />
+                <ShieldCheckIcon className="size-4 shrink-0 text-brand" />
                 <span className="text-xs font-semibold text-foreground">
                   {assurance}
                 </span>
@@ -101,7 +101,7 @@ export default async function ServiceDetailPage({ params }: Props) {
             <div className="flex flex-col gap-12">
               {/* Executive Overview */}
               <div>
-                <h2 className="text-sm font-bold tracking-[0.14em] text-gold-strong uppercase">
+                <h2 className="text-sm font-bold tracking-[0.14em] text-brand uppercase">
                   Practice Overview
                 </h2>
                 <div className="mt-4 flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
@@ -124,14 +124,14 @@ export default async function ServiceDetailPage({ params }: Props) {
               <div className="rounded-xl border border-border/80 bg-background-alt p-7 sm:p-8">
                 <div className="flex items-center justify-between border-b border-border/60 pb-4">
                   <div>
-                    <p className="text-xs font-bold tracking-wider text-gold-strong uppercase">
+                    <p className="text-xs font-bold tracking-wider text-brand uppercase">
                       Engagement Scope
                     </p>
                     <h3 className="text-xl font-bold tracking-tight text-foreground">
                       What This Practice Delivers
                     </h3>
                   </div>
-                  <FileCheckIcon className="size-6 text-gold" />
+                  <FileCheckIcon className="size-6 text-brand" />
                 </div>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -140,7 +140,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                       key={bullet}
                       className="flex items-start gap-3 rounded-lg border border-border bg-background p-4 shadow-xs"
                     >
-                      <CheckCircle2Icon className="mt-0.5 size-4 shrink-0 text-gold-strong" />
+                      <CheckCircle2Icon className="mt-0.5 size-4 shrink-0 text-brand" />
                       <span className="text-xs leading-relaxed font-medium text-foreground">
                         {bullet}
                       </span>
@@ -152,7 +152,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               {/* Phased Roadmap Sequence */}
               {service.phases && service.phases.length > 0 ? (
                 <div>
-                  <h3 className="text-sm font-bold tracking-[0.14em] text-gold-strong uppercase">
+                  <h3 className="text-sm font-bold tracking-[0.14em] text-brand uppercase">
                     Delivery Roadmap
                   </h3>
                   <h4 className="mt-1 text-2xl font-bold tracking-tight text-foreground">
@@ -167,7 +167,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                     {service.phases.map((phase, idx) => (
                       <div
                         key={phase.title}
-                        className="relative flex flex-col gap-2 rounded-xl border border-border bg-background p-6 transition-all hover:border-gold/60 sm:flex-row sm:items-start sm:gap-6"
+                        className="relative flex flex-col gap-2 rounded-xl border border-border bg-background p-6 transition-all hover:border-brand/60 sm:flex-row sm:items-start sm:gap-6"
                       >
                         <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-bold text-primary-foreground">
                           0{idx + 1}
@@ -188,9 +188,9 @@ export default async function ServiceDetailPage({ params }: Props) {
 
               {/* Dispute Support Scope Guard (Scoped to Saudi Business Setup only) */}
               {service.disputeSupport ? (
-                <div className="rounded-xl border border-gold/40 bg-gold/5 p-6 sm:p-8">
+                <div className="rounded-xl border border-brand/40 bg-brand/5 p-6 sm:p-8">
                   <div className="flex items-start gap-4">
-                    <ShieldAlertIcon className="size-6 shrink-0 text-gold-strong" />
+                    <ShieldAlertIcon className="size-6 shrink-0 text-brand" />
                     <div>
                       <h4 className="text-base font-bold text-foreground">
                         Dispute Support & Ministry Mediation (Saudi Practice
@@ -212,7 +212,7 @@ export default async function ServiceDetailPage({ params }: Props) {
             <div className="flex flex-col gap-8">
               {/* Specialist Action Box */}
               <div className="sticky top-24 rounded-xl border border-border/80 bg-background p-6 shadow-md">
-                <span className="rounded bg-gold px-2 py-0.5 text-[0.68rem] font-bold tracking-wider text-primary-deep uppercase">
+                <span className="rounded bg-brand px-2 py-0.5 text-[0.68rem] font-bold tracking-wider text-primary-deep uppercase">
                   Direct Advisory Desk
                 </span>
                 <h3 className="mt-3 text-lg font-bold text-foreground">
@@ -229,7 +229,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                 <div className="mt-6 flex flex-col gap-3">
                   <Link
                     href="/contact/"
-                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-gold px-4 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-gold/90"
+                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-brand px-4 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-brand/90"
                   >
                     Request Free Consultation
                     <ArrowRightIcon className="size-3.5" />
@@ -247,11 +247,11 @@ export default async function ServiceDetailPage({ params }: Props) {
 
                 <div className="mt-6 border-t border-border/60 pt-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
-                    <PhoneCallIcon className="size-3.5 text-gold-strong" />
+                    <PhoneCallIcon className="size-3.5 text-brand" />
                     <span>Riyadh Office: +966 51 001 3160</span>
                   </div>
                   <div className="mt-2 flex items-center gap-2">
-                    <Globe2Icon className="size-3.5 text-gold-strong" />
+                    <Globe2Icon className="size-3.5 text-brand" />
                     <span>
                       Jurisdictions: {service.jurisdictions.join(", ")}
                     </span>
@@ -277,7 +277,7 @@ export default async function ServiceDetailPage({ params }: Props) {
                   </div>
                   <Link
                     href="/services/"
-                    className="mt-4 block text-xs font-bold text-gold-strong hover:text-gold"
+                    className="mt-4 block text-xs font-bold text-brand hover:text-brand"
                   >
                     View all 10 corporate practices →
                   </Link>
@@ -297,7 +297,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           {
             label: "Book a Free Consultation",
             href: "/contact/",
-            variant: "gold",
+            variant: "brand",
           },
           {
             label: "View All Practices",

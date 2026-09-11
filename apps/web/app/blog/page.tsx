@@ -18,7 +18,7 @@ export default function BlogPage() {
           <Breadcrumbs pathname="/blog/" />
         </div>
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             Blog
           </p>
           <h1 className="max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl">

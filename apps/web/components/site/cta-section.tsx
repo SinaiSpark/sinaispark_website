@@ -5,17 +5,18 @@ import { cn } from "@workspace/ui/lib/utils"
 type CtaButton = {
   label: string
   href: string
-  variant?: "primary" | "gold" | "secondary"
+  variant?: "primary" | "brand" | "secondary"
 }
 
 const ctaClasses: Record<NonNullable<CtaButton["variant"]>, string> = {
   // Navy fill for light surfaces.
   primary:
     "bg-primary text-primary-foreground hover:bg-primary-deep hover:-translate-y-px",
-  // Gold reserved for the single most important action on navy bands (§11.6).
-  gold: "bg-gold text-primary-deep hover:bg-gold/90 hover:-translate-y-px font-semibold",
+  // Brand teal reserved for the single most important action on navy bands (§11.6).
+  brand:
+    "bg-brand text-primary-deep hover:bg-brand/90 hover:-translate-y-px font-semibold",
   secondary:
-    "border border-primary-foreground/40 text-primary-foreground hover:border-gold hover:text-gold",
+    "border border-primary-foreground/40 text-primary-foreground hover:border-brand hover:text-brand",
 }
 
 /**
@@ -35,10 +36,13 @@ export function CTASection({
   className?: string
 }) {
   return (
-    <section className={cn("relative overflow-hidden bg-primary", className)}>
+    <section
+      data-surface="navy"
+      className={cn("relative overflow-hidden bg-primary", className)}
+    >
       <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6 md:py-24 lg:px-8">
         {eyebrow ? (
-          <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-gold uppercase">
+          <p className="mb-3 text-xs font-semibold tracking-[0.18em] text-brand uppercase">
             {eyebrow}
           </p>
         ) : null}

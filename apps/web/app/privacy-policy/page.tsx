@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
       </section>
       <CTASection
         title="Questions about your data?"
-        buttons={[{ label: "Contact Us", href: "/contact/", variant: "gold" }]}
+        buttons={[{ label: "Contact Us", href: "/contact/", variant: "brand" }]}
       />
     </>
   )

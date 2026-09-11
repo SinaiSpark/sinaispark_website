@@ -13,7 +13,7 @@ export function TestimonialSection() {
     <section aria-labelledby="testimonials-title" className="bg-background-alt">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
         <div className="mb-10 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             {HOME.testimonials.eyebrow}
           </p>
           <h2
@@ -35,7 +35,7 @@ export function TestimonialSection() {
             >
               <span
                 aria-hidden="true"
-                className="font-serif text-5xl leading-none text-gold"
+                className="font-serif text-5xl leading-none text-brand"
               >
                 “
               </span>

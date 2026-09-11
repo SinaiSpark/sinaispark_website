@@ -37,7 +37,7 @@ export default function FaqsPage() {
           <Breadcrumbs pathname="/faqs/" />
         </div>
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-gold-strong uppercase">
+          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
             FAQs
           </p>
           <h1 className="max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl">
@@ -72,7 +72,7 @@ export default function FaqsPage() {
       <CTASection
         title="Still Have Questions?"
         subheadline="Speak to our experts for personalized guidance — the consultation is free."
-        buttons={[{ label: "Contact Us", href: "/contact/", variant: "gold" }]}
+        buttons={[{ label: "Contact Us", href: "/contact/", variant: "brand" }]}
       />
     </>
   )

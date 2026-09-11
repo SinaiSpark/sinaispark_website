@@ -63,7 +63,7 @@ export function WhyChooseUsGrid({ points }: WhyChooseUsGridProps) {
               <motion.div
                 layoutId="why-choose-us-hover-box"
                 className={cn(
-                  "pointer-events-none absolute inset-0 z-20 border border-gold bg-gold/[0.02] shadow-[inset_0_0_20px_rgba(204,162,76,0.1)]",
+                  "pointer-events-none absolute inset-0 z-20 border border-brand bg-brand/[0.02] shadow-[inset_0_0_20px_rgba(204,162,76,0.1)]",
                   cornerClass
                 )}
                 transition={{

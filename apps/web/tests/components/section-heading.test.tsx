@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/site/section-heading"
 
 /**
  * Seam: SectionHeading (render)
- * Behavior spec: renders the gold eyebrow + one H2 + optional lede, with
+ * Behavior spec: renders the brand eyebrow + one H2 + optional lede, with
  * heading-level semantics intact for the SEO checklist.
  */
 describe("SectionHeading", () => {

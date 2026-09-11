@@ -263,7 +263,7 @@ export const HOME = {
       "Explore our detailed FAQs or speak to our experts for personalized guidance.",
     buttons: [
       { label: "View FAQs", href: "/faqs/", variant: "secondary" as const },
-      { label: "Contact Us", href: "/contact/", variant: "gold" as const },
+      { label: "Contact Us", href: "/contact/", variant: "brand" as const },
     ],
   },
 } as const
