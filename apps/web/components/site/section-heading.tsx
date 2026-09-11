@@ -6,12 +6,15 @@ type SectionHeadingProps = {
   lede?: string
   align?: "left" | "center"
   tone?: "light" | "navy"
+  /** Hairline rule running from the eyebrow to the right edge. */
+  rule?: boolean
   className?: string
 }
 
 /**
  * Consistent section rhythm device (§11.3): brand eyebrow, H2, optional lede.
- * `tone="navy"` for use on full-bleed navy bands.
+ * `tone="navy"` for use on full-bleed navy bands. The eyebrow colour is
+ * surface-aware, so it stays legible on either.
  */
 export function SectionHeading({
   eyebrow,
@@ -19,29 +22,43 @@ export function SectionHeading({
   lede,
   align = "left",
   tone = "light",
+  rule = false,
   className,
 }: SectionHeadingProps) {
+  const navy = tone === "navy"
+
   return (
     <div
       className={cn(
-        "flex max-w-3xl flex-col gap-3",
-        align === "center" && "mx-auto items-center text-center",
+        "flex flex-col gap-4",
+        align === "center"
+          ? "mx-auto max-w-3xl items-center text-center"
+          : "max-w-3xl",
+        rule && align === "left" && "max-w-none",
         className
       )}
     >
       <span
         aria-hidden="true"
         className={cn(
-          "text-xs font-semibold tracking-[0.14em] uppercase",
-          tone === "light" ? "text-brand" : "text-brand"
+          "flex items-center gap-4 text-xs font-semibold tracking-[0.16em] text-brand uppercase",
+          align === "center" && "justify-center"
         )}
       >
         {eyebrow}
+        {rule ? (
+          <span
+            className={cn(
+              "h-px flex-1",
+              navy ? "bg-primary-foreground/15" : "bg-border"
+            )}
+          />
+        ) : null}
       </span>
       <h2
         className={cn(
-          "text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl",
-          tone === "light" ? "text-foreground" : "text-primary-foreground"
+          "max-w-3xl text-4xl font-semibold tracking-[-0.03em] text-balance md:text-5xl",
+          navy ? "text-primary-foreground" : "text-foreground"
         )}
       >
         {title}
@@ -49,10 +66,8 @@ export function SectionHeading({
       {lede ? (
         <p
           className={cn(
-            "text-lg leading-relaxed",
-            tone === "light"
-              ? "text-muted-foreground"
-              : "text-primary-foreground/75"
+            "max-w-2xl text-lg leading-relaxed",
+            navy ? "text-primary-foreground/75" : "text-muted-foreground"
           )}
         >
           {lede}

@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
 
 import { HOME } from "@/lib/content/home"
@@ -8,6 +7,7 @@ import { SITE } from "@/lib/site-config"
 import { buildOrganizationSchema } from "@/components/site/organization-schema"
 import { JsonLd } from "@/components/site/jsonld"
 import { ImageHero } from "@/components/site/image-hero"
+import { CtaLink } from "@/components/site/cta-link"
 import { CTASection } from "@/components/site/cta-section"
 import { SectionHeading } from "@/components/site/section-heading"
 import { CountryTiles } from "@/components/home/country-tiles"
@@ -20,31 +20,13 @@ import { RegionalCoverage } from "@/components/home/regional-coverage"
 import { Reveal } from "@/components/motion/reveal"
 import { MissionVision } from "@/components/home/mission-vision"
 import { WhyChooseUsGrid } from "@/components/home/why-choose-us-grid"
-import { cn } from "@workspace/ui/lib/utils"
 
 export const metadata: Metadata = {
   title: `${SITE.name}: Business Setup Services in Saudi Arabia and Beyond`,
   description: SITE.description,
 }
 
-const heroCtas = [
-  {
-    label: HOME.hero.primaryCta.label,
-    href: HOME.hero.primaryCta.href,
-    className:
-      "bg-brand text-primary-deep hover:bg-brand/90 font-semibold hover:-translate-y-px",
-  },
-  {
-    label: HOME.hero.secondaryCta.label,
-    href: HOME.hero.secondaryCta.href,
-    className:
-      "border border-primary-foreground/40 text-primary-foreground hover:border-brand hover:text-brand",
-  },
-]
-
 export default function HomePage() {
-  const teamAsset = IMAGES.aboutTeam
-
   return (
     <>
       <JsonLd data={buildOrganizationSchema()} />
@@ -58,26 +40,28 @@ export default function HomePage() {
         tagline={SITE.tagline}
         priority
       >
-        {heroCtas.map((cta) => (
-          <Link
-            key={cta.label}
-            href={cta.href}
-            className={cn(
-              "inline-flex h-11 items-center rounded-md border border-transparent px-6 text-sm transition-all duration-200 outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
-              cta.className
-            )}
-          >
-            {cta.label}
-          </Link>
-        ))}
+        <CtaLink href={HOME.hero.primaryCta.href} variant="brand" size="lg">
+          {HOME.hero.primaryCta.label}
+        </CtaLink>
+        <CtaLink
+          href={HOME.hero.secondaryCta.href}
+          variant="secondary"
+          size="lg"
+          arrow
+        >
+          {HOME.hero.secondaryCta.label}
+        </CtaLink>
       </ImageHero>
 
-      {/* 2 · Global Presence — signature band directly beneath the hero */}
+      {/* 2 · Global Presence — dark signature band directly beneath the hero */}
       <CountryTiles />
 
-      {/* 3 · Who We Are — editorial split */}
+      {/* 3 · Snapshot Stats — closes the dark opening block */}
+      <StatsBand />
+
+      {/* 4 · Who We Are — editorial split */}
       <section aria-labelledby="who-we-are-title" className="bg-background">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-32 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 md:py-32 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
           <div>
             <Reveal>
               <SectionHeading
@@ -86,7 +70,7 @@ export default function HomePage() {
               />
             </Reveal>
             <Reveal delay={0.15}>
-              <p className="mt-6 leading-relaxed text-muted-foreground">
+              <p className="mt-7 text-lg leading-relaxed text-muted-foreground">
                 {HOME.whoWeAre.body}
               </p>
             </Reveal>
@@ -97,12 +81,22 @@ export default function HomePage() {
                 </p>
               </blockquote>
             </Reveal>
+            <Reveal delay={0.4}>
+              <CtaLink
+                href="/about-us/"
+                variant="outline"
+                arrow
+                className="mt-8"
+              >
+                More about us
+              </CtaLink>
+            </Reveal>
           </div>
           <Reveal
             delay={0.1}
             className="relative min-h-[350px] pr-4 pb-4 md:min-h-[450px] md:pr-6 md:pb-6 lg:min-h-full"
           >
-            <div className="absolute top-4 right-0 bottom-0 left-4 rounded-lg border-2 border-brand md:top-6 md:left-6" />
+            <div className="absolute top-4 right-0 bottom-0 left-4 rounded-2xl border-2 border-brand/50 md:top-6 md:left-6" />
             <Link
               href="/about-us/"
               className="relative block h-full w-full outline-none focus-visible:ring-3 focus-visible:ring-ring/60"
@@ -120,19 +114,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4 · Mission / Vision — animated typography band */}
+      {/* 5 · Mission / Vision — animated typography band */}
       <MissionVision />
-
-      {/* 5 · Snapshot Stats */}
-      <StatsBand />
 
       {/* 6 · What We Do — editorial index */}
       <ServiceIndex />
 
-      {/* 7 · Why Choose Us — mist tiles */}
-      <section aria-labelledby="why-us-title" className="bg-muted/60">
+      {/* 7 · Why Choose Us — hairline grid */}
+      <section aria-labelledby="why-us-title" className="bg-background-alt">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
           <SectionHeading
+            rule
             eyebrow={HOME.whyChooseUs.eyebrow}
             title={
               <span id="why-us-title" className="contents">
@@ -147,7 +139,7 @@ export default function HomePage() {
       {/* 8 · How It Works */}
       <ProcessTimeline />
 
-      {/* 9 · Testimonials — hidden until verified quotes arrive */}
+      {/* 9 · Testimonials — dark band; hidden until verified quotes arrive */}
       <TestimonialSection />
 
       {/* 10 · Regional Coverage in Saudi Arabia */}

@@ -3,6 +3,7 @@ import Image from "next/image"
 import { HOME } from "@/lib/content/home"
 import { IMAGES } from "@/lib/images"
 import { Reveal } from "@/components/motion/reveal"
+import { SectionHeading } from "@/components/site/section-heading"
 
 /**
  * Regional Coverage in Saudi Arabia — three image cards with overlay
@@ -15,25 +16,24 @@ export function RegionalCoverage() {
       className="bg-background"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
-        <div className="mb-10 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            {HOME.regionalCoverage.eyebrow}
-          </p>
-          <h2
-            id="regional-coverage-title"
-            className="text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl"
-          >
-            {HOME.regionalCoverage.title}
-          </h2>
-        </div>
+        <SectionHeading
+          rule
+          eyebrow={HOME.regionalCoverage.eyebrow}
+          title={
+            <span id="regional-coverage-title">
+              {HOME.regionalCoverage.title}
+            </span>
+          }
+          className="mb-12"
+        />
 
-        <Reveal stagger className="grid gap-5 md:grid-cols-3">
+        <Reveal stagger className="grid gap-4 md:grid-cols-3">
           {HOME.regionalCoverage.regions.map((region) => {
             const asset = IMAGES[region.imageKey]
             return (
               <article
                 key={region.city}
-                className="group relative flex h-72 flex-col justify-end overflow-hidden rounded-lg outline-none focus-within:ring-3 focus-within:ring-ring/60"
+                className="group relative flex h-80 flex-col justify-end overflow-hidden rounded-2xl border border-border/60 outline-none focus-within:ring-3 focus-within:ring-ring/60"
               >
                 <Image
                   src={asset.src}
@@ -41,7 +41,7 @@ export function RegionalCoverage() {
                   fill
                   sizes="(min-width: 768px) 33vw, 100vw"
                   quality={80}
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   style={
                     asset.focal ? { objectPosition: asset.focal } : undefined
                   }

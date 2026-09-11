@@ -1,5 +1,7 @@
 import { HOME } from "@/lib/content/home"
 import { Reveal } from "@/components/motion/reveal"
+import { GlassCard } from "@/components/site/glass-card"
+import { SectionHeading } from "@/components/site/section-heading"
 
 /**
  * Testimonials — placeholder structure (revised doc §10). Currently renders
@@ -10,47 +12,49 @@ export function TestimonialSection() {
   if (!HOME.testimonials.published) return null
 
   return (
-    <section aria-labelledby="testimonials-title" className="bg-background-alt">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
-        <div className="mb-10 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            {HOME.testimonials.eyebrow}
-          </p>
-          <h2
-            id="testimonials-title"
-            className="text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl"
-          >
-            {HOME.testimonials.title}
-          </h2>
-          <p className="mt-3 leading-relaxed text-muted-foreground">
-            {HOME.testimonials.subheadline}
-          </p>
-        </div>
+    <section
+      aria-labelledby="testimonials-title"
+      data-surface="navy"
+      className="relative overflow-hidden bg-primary-deep"
+    >
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+        <SectionHeading
+          tone="navy"
+          rule
+          eyebrow={HOME.testimonials.eyebrow}
+          title={<span id="testimonials-title">{HOME.testimonials.title}</span>}
+          lede={HOME.testimonials.subheadline}
+          className="mb-12"
+        />
 
-        <Reveal stagger className="grid gap-5 md:grid-cols-3">
+        <Reveal stagger className="grid gap-4 md:grid-cols-3">
           {HOME.testimonials.items.map((testimonial) => (
-            <figure
+            <GlassCard
               key={testimonial.name}
-              className="flex flex-col rounded-lg border bg-background p-6"
+              className="flex flex-col p-6 md:p-7"
             >
               <span
                 aria-hidden="true"
-                className="font-serif text-5xl leading-none text-brand"
+                className="font-serif text-6xl leading-none text-brand"
               >
                 “
               </span>
-              <blockquote className="mt-2 flex-1">
-                <p className="leading-relaxed">{testimonial.quote}</p>
-              </blockquote>
-              <figcaption className="mt-5 border-t border-border pt-4">
-                <span className="block text-sm font-semibold">
-                  {testimonial.name}
-                </span>
-                <span className="block text-xs text-muted-foreground">
-                  {testimonial.role} · {testimonial.market}
-                </span>
-              </figcaption>
-            </figure>
+              <figure className="flex flex-1 flex-col">
+                <blockquote className="mt-1 flex-1">
+                  <p className="text-base leading-relaxed text-primary-foreground/90 md:text-lg">
+                    {testimonial.quote}
+                  </p>
+                </blockquote>
+                <figcaption className="mt-6 border-t border-white/10 pt-4">
+                  <span className="block text-sm font-semibold text-primary-foreground">
+                    {testimonial.name}
+                  </span>
+                  <span className="block text-xs text-primary-foreground/65">
+                    {testimonial.role} · {testimonial.market}
+                  </span>
+                </figcaption>
+              </figure>
+            </GlassCard>
           ))}
         </Reveal>
       </div>

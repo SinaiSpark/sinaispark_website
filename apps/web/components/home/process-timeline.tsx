@@ -1,5 +1,6 @@
 import { HOME } from "@/lib/content/home"
 import { Reveal } from "@/components/motion/reveal"
+import { SectionHeading } from "@/components/site/section-heading"
 
 /**
  * How It Works — horizontal four-step timeline with a brand connector (§13).
@@ -9,16 +10,12 @@ export function ProcessTimeline() {
   return (
     <section aria-labelledby="how-it-works-title" className="bg-background-alt">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
-        <Reveal className="mb-12 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            {HOME.howItWorks.eyebrow}
-          </p>
-          <h2
-            id="how-it-works-title"
-            className="text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl"
-          >
-            {HOME.howItWorks.title}
-          </h2>
+        <Reveal className="mb-14">
+          <SectionHeading
+            rule
+            eyebrow={HOME.howItWorks.eyebrow}
+            title={<span id="how-it-works-title">{HOME.howItWorks.title}</span>}
+          />
         </Reveal>
 
         <Reveal delay={0.15}>

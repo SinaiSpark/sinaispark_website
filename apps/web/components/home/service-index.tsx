@@ -8,8 +8,8 @@ import { motion, AnimatePresence } from "framer-motion"
 
 import { HOME } from "@/lib/content/home"
 import { IMAGES, type ImageKey } from "@/lib/images"
-import { cn } from "@workspace/ui/lib/utils"
 import { Reveal } from "@/components/motion/reveal"
+import { SectionHeading } from "@/components/site/section-heading"
 
 /**
  * What We Do — editorial index rows (§13): divider-separated numbered list,
@@ -24,16 +24,12 @@ export function ServiceIndex() {
   return (
     <section aria-labelledby="what-we-do-title" className="bg-background">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-32 lg:px-8">
-        <Reveal className="mb-10 max-w-2xl">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            {HOME.whatWeDo.eyebrow}
-          </p>
-          <h2
-            id="what-we-do-title"
-            className="text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl"
-          >
-            {HOME.whatWeDo.title}
-          </h2>
+        <Reveal className="mb-12">
+          <SectionHeading
+            rule
+            eyebrow={HOME.whatWeDo.eyebrow}
+            title={<span id="what-we-do-title">{HOME.whatWeDo.title}</span>}
+          />
         </Reveal>
 
         <Reveal
@@ -66,7 +62,7 @@ export function ServiceIndex() {
                   </div>
                   <ArrowUpRightIcon
                     aria-hidden="true"
-                    className="size-6 shrink-0 text-muted-foreground opacity-50 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-brand group-hover:opacity-100"
+                    className="size-6 shrink-0 text-muted-foreground opacity-50 transition-[transform,color,opacity] duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-brand group-hover:opacity-100"
                   />
                 </Link>
               </li>

@@ -15,6 +15,7 @@
   --color-brand-solid: var(--brand-solid);
   --color-brand-bright: var(--brand-bright);
   --color-brand-soft: var(--brand-soft);
+  --color-brand-foreground: var(--brand-foreground);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -81,6 +82,8 @@
   --brand-bright: oklch(0.8236 0.1004 203.6); /* 4.59:1 on navy   */
   --brand-soft: oklch(0.97 0.026 203.6);
   --brand: var(--brand-strong);
+  /* Text colour to place ON a bg-brand fill; flips with the surface. */
+  --brand-foreground: var(--primary-foreground);
 
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.009 248.5);
@@ -92,7 +95,29 @@
 /* Navy surfaces re-point the contextual brand token to the bright teal. */
 [data-surface="navy"] {
   --brand: var(--brand-bright);
+  --brand-foreground: var(--primary-deep);
   --ring: var(--brand-bright);
+}
+
+/* Hero scroll cue — a gentle bob; removed entirely under reduced motion. */
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-cue {
+    animation: none;
+  }
 }
 
 @layer base {

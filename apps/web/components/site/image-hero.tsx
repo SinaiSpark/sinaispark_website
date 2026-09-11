@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
+import { ChevronDownIcon } from "lucide-react"
 
 import type { ImageAsset } from "@/lib/images"
-import { heroStagger, revealVariants } from "@/lib/transitions"
+import { heroStagger, heroItem } from "@/lib/transitions"
 import { cn } from "@workspace/ui/lib/utils"
 
 type ImageHeroProps = {
@@ -22,14 +23,17 @@ type ImageHeroProps = {
   className?: string
 }
 
-const staggerItem = {
-  hidden: { opacity: 0, y: 18 },
-  visible: revealVariants.visible,
-}
+/** How long each slide is shown before crossfading to the next. */
+const DWELL_MS = 6500
 
 /**
- * Full-bleed imagery-led hero with a navy scrim (§13). Single orchestrated
- * entrance sequence; reduced-motion users get static content.
+ * Full-bleed, imagery-led hero with a navy scrim (§13).
+ *
+ * The headline block is vertically centred and resolves in ~600ms with a
+ * strong ease-out — first paint is what the user judges speed by. The
+ * slideshow behind it is ambient: a slow, blurred crossfade that never
+ * competes with the copy. Segmented progress bars mirror the slide timing
+ * and double as jump controls.
  */
 export function ImageHero({
   asset,
@@ -50,17 +54,21 @@ export function ImageHero({
     if (images.length <= 1) return
     const timer = setInterval(() => {
       setActiveIndex((current) => (current + 1) % images.length)
-    }, 6000)
+    }, DWELL_MS)
     return () => clearInterval(timer)
-  }, [images.length])
+  }, [images.length, activeIndex])
 
   const activeAsset = images[activeIndex]
+  const isFull = size === "full"
+
   return (
     <section
       data-surface="navy"
       className={cn(
-        "relative flex items-end overflow-hidden",
-        size === "full" ? "min-h-[70svh] md:min-h-[85svh]" : "min-h-[46svh]",
+        "relative flex items-center overflow-hidden bg-primary-deep",
+        isFull
+          ? "min-h-[clamp(560px,88svh,860px)]"
+          : "min-h-[clamp(360px,52svh,520px)]",
         className
       )}
     >
@@ -68,16 +76,10 @@ export function ImageHero({
         <AnimatePresence initial={false}>
           <motion.div
             key={activeAsset.src}
-            initial={{ scale: 1.05, opacity: 0, x: "-3%", filter: "blur(8px)" }}
-            animate={{ scale: 1, opacity: 1, x: "0%", filter: "blur(0px)" }}
-            exit={{
-              opacity: 0,
-              x: "3%",
-              filter: "blur(4px)",
-              position: "absolute",
-              zIndex: -1,
-            }}
-            transition={{ duration: 1.8, ease: "easeInOut" }}
+            initial={{ scale: 1.08, opacity: 0, filter: "blur(10px)" }}
+            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(6px)" }}
+            transition={{ duration: 1.4, ease: "easeInOut" }}
             className="absolute inset-0"
           >
             <Image
@@ -96,65 +98,123 @@ export function ImageHero({
             />
           </motion.div>
         </AnimatePresence>
-      ) : (
-        <div aria-hidden="true" className="absolute inset-0 bg-primary" />
-      )}
+      ) : null}
+
+      {/* Scrim: heavier on the left where the copy sits, lifting toward the right. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-primary-deep/95 via-primary-deep/80 to-primary/40"
+        className="absolute inset-0 bg-gradient-to-r from-primary-deep/95 via-primary-deep/70 to-primary-deep/35"
       />
-      <div className="relative mx-auto w-full max-w-7xl px-4 pt-24 pb-14 sm:px-6 md:pb-20 lg:px-8">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-primary-deep/85 to-transparent"
+      />
+
+      <div
+        className={cn(
+          "relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8",
+          isFull ? "py-20 md:py-28" : "py-14 md:py-20"
+        )}
+      >
         <motion.div
           variants={heroStagger}
           initial="hidden"
           animate="visible"
-          className="max-w-2xl"
+          className="max-w-3xl"
         >
           {eyebrow ? (
             <motion.p
-              variants={staggerItem}
-              className="mb-4 text-xs font-semibold tracking-[0.18em] text-brand uppercase"
+              variants={heroItem}
+              className="mb-5 text-xs font-semibold tracking-[0.18em] text-brand uppercase"
             >
               {eyebrow}
             </motion.p>
           ) : null}
           <motion.h1
-            variants={staggerItem}
+            variants={heroItem}
             className={cn(
-              "font-semibold tracking-[-0.02em] text-balance text-primary-foreground",
-              size === "full"
-                ? "text-4xl md:text-5xl xl:text-6xl"
-                : "text-3xl md:text-4xl"
+              "font-semibold tracking-[-0.03em] text-balance text-primary-foreground",
+              isFull
+                ? "text-5xl leading-[1.02] md:text-6xl xl:text-7xl"
+                : "text-4xl leading-[1.05] md:text-5xl"
             )}
           >
             {title}
           </motion.h1>
-          {tagline ? (
-            <motion.p
-              variants={staggerItem}
-              className="mt-4 text-sm font-medium tracking-[0.08em] text-brand uppercase"
-            >
-              {tagline}
-            </motion.p>
-          ) : null}
           {subtitle ? (
             <motion.p
-              variants={staggerItem}
-              className="mt-5 max-w-xl text-base leading-relaxed text-primary-foreground/80 md:text-lg"
+              variants={heroItem}
+              className="mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/80 md:text-xl"
             >
               {subtitle}
             </motion.p>
           ) : null}
+          {tagline ? (
+            <motion.p
+              variants={heroItem}
+              className="mt-5 flex items-center gap-3 text-xs font-medium tracking-[0.14em] text-primary-foreground/60 uppercase"
+            >
+              <span aria-hidden="true" className="h-px w-8 bg-brand/70" />
+              {tagline}
+            </motion.p>
+          ) : null}
           {children ? (
             <motion.div
-              variants={staggerItem}
-              className="mt-8 flex flex-wrap gap-3"
+              variants={heroItem}
+              className="mt-9 flex flex-wrap items-center gap-3"
             >
               {children}
             </motion.div>
           ) : null}
         </motion.div>
       </div>
+
+      {images.length > 1 ? (
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <div className="mx-auto flex max-w-7xl items-end justify-between gap-6 px-4 pb-6 sm:px-6 lg:px-8">
+            <div
+              role="group"
+              aria-label="Hero slides"
+              className="flex w-full max-w-md gap-2"
+            >
+              {images.map((image, index) => (
+                <button
+                  key={image.src}
+                  type="button"
+                  aria-label={`Show slide ${index + 1}`}
+                  aria-current={index === activeIndex}
+                  onClick={() => setActiveIndex(index)}
+                  className="group/seg relative h-6 flex-1 cursor-pointer outline-none"
+                >
+                  <span className="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 overflow-hidden rounded-full bg-white/25 transition-colors group-hover/seg:bg-white/40 group-focus-visible/seg:bg-white/40">
+                    {index === activeIndex ? (
+                      <motion.span
+                        key={activeIndex}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{
+                          duration: DWELL_MS / 1000,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-0 origin-left bg-brand"
+                      />
+                    ) : null}
+                  </span>
+                </button>
+              ))}
+            </div>
+            {isFull ? (
+              <p
+                aria-hidden="true"
+                className="hidden shrink-0 items-center gap-2 text-[0.7rem] font-medium tracking-[0.16em] text-primary-foreground/60 uppercase md:flex"
+              >
+                Scroll to explore
+                <ChevronDownIcon className="animate-scroll-cue size-4 text-brand" />
+              </p>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }
