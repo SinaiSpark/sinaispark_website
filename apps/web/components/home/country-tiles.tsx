@@ -73,7 +73,7 @@ export function CountryTiles() {
   )
 }
 
-type Market = {
+export type Market = {
   name: string
   tag: string
   description: string
@@ -81,7 +81,7 @@ type Market = {
   href: string
 }
 
-function MarketTile({
+export function MarketTile({
   market,
   featured = false,
 }: {

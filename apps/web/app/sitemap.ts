@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
 
 import { getAllServices } from "@/lib/content/services"
+import { COUNTRIES } from "@/lib/content/markets"
 import { REPORTS } from "@/lib/content/research"
 import { NAV_LINKS, SITE } from "@/lib/site-config"
 
@@ -13,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/",
     "/about-us/",
     "/sinai-spark-india/",
+    "/where-we-work/",
     "/research/",
     "/blog/",
     "/faqs/",
@@ -40,14 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  const countryPages = ["saudi-arabia", "uae", "uk", "bahrain"].map(
-    (country) => ({
-      url: `${base}/where-we-work/${country}/`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    })
-  )
+  const countryPages = Object.keys(COUNTRIES).map((country) => ({
+    url: `${base}/where-we-work/${country}/`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }))
 
   // Nav links are already covered by staticPages; keep the reference honest.
   void NAV_LINKS
