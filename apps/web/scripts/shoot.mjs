@@ -20,6 +20,19 @@ await page.setViewport({
   deviceScaleFactor: 1,
 })
 await page.goto(url, { waitUntil: "networkidle0" })
+// Scroll through so whileInView reveals fire and *finish* before the
+// fullPage capture resizes the viewport. Reveals run ~550ms plus up to
+// ~400ms of stagger/delay, so each step must wait longer than that or
+// far-down sections are captured mid-animation as empty bands.
+await page.evaluate(async () => {
+  const step = window.innerHeight * 0.6
+  const h = document.body.scrollHeight
+  for (let y = 0; y < h; y += step) {
+    window.scrollTo(0, y)
+    await new Promise((r) => setTimeout(r, 750))
+  }
+  window.scrollTo(0, 0)
+})
 await page.evaluate(() => new Promise((r) => setTimeout(r, 1200)))
 await page.screenshot({ path: out, fullPage })
 console.log(`${out}  ${width}px  fullPage=${fullPage}`)
