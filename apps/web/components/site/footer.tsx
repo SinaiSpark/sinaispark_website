@@ -37,7 +37,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="inline-flex size-10 items-center justify-center rounded-md border border-primary-foreground/20 text-primary-foreground/80 transition-colors outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-brand/40"
+                  className="inline-flex size-10 items-center justify-center rounded-full border border-primary-foreground/20 text-primary-foreground/80 transition-[border-color,color,transform] duration-200 ease-out outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-brand/40 active:scale-95"
                 >
                   <Glyph className="size-4" />
                 </a>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import { Breadcrumbs } from "@/components/site/breadcrumbs"
+import { PageHeader } from "@/components/site/page-header"
 import { ContactForm } from "@/components/forms/contact-form"
 import { SITE } from "@/lib/site-config"
 import {
@@ -26,41 +26,29 @@ const socials = [
 export default function ContactPage() {
   return (
     <>
-      <div className="bg-background-alt">
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <Breadcrumbs pathname="/contact/" />
-        </div>
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            Free Consultation
-          </p>
-          {/* One H1 per page — matches the revised document's headline. */}
-          <h1 className="max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl">
-            Let&apos;s Start Your Market Entry
-          </h1>
-          <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
-            Tell us about your business and we will recommend the right
-            structure, license and next steps, free of charge.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        pathname="/contact/"
+        eyebrow="Free Consultation"
+        title="Let's Start Your Market Entry"
+        lede="Tell us about your business and we will recommend the right structure, license and next steps, free of charge."
+      />
 
       <section className="bg-background">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[7fr_5fr] lg:gap-16 lg:px-8">
           <Reveal>
             <ContactForm />
           </Reveal>
 
           <Reveal delay={0.08}>
-            <aside className="flex flex-col gap-6 rounded-lg bg-background-alt p-6 md:p-8">
+            <aside className="flex flex-col gap-8 rounded-2xl border border-border/60 bg-background-alt p-7 md:p-9">
               <div>
-                <h2 className="text-sm font-semibold tracking-[0.14em] uppercase">
+                <h2 className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
                   Direct contact
                 </h2>
-                <div className="mt-3 flex flex-col gap-1.5 text-sm">
+                <div className="mt-4 flex flex-col gap-2 text-base">
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="transition-colors outline-none hover:text-primary focus-visible:text-primary"
+                    className="font-medium transition-colors outline-none hover:text-primary focus-visible:text-primary"
                   >
                     {SITE.email}
                   </a>
@@ -68,7 +56,10 @@ export default function ContactPage() {
                     href={`tel:${SITE.phone.replace(/\s/g, "")}`}
                     className="transition-colors outline-none hover:text-primary focus-visible:text-primary"
                   >
-                    {SITE.phone} (phone / WhatsApp)
+                    {SITE.phone}{" "}
+                    <span className="text-muted-foreground">
+                      (phone / WhatsApp)
+                    </span>
                     {/* PENDING_CLIENT_DATA — confirm current KSA number. */}
                   </a>
                 </div>
@@ -76,21 +67,21 @@ export default function ContactPage() {
                   href={`https://wa.me/${SITE.whatsappNumber}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-4 inline-flex h-11 w-fit items-center gap-2 rounded-md bg-[#25D366] px-5 text-sm font-medium text-white transition-transform outline-none hover:-translate-y-px focus-visible:ring-3 focus-visible:ring-ring/50"
+                  className="mt-5 inline-flex h-11 w-fit items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white transition-[transform,background-color] duration-200 ease-out outline-none hover:bg-[#1fbf5b] focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-[0.97]"
                 >
                   <WhatsAppGlyph /> Chat on WhatsApp
                 </a>
               </div>
 
               <div>
-                <h2 className="text-sm font-semibold tracking-[0.14em] uppercase">
+                <h2 className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
                   Offices
                 </h2>
-                <ul className="mt-3 flex flex-col gap-2 text-sm">
+                <ul className="mt-4 flex flex-col gap-3">
                   {SITE.offices.map((office) => (
                     <li key={office.city}>
                       <span className="font-medium">{office.label}</span>
-                      <span className="block text-xs text-muted-foreground">
+                      <span className="block text-sm text-muted-foreground">
                         {office.address}
                       </span>
                       {/* MOCK address — confirm with BD team (PENDING_CLIENT_DATA.md). */}
@@ -100,10 +91,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h2 className="text-sm font-semibold tracking-[0.14em] uppercase">
+                <h2 className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
                   Follow us
                 </h2>
-                <div className="mt-3 flex items-center gap-2">
+                <div className="mt-4 flex items-center gap-2">
                   {socials.map(({ label, href, Glyph }) => (
                     <a
                       key={label}
@@ -111,7 +102,7 @@ export default function ContactPage() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={label}
-                      className="inline-flex size-10 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-ring/50"
+                      className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-[border-color,color,transform] duration-200 ease-out outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-[0.95]"
                     >
                       <Glyph className="size-4" />
                     </a>

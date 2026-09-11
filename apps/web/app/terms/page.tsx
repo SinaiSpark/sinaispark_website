@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-import { Breadcrumbs } from "@/components/site/breadcrumbs"
+import { PageHeader } from "@/components/site/page-header"
 import { CTASection } from "@/components/site/cta-section"
 
 export const metadata: Metadata = {
@@ -17,18 +17,13 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <>
-      <div className="bg-background-alt">
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <Breadcrumbs pathname="/terms/" />
-        </div>
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <h1 className="text-3xl font-semibold tracking-[-0.02em] md:text-4xl">
-            Terms &amp; Conditions
-          </h1>
-        </div>
-      </div>
+      <PageHeader
+        pathname="/terms/"
+        eyebrow="Legal"
+        title="Terms & Conditions"
+      />
       <section className="bg-background">
-        <div className="mx-auto max-w-3xl px-4 py-12 leading-relaxed text-muted-foreground sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl px-4 py-14 text-lg leading-relaxed text-muted-foreground sm:px-6 md:py-20 lg:px-8">
           <p>
             These terms are being finalized with our legal team. Website content
             is provided for general information; service engagements are

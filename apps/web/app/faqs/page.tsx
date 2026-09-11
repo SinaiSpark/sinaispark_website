@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
 import { faqs } from "@/lib/content/faqs"
-import { Breadcrumbs } from "@/components/site/breadcrumbs"
+import { PageHeader } from "@/components/site/page-header"
 import { JsonLd } from "@/components/site/jsonld"
 import { CTASection } from "@/components/site/cta-section"
 import {
@@ -32,36 +32,23 @@ export default function FaqsPage() {
   return (
     <>
       <JsonLd data={schema} />
-      <div className="bg-background-alt">
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <Breadcrumbs pathname="/faqs/" />
-        </div>
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            FAQs
-          </p>
-          <h1 className="max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl">
-            Common questions, answered plainly
-          </h1>
-          <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
-            The questions we hear most from founders and investors entering new
-            markets.
-            {/* PENDING_CLIENT_DATA — general FAQ set pending client sign-off; seeded from service content. */}
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        pathname="/faqs/"
+        eyebrow="FAQs"
+        title="Common questions, answered plainly"
+        lede="The questions we hear most from founders and investors entering new markets."
+        // PENDING_CLIENT_DATA — general FAQ set pending client sign-off; seeded from service content.
+      />
 
       <section
         aria-label="Frequently asked questions"
         className="bg-background"
       >
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
-          <Accordion>
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+          <Accordion className="rounded-2xl border border-border px-6 md:px-8">
             {faqs.map((faq) => (
               <AccordionItem key={faq.question} value={faq.question}>
-                <AccordionTrigger className="text-base">
-                  {faq.question}
-                </AccordionTrigger>
+                <AccordionTrigger>{faq.question}</AccordionTrigger>
                 <AccordionContent>{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}

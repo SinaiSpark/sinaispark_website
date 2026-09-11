@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import {
   ArrowRightIcon,
@@ -14,35 +13,82 @@ import {
   ScaleIcon,
   SearchIcon,
   ShieldCheckIcon,
-  SparklesIcon,
   UsersIcon,
 } from "lucide-react"
 
 import { getAllServices, type ServiceContent } from "@/lib/content/services"
-import { IMAGES } from "@/lib/images"
+import { ctaClassName } from "@/components/site/cta-link"
 import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 
+type Tab = "all" | "core" | "license"
+
+const NAVIGATOR = [
+  {
+    href: "/services/administrative-solutions/",
+    icon: Building2Icon,
+    title: "Establishing a New Saudi Entity",
+    body: "100% foreign-owned LLC, branch, or representative office registration with MISA.",
+    cta: "View Business Setup",
+  },
+  {
+    href: "/services/commercial-license/",
+    icon: LayersIcon,
+    title: "Trading, Wholesale & Retail",
+    body: "Securing a commercial trading license and customs integration for foreign goods.",
+    cta: "View Commercial License",
+  },
+  {
+    href: "/services/industrial-license/",
+    icon: CompassIcon,
+    title: "Factory & Industrial Site",
+    body: "Manufacturing permits, MODON land allocation, and raw material duty exemptions.",
+    cta: "View Industrial License",
+  },
+  {
+    href: "/sinai-spark-india/",
+    icon: Globe2Icon,
+    title: "Gulf-India Cross-Border Setup",
+    body: "Online registration of Pvt Ltd, LLP, or OPC entities in India for Gulf NRIs.",
+    cta: "View India Gateway",
+  },
+] as const
+
+const LIFECYCLE = [
+  {
+    title: "Strategy & MISA Setup",
+    body: "Foreign equity modeling, Articles of Association drafting, and investment approvals.",
+  },
+  {
+    title: "Licensing & Clearances",
+    body: "Commercial, industrial, or service license issuance aligned to official ISIC activities.",
+  },
+  {
+    title: "Workforce & Legal Governance",
+    body: "Qiwa quotas, executive residency (Iqamas), bilingual commercial contracts, and banking.",
+  },
+  {
+    title: "Statutory Upkeep & Facilities",
+    body: "ZATCA tax filing, annual license renewals, audit compliance, and corporate office leasing.",
+  },
+] as const
+
 export function ServicesDirectory() {
-  const [activeTab, setActiveTab] = useState<"all" | "core" | "license">("all")
+  const [activeTab, setActiveTab] = useState<Tab>("all")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const allServices = getAllServices()
-
-  // Flagship service is Business Setup in Saudi Arabia
-  const flagship = allServices.find(
-    (s) => s.slug === "administrative-solutions"
-  )
+  const coreCount = allServices.filter((s) => s.category === "core").length
+  const licenseCount = allServices.length - coreCount
 
   const filteredServices = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase()
     return allServices.filter((service) => {
       const matchesTab = activeTab === "all" || service.category === activeTab
       const matchesSearch =
-        searchQuery.trim() === "" ||
-        service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.keywords.some((k) =>
-          k.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+        q === "" ||
+        service.title.toLowerCase().includes(q) ||
+        service.tagline.toLowerCase().includes(q) ||
+        service.keywords.some((k) => k.toLowerCase().includes(q))
       return matchesTab && matchesSearch
     })
   }, [allServices, activeTab, searchQuery])
@@ -52,85 +98,65 @@ export function ServicesDirectory() {
     (s) => s.category === "license"
   )
 
+  const tabs: Array<{ id: Tab; label: string }> = [
+    { id: "all", label: `All Practices (${allServices.length})` },
+    { id: "core", label: `Core Corporate Advisory (${coreCount})` },
+    { id: "license", label: `Saudi Business Licenses (${licenseCount})` },
+  ]
+
   return (
     <div className="flex flex-col gap-16">
-      {/* 2 · Interactive Filter Bar & Instant Practice Search */}
-      <div className="rounded-xl border border-border/80 bg-background-alt p-6 shadow-sm">
+      {/* Filter bar */}
+      <div className="rounded-2xl border border-border/80 bg-background-alt p-5 md:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveTab("all")}
-              className={cn(
-                "rounded-md px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
-                activeTab === "all"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
-              )}
-            >
-              All Practices ({allServices.length})
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("core")}
-              className={cn(
-                "rounded-md px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
-                activeTab === "core"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
-              )}
-            >
-              Core Corporate Advisory (5)
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("license")}
-              className={cn(
-                "rounded-md px-4 py-2 text-xs font-bold tracking-wide uppercase transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
-                activeTab === "license"
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
-              )}
-            >
-              Saudi Business Licenses (5)
-            </button>
+          <div
+            aria-label="Practice category"
+            className="flex flex-wrap items-center gap-2"
+          >
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                aria-pressed={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "rounded-full px-4 py-2 text-xs font-semibold tracking-[0.06em] uppercase transition-[background-color,border-color,color,transform] duration-200 ease-out outline-none focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-[0.97]",
+                  activeTab === tab.id
+                    ? "border border-primary bg-primary text-primary-foreground"
+                    : "border border-border bg-background text-muted-foreground hover:border-brand/60 hover:text-foreground"
+                )}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
 
-          {/* Search Input */}
           <div className="relative min-w-72">
-            <SearchIcon className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <SearchIcon
+              className="absolute top-1/2 left-4 size-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
             <input
-              type="text"
+              type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search practices, licenses, or keywords..."
-              className="h-10 w-full rounded-md border border-border bg-background pr-3 pl-9 text-sm text-foreground transition-colors outline-none placeholder:text-muted-foreground/60 focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/30"
+              placeholder="Search practices, licenses, or keywords…"
+              aria-label="Search practices"
+              className="h-11 w-full rounded-full border border-border bg-background pr-4 pl-11 text-sm text-foreground transition-[border-color] duration-200 outline-none placeholder:text-muted-foreground/60 focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-ring/40"
             />
           </div>
         </div>
       </div>
 
-      {/* 3 · Group A: Core Corporate Advisory Practices */}
       {corePractices.length > 0 ? (
         <section aria-labelledby="core-practices-heading">
-          <div className="mb-6 flex flex-col gap-1 border-b border-border/80 pb-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
-                Foundational Corporate Services
-              </p>
-              <h2
-                id="core-practices-heading"
-                className="text-2xl font-bold tracking-tight text-foreground"
-              >
-                Core Advisory Practices
-              </h2>
-            </div>
-            <span className="text-xs text-muted-foreground">
-              End-to-end formation, compliance, and ongoing governance
-            </span>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <GroupHeader
+            id="core-practices-heading"
+            eyebrow="Foundational Corporate Services"
+            title="Core Advisory Practices"
+            note="End-to-end formation, compliance, and ongoing governance"
+          />
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {corePractices.map((service) => (
               <ExecutivePracticeCard key={service.slug} service={service} />
             ))}
@@ -138,27 +164,15 @@ export function ServicesDirectory() {
         </section>
       ) : null}
 
-      {/* 4 · Group B: Saudi Business Licensing Pathways */}
       {licensePractices.length > 0 ? (
-        <section aria-labelledby="licenses-heading" className="mt-4">
-          <div className="mb-6 flex flex-col gap-1 border-b border-border/80 pb-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
-                Saudi Investment Law Framework
-              </p>
-              <h2
-                id="licenses-heading"
-                className="text-2xl font-bold tracking-tight text-foreground"
-              >
-                Specialized Business Licenses
-              </h2>
-            </div>
-            <span className="text-xs text-muted-foreground">
-              ISIC4 activity mapping, ministerial approvals, and permits
-            </span>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <section aria-labelledby="licenses-heading">
+          <GroupHeader
+            id="licenses-heading"
+            eyebrow="Saudi Investment Law Framework"
+            title="Specialized Business Licenses"
+            note="ISIC4 activity mapping, ministerial approvals, and permits"
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {licensePractices.map((service) => (
               <LicensePracticeCard key={service.slug} service={service} />
             ))}
@@ -166,13 +180,12 @@ export function ServicesDirectory() {
         </section>
       ) : null}
 
-      {/* Empty State */}
       {filteredServices.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border p-12 text-center">
-          <p className="text-base font-semibold text-foreground">
-            No practices found matching "{searchQuery}"
+        <div className="rounded-2xl border border-dashed border-border p-12 text-center">
+          <p className="text-lg font-semibold text-foreground">
+            No practices found matching &ldquo;{searchQuery}&rdquo;
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-1 text-muted-foreground">
             Try clearing your search query or selecting a different category
             tab.
           </p>
@@ -182,359 +195,184 @@ export function ServicesDirectory() {
               setSearchQuery("")
               setActiveTab("all")
             }}
-            className="mt-4 inline-flex h-9 items-center rounded-md bg-brand px-4 text-xs font-semibold text-primary-deep hover:bg-brand/90"
+            className={ctaClassName({
+              variant: "outline",
+              size: "sm",
+              className: "mt-5",
+            })}
           >
             Reset Filters
           </button>
         </div>
       ) : null}
 
-      {/* 5 · "Find Your Route" Decision Matrix */}
+      {/* Market entry navigator */}
       <div className="rounded-2xl border border-border/80 bg-background-alt p-8 sm:p-10">
         <div className="max-w-2xl">
-          <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
+          <p className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
             Market Entry Navigator
           </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-foreground md:text-4xl">
             What is your primary commercial objective?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-3 leading-relaxed text-muted-foreground">
             Select your strategic path below to jump directly to the relevant
             licensing and advisory requirements.
           </p>
         </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Link
-            href="/services/administrative-solutions/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
-          >
-            <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
-                <Building2Icon className="size-4" />
+          {NAVIGATOR.map(({ href, icon: Icon, title, body, cta }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group flex flex-col justify-between rounded-2xl border border-border bg-background p-6 transition-[transform,border-color,box-shadow] duration-300 ease-out outline-none hover:-translate-y-1 hover:border-brand hover:shadow-[0_12px_30px_-16px_rgba(0,56,102,0.25)] focus-visible:ring-3 focus-visible:ring-ring/50"
+            >
+              <div>
+                <span className="inline-flex size-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
+                  <Icon className="size-4" aria-hidden="true" />
+                </span>
+                <h3 className="mt-4 text-base font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                  {title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                  {body}
+                </p>
               </div>
-              <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
-                Establishing a New Saudi Entity
-              </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                100% foreign-owned LLC, branch, or representative office
-                registration with MISA.
-              </p>
-            </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
-              View Business Setup →
-            </span>
-          </Link>
-
-          <Link
-            href="/services/commercial-license/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
-          >
-            <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
-                <LayersIcon className="size-4" />
-              </div>
-              <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
-                Trading, Wholesale & Retail
-              </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                Securing a commercial trading license and customs integration
-                for foreign goods.
-              </p>
-            </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
-              View Commercial License →
-            </span>
-          </Link>
-
-          <Link
-            href="/services/industrial-license/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
-          >
-            <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
-                <CompassIcon className="size-4" />
-              </div>
-              <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
-                Factory & Industrial Site
-              </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                Manufacturing permits, MODON land allocation, and raw material
-                duty exemptions.
-              </p>
-            </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
-              View Industrial License →
-            </span>
-          </Link>
-
-          <Link
-            href="/sinai-spark-india/"
-            className="group flex flex-col justify-between rounded-xl border border-border bg-background p-5 transition-all hover:-translate-y-1 hover:border-brand hover:shadow-md"
-          >
-            <div>
-              <div className="inline-flex size-9 items-center justify-center rounded-md bg-brand/15 text-brand">
-                <Globe2Icon className="size-4" />
-              </div>
-              <h3 className="mt-3 text-sm font-bold text-foreground transition-colors group-hover:text-primary">
-                Gulf-India Cross-Border Setup
-              </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
-                Online registration of Pvt Ltd, LLP, or OPC entities in India
-                for Gulf NRIs.
-              </p>
-            </div>
-            <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-brand">
-              View India Gateway →
-            </span>
-          </Link>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand">
+                {cta}
+                <ArrowRightIcon
+                  className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
 
-      {/* 6 · Advisory Lifecycle Architecture */}
-      <div className="rounded-2xl border border-border/80 bg-background p-8 shadow-sm sm:p-10">
+      {/* Lifecycle */}
+      <div className="rounded-2xl border border-border/80 bg-background p-8 sm:p-10">
         <div className="max-w-2xl">
-          <p className="text-xs font-bold tracking-[0.14em] text-brand uppercase">
+          <p className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
             Lifecycle Partnership
           </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground">
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-foreground md:text-4xl">
             How our advisory practices integrate for your long-term success
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-3 leading-relaxed text-muted-foreground">
             We eliminate handoff friction by serving as your single
             institutional partner from Day 1 formation through decades of
             operational compliance.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="relative rounded-xl border border-border bg-background-alt p-6">
-            <span className="inline-block rounded bg-primary px-2.5 py-0.5 text-[0.7rem] font-bold text-primary-foreground uppercase">
-              Stage 01
-            </span>
-            <h3 className="mt-3 font-bold text-foreground">
-              Strategy & MISA Setup
-            </h3>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Foreign equity modeling, Articles of Association drafting, and
-              investment approvals.
-            </p>
-          </div>
-
-          <div className="relative rounded-xl border border-border bg-background-alt p-6">
-            <span className="inline-block rounded bg-primary px-2.5 py-0.5 text-[0.7rem] font-bold text-primary-foreground uppercase">
-              Stage 02
-            </span>
-            <h3 className="mt-3 font-bold text-foreground">
-              Licensing & Clearances
-            </h3>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Commercial, industrial, or service license issuance aligned to
-              official ISIC activities.
-            </p>
-          </div>
-
-          <div className="relative rounded-xl border border-border bg-background-alt p-6">
-            <span className="inline-block rounded bg-primary px-2.5 py-0.5 text-[0.7rem] font-bold text-primary-foreground uppercase">
-              Stage 03
-            </span>
-            <h3 className="mt-3 font-bold text-foreground">
-              Workforce & Legal Governance
-            </h3>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              Qiwa quotas, executive residency (Iqamas), bilingual commercial
-              contracts, and banking.
-            </p>
-          </div>
-
-          <div className="relative rounded-xl border border-border bg-background-alt p-6">
-            <span className="inline-block rounded bg-primary px-2.5 py-0.5 text-[0.7rem] font-bold text-primary-foreground uppercase">
-              Stage 04
-            </span>
-            <h3 className="mt-3 font-bold text-foreground">
-              Statutory Upkeep & Facilities
-            </h3>
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-              ZATCA tax filing, annual license renewals, audit compliance, and
-              corporate office leasing.
-            </p>
-          </div>
-        </div>
+        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {LIFECYCLE.map((stage, index) => (
+            <li
+              key={stage.title}
+              className="rounded-2xl border border-border bg-background-alt p-6"
+            >
+              <span className="inline-flex rounded-full bg-primary px-2.5 py-1 text-[0.7rem] font-bold tracking-[0.1em] text-primary-foreground uppercase tabular-nums">
+                Stage {(index + 1).toString().padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 text-base font-semibold tracking-tight text-foreground">
+                {stage.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {stage.body}
+              </p>
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   )
 }
 
-/** Flagship Spotlight Card for Business Setup in Saudi Arabia */
-function FlagshipSpotlightCard({ service }: { service: ServiceContent }) {
-  const asset = service.imageKey ? IMAGES[service.imageKey] : null
-
+function GroupHeader({
+  id,
+  eyebrow,
+  title,
+  note,
+}: {
+  id: string
+  eyebrow: string
+  title: string
+  note: string
+}) {
   return (
-    <article className="group relative overflow-hidden rounded-2xl border-2 border-primary/20 bg-background shadow-md transition-shadow hover:shadow-xl lg:grid lg:grid-cols-[5fr_7fr]">
-      {/* Left visual column */}
-      <div className="relative min-h-72 overflow-hidden bg-primary lg:min-h-full">
-        {asset ? (
-          <Image
-            src={asset.src}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 42vw, 100vw"
-            quality={85}
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            style={asset.focal ? { objectPosition: asset.focal } : undefined}
-          />
-        ) : null}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/95 via-primary/40 to-transparent lg:bg-gradient-to-r" />
-
-        <div className="absolute top-5 left-5 flex flex-wrap gap-2">
-          <span className="inline-flex items-center gap-1.5 rounded bg-brand px-3 py-1 text-xs font-bold tracking-wider text-primary-deep uppercase shadow-sm">
-            <SparklesIcon className="size-3.5" />
-            Flagship Corporate Practice
-          </span>
-          <span className="rounded bg-primary-deep/80 px-2.5 py-1 text-xs text-primary-foreground/90 backdrop-blur-sm">
-            Saudi Arabia
-          </span>
-        </div>
-
-        <div className="absolute right-5 bottom-5 left-5 text-white">
-          <p className="text-xs font-medium text-white/80">
-            Primary Advisory Track
-          </p>
-          <p className="text-sm font-bold text-white">
-            Ministry of Investment (MISA) & MoC Commercial Registration
-          </p>
-        </div>
+    <div className="mb-7 flex flex-col gap-2 border-b border-border/80 pb-5 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
+          {eyebrow}
+        </p>
+        <h2
+          id={id}
+          className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-foreground md:text-3xl"
+        >
+          {title}
+        </h2>
       </div>
-
-      {/* Right narrative content */}
-      <div className="flex flex-col justify-between p-7 sm:p-9 lg:p-10">
-        <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge variant="default" className="text-xs">
-              Company Formation
-            </Badge>
-            <Badge
-              variant="outline"
-              className="border-brand text-xs text-brand"
-            >
-              Dispute Support Scoped
-            </Badge>
-            <span className="text-xs font-medium text-muted-foreground">
-              · 100% Foreign Ownership Permitted
-            </span>
-          </div>
-
-          <h2 className="mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {service.title}
-          </h2>
-
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            {service.tagline} We handle the complete legal, ministerial, and
-            operational formation for foreign enterprises entering the Kingdom
-            under the updated Saudi Investment Law.
-          </p>
-
-          {/* Key Deliverables Matrix */}
-          <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
-            {service.bullets.slice(0, 4).map((bullet) => (
-              <div
-                key={bullet}
-                className="flex items-start gap-2 text-xs text-foreground/90"
-              >
-                <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 text-brand" />
-                <span>{bullet}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Assurances tags */}
-          <div className="mt-6 flex flex-wrap gap-2 border-t border-border/60 pt-4">
-            {service.assurances.map((item) => (
-              <span
-                key={item}
-                className="inline-flex items-center gap-1 rounded bg-background-alt px-2.5 py-1 text-xs font-semibold text-muted-foreground"
-              >
-                <ShieldCheckIcon className="size-3.5 text-brand" />
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center gap-3 border-t border-border pt-4">
-          <Link
-            href={`/services/${service.slug}/`}
-            className="inline-flex h-11 items-center gap-2 rounded-md bg-brand px-6 text-xs font-bold text-primary-deep shadow-sm transition-all hover:-translate-y-px hover:bg-brand/90"
-          >
-            Explore Business Setup Practice
-            <ArrowRightIcon className="size-4" />
-          </Link>
-          <Link
-            href="/contact/"
-            className="inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-5 text-xs font-semibold text-foreground transition-colors hover:border-brand hover:text-primary"
-          >
-            Speak with Setup Director
-          </Link>
-        </div>
-      </div>
-    </article>
+      <span className="text-sm text-muted-foreground">{note}</span>
+    </div>
   )
 }
 
-/** Executive Practice Card for Core Advisory Services */
-function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
-  const getIcon = (slug: string) => {
-    switch (slug) {
-      case "legal-services":
-        return <ScaleIcon className="size-5 text-brand" />
-      case "pro-visa-services":
-        return <UsersIcon className="size-5 text-brand" />
-      case "compliance":
-        return <FileCheckIcon className="size-5 text-brand" />
-      case "property-management":
-        return <Building2Icon className="size-5 text-brand" />
-      default:
-        return <LayersIcon className="size-5 text-brand" />
-    }
+const CARD_CLASS =
+  "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border bg-background p-6 transition-[transform,border-color,box-shadow] duration-300 ease-out outline-none hover:-translate-y-1 hover:border-brand hover:shadow-[0_12px_30px_-16px_rgba(0,56,102,0.25)] focus-visible:ring-3 focus-visible:ring-ring/50"
+
+function practiceIcon(slug: string) {
+  switch (slug) {
+    case "legal-services":
+      return ScaleIcon
+    case "pro-visa-services":
+      return UsersIcon
+    case "compliance":
+      return FileCheckIcon
+    case "property-management":
+      return Building2Icon
+    default:
+      return LayersIcon
   }
+}
+
+function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
+  const Icon = practiceIcon(service.slug)
 
   return (
-    <Link
-      href={`/services/${service.slug}/`}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-lg"
-    >
+    <Link href={`/services/${service.slug}/`} className={CARD_CLASS}>
       <div>
         <div className="flex items-center justify-between gap-2">
-          <div className="inline-flex size-10 items-center justify-center rounded-lg bg-brand/15">
-            {getIcon(service.slug)}
-          </div>
-          <span className="text-xs font-semibold text-muted-foreground">
+          <span className="inline-flex size-11 items-center justify-center rounded-xl bg-brand-soft text-brand">
+            <Icon className="size-5" aria-hidden="true" />
+          </span>
+          <span className="text-xs font-medium text-muted-foreground">
             {service.jurisdictions[0]?.split("(")[0]}
           </span>
         </div>
 
-        <div className="mt-4 block outline-none">
-          <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
-            {service.title}
-          </h3>
-        </div>
-
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+        <h3 className="mt-5 text-xl font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+          {service.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {service.tagline}
         </p>
 
-        {/* Deliverables */}
         <div className="mt-5 border-t border-border/60 pt-4">
-          <p className="text-[0.68rem] font-bold tracking-wider text-muted-foreground uppercase">
+          <p className="text-[0.68rem] font-semibold tracking-[0.12em] text-muted-foreground uppercase">
             Mandate Deliverables
           </p>
           <ul className="mt-2.5 flex flex-col gap-2">
             {service.bullets.slice(0, 3).map((bullet) => (
               <li
                 key={bullet}
-                className="flex items-start gap-2 text-xs text-foreground/90"
+                className="flex items-start gap-2 text-sm text-foreground/90"
               >
-                <CheckCircle2Icon className="mt-0.5 size-3.5 shrink-0 text-brand" />
+                <CheckCircle2Icon
+                  className="mt-0.5 size-4 shrink-0 text-brand"
+                  aria-hidden="true"
+                />
                 <span className="line-clamp-2">{bullet}</span>
               </li>
             ))}
@@ -546,65 +384,61 @@ function ExecutivePracticeCard({ service }: { service: ServiceContent }) {
         <span className="text-xs font-medium text-muted-foreground">
           {service.assurances[0] || "Full Compliance"}
         </span>
-        <div className="inline-flex items-center gap-1 text-xs font-bold text-brand transition-colors hover:text-brand">
+        <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
           View Practice
-          <ArrowRightIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-        </div>
+          <ArrowRightIcon
+            className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </span>
       </div>
     </Link>
   )
 }
 
-/** License Practice Card for Saudi Licensing Pathways */
 function LicensePracticeCard({ service }: { service: ServiceContent }) {
   return (
-    <Link
-      href={`/services/${service.slug}/`}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-lg"
-    >
+    <Link href={`/services/${service.slug}/`} className={CARD_CLASS}>
       <div>
         <div className="flex items-center justify-between gap-2">
-          <Badge
-            variant="outline"
-            className="border-border text-[0.7rem] font-bold"
-          >
+          <Badge variant="outline" className="font-semibold">
             Saudi License
           </Badge>
-          <span className="text-[0.7rem] font-medium text-brand">
-            ISIC4 Mapped
-          </span>
+          <span className="text-xs font-medium text-brand">ISIC4 Mapped</span>
         </div>
 
-        <div className="mt-3.5 block outline-none">
-          <h3 className="text-base font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
-            {service.title}
-          </h3>
-        </div>
-
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+        <h3 className="mt-4 text-lg font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+          {service.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {service.tagline}
         </p>
 
-        {/* Assurances tags */}
         <div className="mt-4 flex flex-wrap gap-1.5">
           {service.assurances.slice(0, 2).map((item) => (
             <span
               key={item}
-              className="inline-flex items-center gap-1 rounded bg-background-alt px-2 py-0.5 text-[0.68rem] font-medium text-muted-foreground"
+              className="inline-flex items-center gap-1 rounded-full bg-background-alt px-2.5 py-1 text-[0.7rem] font-medium text-muted-foreground"
             >
-              <ShieldCheckIcon className="size-3 text-brand" />
+              <ShieldCheckIcon
+                className="size-3 text-brand"
+                aria-hidden="true"
+              />
               {item}
             </span>
           ))}
         </div>
       </div>
 
-      <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-3.5">
+      <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-4">
         <span className="text-xs text-muted-foreground">MISA Approved</span>
-        <div className="inline-flex items-center gap-1 text-xs font-bold text-foreground transition-colors group-hover:text-brand">
+        <span className="inline-flex items-center gap-1 text-sm font-semibold text-foreground transition-colors group-hover:text-brand">
           Details
-          <ArrowRightIcon className="size-3 transition-transform duration-200 group-hover:translate-x-1" />
-        </div>
+          <ArrowRightIcon
+            className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </span>
       </div>
     </Link>
   )

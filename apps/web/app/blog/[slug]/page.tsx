@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { CtaLink } from "@/components/site/cta-link"
+
 interface Props {
   params: Promise<{ slug: string }>
 }
@@ -21,14 +23,17 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <section className="bg-background">
-      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-semibold tracking-tight">
+      <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 md:py-32 lg:px-8">
+        <h1 className="text-4xl font-semibold tracking-[-0.03em] md:text-5xl">
           Article coming soon
         </h1>
-        <p className="mx-auto mt-3 max-w-md leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-4 max-w-md text-lg leading-relaxed text-muted-foreground">
           This article has not been published yet. Browse the blog for the
           latest regulatory updates.
         </p>
+        <CtaLink href="/blog/" variant="outline" arrow className="mt-8">
+          Back to the blog
+        </CtaLink>
       </div>
     </section>
   )

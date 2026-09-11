@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { notFound } from "next/navigation"
+import { FileTextIcon } from "lucide-react"
 
 import { REPORTS } from "@/lib/content/research"
-import { Breadcrumbs } from "@/components/site/breadcrumbs"
+import { PageHeader } from "@/components/site/page-header"
 import { Badge } from "@workspace/ui/components/badge"
 import { CTASection } from "@/components/site/cta-section"
 
@@ -33,29 +33,28 @@ export default async function ReportPage({ params }: Props) {
 
   return (
     <>
-      <div className="bg-background-alt">
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <Breadcrumbs pathname={`/research/${report.slug}/`} />
-        </div>
-        <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <div className="flex items-center gap-2">
-            <Badge variant="mist">{report.market}</Badge>
-            <Badge variant="outline">{report.topic}</Badge>
-          </div>
-          <h1 className="mt-4 text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl">
-            {report.title}
-          </h1>
-          <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-            {report.summary}
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        pathname={`/research/${report.slug}/`}
+        eyebrow="Research report"
+        title={report.title}
+        lede={report.summary}
+      >
+        <Badge variant="mist">{report.market}</Badge>
+        <Badge variant="outline">{report.topic}</Badge>
+        <span className="text-sm text-muted-foreground">{report.readTime}</span>
+      </PageHeader>
 
       <section className="bg-background">
-        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
           {/* Report body arrives with the first real publication (CMS, Phase 5). */}
-          <div className="rounded-lg border border-dashed p-10 text-center text-sm leading-relaxed text-muted-foreground">
-            Full publication text will appear here once this report is released.
+          <div className="flex flex-col items-center rounded-2xl border border-dashed border-border p-12 text-center">
+            <span className="inline-flex size-12 items-center justify-center rounded-full bg-brand-soft text-brand">
+              <FileTextIcon className="size-5" aria-hidden="true" />
+            </span>
+            <p className="mt-5 leading-relaxed text-muted-foreground">
+              Full publication text will appear here once this report is
+              released.
+            </p>
           </div>
         </div>
       </section>

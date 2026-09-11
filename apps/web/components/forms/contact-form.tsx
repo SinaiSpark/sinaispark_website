@@ -4,7 +4,7 @@ import { useState } from "react"
 
 import { contactFormSchema, SERVICE_OPTIONS } from "@/lib/contact-schema"
 import { SITE } from "@/lib/site-config"
-import { Button } from "@workspace/ui/components/button"
+import { ctaClassName } from "@/components/site/cta-link"
 import { Input } from "@workspace/ui/components/input"
 import {
   Select,
@@ -204,12 +204,16 @@ export function ContactForm() {
         />
       </FieldWrap>
 
-      <Button
+      <button
         type="submit"
-        className="h-11 w-full rounded-md text-sm sm:w-auto sm:px-8"
+        className={ctaClassName({
+          variant: "primary",
+          size: "lg",
+          className: "w-full sm:w-auto",
+        })}
       >
         Request Free Consultation
-      </Button>
+      </button>
       <p className="text-xs leading-relaxed text-muted-foreground">
         Submitting opens your email app with your message pre-filled — or reach
         us directly on WhatsApp for the fastest response.

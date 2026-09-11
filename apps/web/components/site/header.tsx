@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { ChevronDownIcon, MenuIcon } from "lucide-react"
 
 import { CTA_LABEL, NAV_LINKS, SERVICE_GROUPS } from "@/lib/site-config"
+import { ctaClassName } from "@/components/site/cta-link"
 import { LogoLockup } from "@/components/site/logo"
 import { Sheet, SheetContent } from "@workspace/ui/components/sheet"
 import { cn } from "@workspace/ui/lib/utils"
@@ -104,7 +105,10 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/contact/"
-            className="hidden h-11 items-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition-all duration-200 outline-none hover:-translate-y-px hover:bg-primary-deep focus-visible:ring-3 focus-visible:ring-ring/50 sm:inline-flex"
+            className={ctaClassName({
+              variant: "primary",
+              className: "hidden sm:inline-flex",
+            })}
           >
             {CTA_LABEL}
           </Link>
@@ -171,7 +175,10 @@ function MobileNav({
           <Link
             href="/contact/"
             onClick={() => onOpenChange(false)}
-            className="mt-6 inline-flex h-11 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground"
+            className={ctaClassName({
+              variant: "primary",
+              className: "mt-6 w-full",
+            })}
           >
             {CTA_LABEL}
           </Link>

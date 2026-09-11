@@ -7,11 +7,14 @@ import { ChevronDownIcon } from "lucide-react"
 
 import type { ImageAsset } from "@/lib/images"
 import { heroStagger, heroItem } from "@/lib/transitions"
+import { Breadcrumbs } from "@/components/site/breadcrumbs"
 import { cn } from "@workspace/ui/lib/utils"
 
 type ImageHeroProps = {
   asset?: ImageAsset | null
   assets?: ImageAsset[]
+  /** Renders a navy-tone breadcrumb trail above the headline. */
+  breadcrumbPath?: string
   eyebrow?: string
   title: string
   subtitle?: string
@@ -38,6 +41,7 @@ const DWELL_MS = 6500
 export function ImageHero({
   asset,
   assets,
+  breadcrumbPath,
   eyebrow,
   title,
   subtitle,
@@ -113,9 +117,16 @@ export function ImageHero({
       <div
         className={cn(
           "relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8",
-          isFull ? "py-20 md:py-28" : "py-14 md:py-20"
+          isFull ? "py-20 md:py-28" : "py-12 md:py-16"
         )}
       >
+        {breadcrumbPath ? (
+          <Breadcrumbs
+            pathname={breadcrumbPath}
+            tone="navy"
+            className="mb-8 md:mb-10"
+          />
+        ) : null}
         <motion.div
           variants={heroStagger}
           initial="hidden"

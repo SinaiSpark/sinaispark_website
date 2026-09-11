@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { CheckIcon } from "lucide-react"
 
 import { INDIA } from "@/lib/content/india"
 import { IMAGES } from "@/lib/images"
+import { SITE } from "@/lib/site-config"
 import { JsonLd } from "@/components/site/jsonld"
 import { ImageHero } from "@/components/site/image-hero"
+import { CtaLink } from "@/components/site/cta-link"
 import { CTASection } from "@/components/site/cta-section"
 import { SectionHeading } from "@/components/site/section-heading"
 import {
@@ -52,18 +53,17 @@ export default function IndiaLandingPage() {
         subtitle={INDIA.hero.subheadline}
         priority
       >
-        <Link
-          href={INDIA.hero.primaryCta.href}
-          className="inline-flex h-11 items-center rounded-md bg-brand px-6 text-sm font-semibold text-primary-deep transition-all outline-none hover:-translate-y-px hover:bg-brand/90 focus-visible:ring-3 focus-visible:ring-ring/50"
-        >
+        <CtaLink href={INDIA.hero.primaryCta.href} variant="brand" size="lg">
           {INDIA.hero.primaryCta.label}
-        </Link>
-        <Link
+        </CtaLink>
+        <CtaLink
           href={INDIA.hero.secondaryCta.href}
-          className="inline-flex h-11 items-center rounded-md border border-primary-foreground/40 px-6 text-sm text-primary-foreground transition-colors outline-none hover:border-brand hover:text-brand focus-visible:ring-3 focus-visible:ring-ring/50"
+          variant="secondary"
+          size="lg"
+          arrow
         >
           {INDIA.hero.secondaryCta.label}
-        </Link>
+        </CtaLink>
         <div className="flex w-full flex-wrap gap-2 pt-2">
           {INDIA.hero.trustStrip.map((item) => (
             <span
@@ -82,7 +82,7 @@ export default function IndiaLandingPage() {
           <SectionHeading eyebrow="Audience" title={INDIA.audiences.title} />
           <Reveal
             stagger
-            className="mt-8 grid gap-px overflow-hidden rounded-lg border md:grid-cols-2 lg:grid-cols-3"
+            className="mt-8 grid gap-px overflow-hidden rounded-2xl border md:grid-cols-2 lg:grid-cols-3"
           >
             {INDIA.audiences.items.map((item, index) => (
               <p
@@ -102,7 +102,7 @@ export default function IndiaLandingPage() {
           <SectionHeading eyebrow="Structures" title={INDIA.structures.title} />
           <Reveal delay={0.05}>
             {/* Table on md+, stacked cards below (§16). */}
-            <div className="mt-8 hidden overflow-hidden rounded-lg border md:block">
+            <div className="mt-8 hidden overflow-hidden rounded-2xl border md:block">
               <table className="w-full text-left text-sm">
                 <thead className="bg-muted/70">
                   <tr>
@@ -139,7 +139,7 @@ export default function IndiaLandingPage() {
               {INDIA.structures.rows.map((row) => (
                 <div
                   key={row.structure}
-                  className="rounded-lg border bg-background p-4"
+                  className="rounded-2xl border bg-background p-4"
                 >
                   <p className="font-medium">
                     {row.structure}
@@ -174,7 +174,7 @@ export default function IndiaLandingPage() {
         >
           <div>
             <SectionHeading eyebrow="Services" title="Our India Services" />
-            <ul className="mt-6 flex flex-col divide-y divide-border rounded-lg border">
+            <ul className="mt-6 flex flex-col divide-y divide-border rounded-2xl border">
               {INDIA.servicesList.map((item) => (
                 <li
                   key={item}
@@ -250,7 +250,7 @@ export default function IndiaLandingPage() {
             </AlertDescription>
           </Alert>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 lg:grid-cols-3">
             {INDIA.whyUs.map((point) => (
               <p
                 key={point}
@@ -275,14 +275,14 @@ export default function IndiaLandingPage() {
             {INDIA.pricing.packages.map((pkg) => (
               <article
                 key={pkg.name}
-                className={`relative flex flex-col rounded-lg border p-6 ${
+                className={`relative flex flex-col rounded-2xl border p-6 ${
                   pkg.popular
                     ? "border-brand ring-2 ring-brand/30"
                     : "border-border"
                 }`}
               >
                 {pkg.popular ? (
-                  <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-[0.65rem] font-semibold tracking-wide text-primary-deep uppercase">
+                  <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-[0.65rem] font-semibold tracking-wide text-brand-foreground uppercase">
                     Most popular
                   </span>
                 ) : null}
@@ -312,16 +312,13 @@ export default function IndiaLandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
+                <CtaLink
                   href="/contact/"
-                  className={`mt-6 inline-flex h-11 items-center justify-center rounded-md px-5 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
-                    pkg.popular
-                      ? "bg-primary text-primary-foreground hover:bg-primary-deep"
-                      : "border border-border hover:border-brand/60 hover:text-primary"
-                  }`}
+                  variant={pkg.popular ? "primary" : "outline"}
+                  className="mt-6 w-full"
                 >
                   Start with {pkg.name}
-                </Link>
+                </CtaLink>
               </article>
             ))}
           </Reveal>
@@ -380,12 +377,12 @@ export default function IndiaLandingPage() {
               </span>
             ))}
             <a
-              href={`https://wa.me/${"966510013160"}?text=${encodeURIComponent(
+              href={`https://wa.me/${SITE.whatsappNumber}?text=${encodeURIComponent(
                 "Hello Sinai Spark Global India, I want to register my Indian company."
               )}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-10 items-center rounded-md bg-[#25D366] px-5 text-sm font-medium text-white transition-transform outline-none hover:-translate-y-px focus-visible:ring-3 focus-visible:ring-brand/50"
+              className="inline-flex h-11 items-center rounded-full bg-[#25D366] px-6 text-sm font-semibold text-white transition-[transform,background-color] duration-200 ease-out outline-none hover:bg-[#1fbf5b] focus-visible:ring-3 focus-visible:ring-brand/50 active:scale-[0.97]"
             >
               Chat on WhatsApp
             </a>

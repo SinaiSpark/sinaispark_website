@@ -62,7 +62,7 @@ export function WhatsAppButton({ className, message }: WhatsAppButtonProps) {
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
       className={cn(
-        "fixed right-4 bottom-4 z-40 inline-flex size-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:right-6 md:bottom-6",
+        "fixed right-4 bottom-4 z-40 inline-flex size-13 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-[transform,opacity] duration-300 ease-out outline-none hover:scale-105 focus-visible:ring-3 focus-visible:ring-ring/50 active:scale-95 md:right-6 md:bottom-6",
         visible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0",

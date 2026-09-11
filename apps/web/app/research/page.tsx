@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import { MailIcon } from "lucide-react"
 
-import { Breadcrumbs } from "@/components/site/breadcrumbs"
+import { IMAGES } from "@/lib/images"
+import { ImageHero } from "@/components/site/image-hero"
+import { ctaClassName } from "@/components/site/cta-link"
 import { ReportCatalog } from "@/components/research/report-catalog"
 
 export const metadata: Metadata = {
@@ -14,36 +16,31 @@ export const metadata: Metadata = {
 export default function ResearchPage() {
   return (
     <>
-      <div className="bg-background-alt">
-        <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-          <Breadcrumbs pathname="/research/" />
-        </div>
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-14 lg:px-8">
-          <p className="mb-2 text-xs font-semibold tracking-[0.14em] text-brand uppercase">
-            Research
-          </p>
-          <h1 className="max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-balance md:text-4xl">
-            Original research and market insight
-          </h1>
-          <p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">
-            Deeper, longer shelf life content: annual market entry reports,
-            licensing trend analysis and survey based insight pieces — distinct
-            from our regular blog updates.
-          </p>
-        </div>
-      </div>
+      <ImageHero
+        asset={IMAGES.serviceCompliance}
+        size="compact"
+        breadcrumbPath="/research/"
+        eyebrow="Research"
+        title="Original research and market insight"
+        subtitle="Deeper, longer shelf life content: annual market entry reports, licensing trend analysis and survey based insight pieces — distinct from our regular blog updates."
+        priority
+      />
 
       <section aria-label="Report catalog" className="bg-background">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-16 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-20 lg:px-8">
           <ReportCatalog />
 
           {/* Newsletter capture — provider TBD (plan §9 open item #3). */}
           <aside
             aria-labelledby="newsletter-title"
             data-surface="navy"
-            className="mt-14 rounded-lg bg-primary p-8 md:p-10"
+            className="relative mt-16 overflow-hidden rounded-2xl bg-primary p-8 md:p-10"
           >
-            <div className="flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-16 -right-10 size-72 bg-[url(/brand/mark-white.svg)] bg-contain bg-no-repeat opacity-[0.06]"
+            />
+            <div className="relative flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-4">
                 <span
                   aria-hidden="true"
@@ -54,11 +51,11 @@ export default function ResearchPage() {
                 <div>
                   <h2
                     id="newsletter-title"
-                    className="text-xl font-semibold tracking-tight text-primary-foreground"
+                    className="text-2xl font-semibold tracking-tight text-primary-foreground"
                   >
                     Get new research first
                   </h2>
-                  <p className="mt-1 max-w-md text-sm leading-relaxed text-primary-foreground/75">
+                  <p className="mt-1 max-w-md leading-relaxed text-primary-foreground/75">
                     One email when we publish a new report or major insight. No
                     noise.
                   </p>
@@ -68,20 +65,26 @@ export default function ResearchPage() {
               <form
                 action="/contact/"
                 method="get"
-                className="flex w-full max-w-sm gap-2"
+                className="flex w-full max-w-md gap-2"
                 aria-label="Subscribe to research updates via contact page"
               >
-                <span className="sr-only">Email address</span>
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Email address
+                </label>
                 <input
+                  id="newsletter-email"
                   type="email"
                   name="email"
                   required
                   placeholder="you@company.com"
-                  className="h-11 w-full rounded-md border border-primary-foreground/25 bg-transparent px-3 text-sm text-primary-foreground outline-none placeholder:text-primary-foreground/50 focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/40"
+                  className="h-11 w-full rounded-full border border-primary-foreground/25 bg-white/[0.06] px-5 text-sm text-primary-foreground backdrop-blur-sm transition-[border-color,background-color] duration-200 outline-none placeholder:text-primary-foreground/50 focus-visible:border-brand focus-visible:bg-white/[0.1] focus-visible:ring-3 focus-visible:ring-brand/40"
                 />
                 <button
                   type="submit"
-                  className="h-11 shrink-0 rounded-md bg-brand px-5 text-sm font-semibold text-primary-deep transition-colors outline-none hover:bg-brand/90 focus-visible:ring-3 focus-visible:ring-brand/50"
+                  className={ctaClassName({
+                    variant: "brand",
+                    className: "shrink-0",
+                  })}
                 >
                   Notify me
                 </button>
