@@ -3,12 +3,15 @@ import { Geist, Geist_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 
-import { MotionProvider } from "@/components/motion/motion-provider"
-import { SiteFooter } from "@/components/site/footer"
-import { SiteHeader } from "@/components/site/header"
-import { WhatsAppButton } from "@/components/site/whatsapp-button"
 import { SITE } from "@/lib/site-config"
 import { cn } from "@workspace/ui/lib/utils"
+
+/**
+ * Neutral root layout. The previous shell (header, footer, motion provider,
+ * WhatsApp button) belonged to the superseded design and was removed; the
+ * rebuild supplies its own chrome. Fonts stay wired so the design tokens in
+ * globals.css resolve.
+ */
 
 const geist = Geist({
   subsets: ["latin"],
@@ -40,12 +43,7 @@ export default function RootLayout({
       className={cn("antialiased", fontMono.variable, geist.variable)}
     >
       <body className="flex min-h-svh flex-col overflow-x-hidden">
-        <MotionProvider>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-          <WhatsAppButton />
-        </MotionProvider>
+        <main className="flex-1">{children}</main>
       </body>
     </html>
   )
