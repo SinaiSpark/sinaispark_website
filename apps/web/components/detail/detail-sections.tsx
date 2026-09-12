@@ -11,6 +11,7 @@ import {
   SLUG_IMAGE,
 } from "@/content/pages"
 import type { ServiceContent } from "@/content/services"
+import { cx } from "@/lib/cx"
 
 /**
  * The sections that make up a per-service or per-licence page: overview,
@@ -43,7 +44,7 @@ export function Overview({
             </b>
             <div className="svc-ph">
               <img src={SLUG_IMAGE[service.slug]} alt="" />
-              <span className={`tag${isLicence ? "" : "is-flag"}`}>
+              <span className={cx("tag", !isLicence && "is-flag")}>
                 {crumb}
               </span>
             </div>
@@ -250,7 +251,7 @@ export function WhereWeDeliver({ service }: { service: ServiceContent }) {
           </Link>
         </div>
 
-        <div className={`reg-row${places.length > 3 ? "many" : ""}`}>
+        <div className={cx("reg-row", places.length > 3 && "many")}>
           {places.map((place) => (
             <SmartLink className="region" href="/#regions" key={place.name}>
               <img src={place.image} alt="" />

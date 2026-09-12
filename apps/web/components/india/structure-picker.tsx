@@ -7,6 +7,7 @@ import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { INDIA } from "@/content/india"
 import { INDIA_PAGE } from "@/content/india-page"
+import { cx } from "@/lib/cx"
 
 /**
  * "Choosing a structure" — the same chip-and-panel pattern as the licence
@@ -88,7 +89,7 @@ export function StructurePicker() {
           <div className="chips" id="schips" data-reveal>
             {rows.map((row, i) => (
               <button
-                className={`chip${running && i === index ? "is-auto" : ""}`}
+                className={cx("chip", running && i === index && "is-auto")}
                 type="button"
                 key={row.structure}
                 aria-pressed={i === index}
@@ -110,7 +111,7 @@ export function StructurePicker() {
 
         <div className="finder-panel" data-reveal ref={panelRef}>
           <div
-            className={`finder-body${switching ? "is-switching" : ""}`}
+            className={cx("finder-body", switching && "is-switching")}
             id="sbody"
           >
             <span className="finder-k">

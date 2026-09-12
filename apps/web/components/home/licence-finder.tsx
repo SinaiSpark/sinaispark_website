@@ -7,6 +7,7 @@ import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { FINDER } from "@/content/licence-finder"
 import { ROUTES } from "@/content/site"
+import { cx } from "@/lib/cx"
 
 /**
  * Licence finder.
@@ -97,7 +98,7 @@ export function LicenceFinder({
 
   return (
     <section
-      className={`finder ${className}`.trim()}
+      className={cx("finder", className)}
       id="finder"
       data-surface="light"
       style={style}
@@ -122,7 +123,7 @@ export function LicenceFinder({
           >
             {FINDER.options.map((option, i) => (
               <button
-                className={`chip${running && i === index ? "is-auto" : ""}`}
+                className={cx("chip", running && i === index && "is-auto")}
                 type="button"
                 key={option.id}
                 aria-pressed={i === index}
@@ -143,7 +144,7 @@ export function LicenceFinder({
 
         <div className="finder-panel" data-reveal ref={panelRef}>
           <div
-            className={`finder-body${switching ? "is-switching" : ""}`}
+            className={cx("finder-body", switching && "is-switching")}
             id="finderBody"
           >
             <span className="finder-k">{current.kicker}</span>

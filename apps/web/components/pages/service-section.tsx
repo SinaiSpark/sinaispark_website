@@ -5,6 +5,7 @@ import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import type { ServiceContent } from "@/content/services"
 import { DETAIL_PAGE, SERVICES_PAGE, SLUG_IMAGE } from "@/content/pages"
+import { cx } from "@/lib/cx"
 
 /**
  * One service or licence, rendered in full on a hub page.
@@ -44,7 +45,7 @@ export function ServiceSection({
             </b>
             <div className="svc-ph">
               <img src={SLUG_IMAGE[service.slug]} alt="" />
-              <span className={`tag${flag ? "is-flag" : ""}`}>{crumb}</span>
+              <span className={cx("tag", flag && "is-flag")}>{crumb}</span>
             </div>
           </div>
 

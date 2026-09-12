@@ -4,6 +4,7 @@ import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { INDIA } from "@/content/india"
 import { INDIA_PAGE } from "@/content/india-page"
+import { cx } from "@/lib/cx"
 
 /**
  * The India landing page's own sections. The copy is the client's, supplied
@@ -299,7 +300,7 @@ export function IndiaWhy() {
         <div className="wy-grid">
           {INDIA.whyUs.map((item, i) => (
             <div
-              className={`wy-tile${i === why.featureIndex ? "is-dark" : ""}`}
+              className={cx("wy-tile", i === why.featureIndex && "is-dark")}
               key={item}
             >
               <span className="gn">{String(i + 1).padStart(2, "0")}</span>
@@ -342,10 +343,7 @@ export function IndiaPricing() {
 
         <div className="pk-grid">
           {INDIA.pricing.packages.map((pack) => (
-            <div
-              className={`pk${pack.popular ? "is-pop" : ""}`}
-              key={pack.name}
-            >
+            <div className={cx("pk", pack.popular && "is-pop")} key={pack.name}>
               {pack.popular ? (
                 <span className="pop">
                   {copy.mockBadge ? "Most popular" : ""}
@@ -373,7 +371,7 @@ export function IndiaPricing() {
                 ))}
               </ul>
               <SmartLink
-                className={`btn${pack.popular ? "" : "btn--navy"}`}
+                className={cx("btn", !pack.popular && "btn--navy")}
                 href={INDIA_PAGE.cta.primary.href}
                 data-magnetic
               >
