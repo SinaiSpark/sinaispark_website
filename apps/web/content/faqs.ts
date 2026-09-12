@@ -48,3 +48,15 @@ export const faqs: Faq[] = [
       "Yes. Sinai Spark Global is a global business setup partner with active operations across Saudi Arabia, the UAE, the UK, India and Bahrain. Saudi Arabia remains our flagship and most detailed practice.",
   },
 ]
+
+/**
+ * The home page shows a short set; the detail pages pick their own four via
+ * FAQ_PICK in content/pages.ts. Indices refer to the `faqs` array above.
+ */
+export const HOME_FAQ = {
+  eyebrow: "FAQ",
+  headline: "Questions we hear every week.",
+  lede: "Short answers here; the full set lives on the FAQ page.",
+  link: { label: "All FAQs", href: "/#consult" },
+  pick: [0, 1, 3, 4, 5],
+} as const

@@ -1,0 +1,132 @@
+/**
+ * Every inline icon the design uses, copied from its markup so stroke weights
+ * and view boxes match exactly. They inherit colour from their parent.
+ */
+
+/** Diagonal "go" arrow. The one that appears inside buttons and links. */
+export function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
+      <path d="M4 12 12 4M6 4h6v6" />
+    </svg>
+  )
+}
+
+/** Downward arrow, used by "scroll on" style buttons. */
+export function DownIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    >
+      <path d="M8 3v10M3 8l5 5 5-5" />
+    </svg>
+  )
+}
+
+/** Button arrow wrapped in its pill, the shape `.btn .arr` styles. */
+export function ButtonArrow({ down = false }: { down?: boolean }) {
+  return <span className="arr">{down ? <DownIcon /> : <ArrowIcon />}</span>
+}
+
+export function CheckIcon() {
+  return (
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+    </svg>
+  )
+}
+
+export function ChevronIcon() {
+  return (
+    <svg
+      className="chev"
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    >
+      <path d="M2.5 4.5 6 8l3.5-3.5" />
+    </svg>
+  )
+}
+
+export function LockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="4" y="10" width="16" height="11" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+    </svg>
+  )
+}
+
+export function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M6.5 8.5h-3V21h3zM5 3.5A1.75 1.75 0 1 0 5 7a1.75 1.75 0 0 0 0-3.5zM21 13.6c0-3.4-1.8-5.3-4.6-5.3-1.7 0-2.8.9-3.3 1.8V8.5h-3V21h3v-6.5c0-1.7.6-2.9 2.2-2.9 1.5 0 2 1.1 2 2.9V21h3z" />
+    </svg>
+  )
+}
+
+export function TickIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+    >
+      <path d="M5 12l5 5 9-10" />
+    </svg>
+  )
+}
+
+/** The four process-step glyphs, keyed by the `icon` field in content/home.ts. */
+const PROCESS_ICONS = {
+  chat: (
+    <>
+      <path d="M4 5h16v11H9l-5 4z" />
+      <path d="M8 9h8M8 12h5" />
+    </>
+  ),
+  check: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="3" />
+      <path d="M8 12l3 3 5-6" />
+    </>
+  ),
+  file: (
+    <>
+      <path d="M7 3h7l5 5v13H7z" />
+      <path d="M14 3v5h5M10 13h6M10 17h6" />
+    </>
+  ),
+  flag: (
+    <>
+      <path d="M5 21V4" />
+      <path d="M5 4h12l-2 4 2 4H5" />
+    </>
+  ),
+} as const
+
+export type ProcessIcon = keyof typeof PROCESS_ICONS
+
+export function ProcessIconGlyph({ name }: { name: ProcessIcon }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    >
+      {PROCESS_ICONS[name]}
+    </svg>
+  )
+}

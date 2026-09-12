@@ -1,0 +1,35 @@
+/*
+ * Global stylesheet.
+ *
+ * The five files below are the approved design's CSS, split at its own section
+ * banners. The order is the order the design concatenated them in, so cascade
+ * behaviour matches the signed-off pages exactly. Do not reorder.
+ */
+
+@import "../styles/1-tokens.css";
+@import "../styles/2-site.css";
+@import "../styles/3-inner-pages.css";
+@import "../styles/4-detail-pages.css";
+@import "../styles/5-india.css";
+
+/*
+ * The design loaded Schibsted Grotesk, Manrope and IBM Plex Mono from Google
+ * Fonts by family name. next/font self-hosts them under generated family
+ * names, so the three type tokens are re-pointed at its CSS variables here
+ * rather than editing the token file.
+ */
+:root {
+  --display: var(--font-display), "Helvetica Neue", Arial, sans-serif;
+  --body: var(--font-body), "Segoe UI", system-ui, sans-serif;
+  --mono: var(--font-mono), "SFMono-Regular", Consolas, monospace;
+}
+
+/*
+ * Motion is opt-in: sections are laid out by GSAP once it has measured the
+ * page. Anything the client scripts fade in starts hidden only when JS is
+ * running, so no-JS and pre-hydration renders stay readable.
+ */
+.js-motion [data-reveal],
+.js-motion [data-split] .wi {
+  will-change: transform, opacity;
+}
