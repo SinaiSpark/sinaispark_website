@@ -7,76 +7,131 @@
 @source "../**/*.{ts,tsx}";
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --color-background-alt: var(--background-alt);
-    --color-primary-deep: var(--primary-deep);
-    --color-gold: var(--gold);
-    --color-gold-strong: var(--gold-strong);
-    --color-gold-soft: var(--gold-soft);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+  --color-background-alt: var(--background-alt);
+  --color-primary-deep: var(--primary-deep);
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-brand-solid: var(--brand-solid);
+  --color-brand-bright: var(--brand-bright);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --font-sans: var(--font-sans);
 }
 
+/*
+ * Sinai Spark brand palette.
+ * Source of truth: Brand.pdf — navy CMYK 97/71/20/04 -> #11568D,
+ * teal CMYK 80/24/36/01 -> #16959F (sampled from the logo vectors).
+ * Every teal below shares the brand hue (203.6) and chroma (0.1004);
+ * only lightness varies, solved so each pairing clears WCAG AA.
+ */
 :root {
-    --background: oklch(1 0 0);
-    --background-alt: oklch(0.975 0.004 95);
-    --foreground: oklch(0.24 0.03 260);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.24 0.03 260);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.24 0.03 260);
-    --primary: oklch(0.28 0.06 262);
-    --primary-foreground: oklch(0.985 0.002 90);
-    --primary-deep: oklch(0.23 0.055 262);
-    --secondary: oklch(0.96 0.006 250);
-    --secondary-foreground: oklch(0.3 0.05 262);
-    --muted: oklch(0.965 0.005 250);
-    --muted-foreground: oklch(0.48 0.03 258);
-    --accent: oklch(0.955 0.02 92);
-    --accent-foreground: oklch(0.3 0.05 262);
-    --gold: oklch(0.72 0.11 82);
-    --gold-strong: oklch(0.52 0.1 78);
-    --gold-soft: oklch(0.93 0.045 90);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.92 0.008 255);
-    --input: oklch(0.92 0.008 255);
-    --ring: oklch(0.55 0.08 262);
-    --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --background-alt: oklch(0.976 0.007 203.6);
+  --foreground: oklch(0.245 0.033 248.5);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.245 0.033 248.5);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.245 0.033 248.5);
+
+  /* Brand navy */
+  --primary: oklch(0.4424 0.111 248.5);
+  --primary-foreground: oklch(0.995 0.002 203.6);
+  --primary-deep: oklch(0.335 0.098 248.5);
+
+  --secondary: oklch(0.96 0.006 248.5);
+  --secondary-foreground: oklch(0.3 0.05 248.5);
+  --muted: oklch(0.966 0.006 248.5);
+  --muted-foreground: oklch(0.49 0.028 248.5);
+  --accent: oklch(0.97 0.026 203.6);
+  --accent-foreground: oklch(0.3 0.05 248.5);
+
+  /*
+     * Brand teal scale.
+     * --brand is surface-aware: it resolves to the light-surface teal by
+     * default and flips to the bright teal inside [data-surface="navy"].
+     * Use `brand` for text and fills so contrast follows the surface;
+     * reach for `brand-solid` only when you need the literal brand teal
+     * (logo tinting, decorative rules) regardless of background.
+     */
+  --brand-strong: oklch(0.5317 0.1004 203.6); /* 4.97:1 on white */
+  --brand-solid: oklch(0.6122 0.1004 203.6); /* exact brand teal  */
+  --brand-bright: oklch(0.8236 0.1004 203.6); /* 4.59:1 on navy   */
+  --brand-soft: oklch(0.97 0.026 203.6);
+  --brand: var(--brand-strong);
+  /* Text colour to place ON a bg-brand fill; flips with the surface. */
+  --brand-foreground: var(--primary-foreground);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.009 248.5);
+  --input: oklch(0.92 0.009 248.5);
+  --ring: oklch(0.5317 0.1004 203.6);
+  --radius: 0.625rem;
+}
+
+/* Navy surfaces re-point the contextual brand token to the bright teal. */
+[data-surface="navy"] {
+  --brand: var(--brand-bright);
+  --brand-foreground: var(--primary-deep);
+  --ring: var(--brand-bright);
+}
+
+/* Hero scroll cue — a gentle bob; removed entirely under reduced motion. */
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+.animate-scroll-cue {
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-cue {
+    animation: none;
+  }
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   html {
     scroll-behavior: smooth;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
   ::selection {
-    background-color: var(--gold-soft);
+    background-color: var(--brand-soft);
     color: var(--primary-deep);
-    }
+  }
 }

@@ -1,23 +1,37 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { IBM_Plex_Mono, Manrope, Schibsted_Grotesk } from "next/font/google"
 
-import "@workspace/ui/globals.css"
+import "./globals.css"
 
-import { MotionProvider } from "@/components/motion/motion-provider"
-import { SiteFooter } from "@/components/site/footer"
-import { SiteHeader } from "@/components/site/header"
-import { WhatsAppButton } from "@/components/site/whatsapp-button"
+import { Cursor } from "@/components/chrome/loader"
+import { SiteFooter } from "@/components/chrome/site-footer"
+import { SiteNav } from "@/components/chrome/site-nav"
 import { SITE } from "@/lib/site-config"
-import { cn } from "@workspace/ui/lib/utils"
 
-const geist = Geist({
+/**
+ * Root layout: the three typefaces from the design, then the shared chrome in
+ * the design's DOM order — cursor, header, mobile sheet, main, footer.
+ */
+
+const display = Schibsted_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["500", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
 })
 
-const fontMono = Geist_Mono({
+const body = Manrope({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+})
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-mono",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -31,21 +45,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={cn("antialiased", fontMono.variable, geist.variable)}
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
     >
-      <body className="flex min-h-svh flex-col overflow-x-hidden">
-        <MotionProvider>
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-          <WhatsAppButton />
-        </MotionProvider>
+      <body>
+        <Cursor />
+        <SiteNav />
+        <main id="top">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   )

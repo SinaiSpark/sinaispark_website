@@ -1,56 +1,27 @@
 import type { MetadataRoute } from "next"
 
-import { getAllServices } from "@/lib/content/services"
-import { REPORTS } from "@/lib/content/research"
-import { NAV_LINKS, SITE } from "@/lib/site-config"
+import { CORE_SLUGS, LICENCE_SLUGS } from "@/content/pages"
+import { ROUTES } from "@/content/site"
+import { SITE } from "@/lib/site-config"
 
+/** Every route the site actually publishes, in priority order. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = SITE.url
+  const base = SITE.url.replace(/\/$/, "")
   const now = new Date()
 
-  const staticPages = [
-    "",
-    "/services/",
-    "/about-us/",
-    "/sinai-spark-india/",
-    "/research/",
-    "/blog/",
-    "/faqs/",
-    "/contact/",
-    "/privacy-policy/",
-    "/terms/",
-  ].map((path) => ({
+  const entry = (path: string, priority: number) => ({
     url: `${base}${path}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: path === "" ? 1 : 0.8,
-  }))
+    priority,
+  })
 
-  const servicePages = getAllServices().map((service) => ({
-    url: `${base}/services/${service.slug}/`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }))
-
-  const reportPages = REPORTS.map((report) => ({
-    url: `${base}/research/${report.slug}/`,
-    lastModified: new Date(report.date),
-    changeFrequency: "yearly" as const,
-    priority: 0.6,
-  }))
-
-  const countryPages = ["saudi-arabia", "uae", "uk", "bahrain"].map(
-    (country) => ({
-      url: `${base}/where-we-work/${country}/`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-    })
-  )
-
-  // Nav links are already covered by staticPages; keep the reference honest.
-  void NAV_LINKS
-
-  return [...staticPages, ...servicePages, ...reportPages, ...countryPages]
+  return [
+    entry(ROUTES.home, 1),
+    entry(ROUTES.services, 0.9),
+    entry(ROUTES.licences, 0.9),
+    entry(ROUTES.india, 0.9),
+    ...CORE_SLUGS.map((slug) => entry(ROUTES.service(slug), 0.8)),
+    ...LICENCE_SLUGS.map((slug) => entry(ROUTES.licence(slug), 0.8)),
+  ]
 }

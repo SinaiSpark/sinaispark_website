@@ -29,22 +29,28 @@ function AccordionItem({ className, ...props }: AccordionItemProps) {
   )
 }
 
-type AccordionTriggerProps = React.ComponentProps<typeof AccordionPrimitive.Trigger>
+type AccordionTriggerProps = React.ComponentProps<
+  typeof AccordionPrimitive.Trigger
+>
 
-function AccordionTrigger({ className, children, ...props }: AccordionTriggerProps) {
+function AccordionTrigger({
+  className,
+  children,
+  ...props
+}: AccordionTriggerProps) {
   return (
     <AccordionPrimitive.Header data-slot="accordion-header" className="flex">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/trigger flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium outline-none transition-colors hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50",
+          "group/trigger flex flex-1 items-start justify-between gap-4 rounded-md py-5 text-left text-base font-semibold tracking-tight transition-colors outline-none hover:text-primary focus-visible:ring-3 focus-visible:ring-ring/50 md:text-lg",
           className
         )}
         {...props}
       >
         {children}
         <ChevronDownIcon
-          className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200 group-data-panel-open/trigger:rotate-180"
+          className="pointer-events-none size-5 shrink-0 translate-y-0.5 text-brand transition-transform duration-200 ease-out group-data-panel-open/trigger:rotate-180"
           aria-hidden="true"
         />
       </AccordionPrimitive.Trigger>
@@ -52,7 +58,9 @@ function AccordionTrigger({ className, children, ...props }: AccordionTriggerPro
   )
 }
 
-type AccordionContentProps = React.ComponentProps<typeof AccordionPrimitive.Panel>
+type AccordionContentProps = React.ComponentProps<
+  typeof AccordionPrimitive.Panel
+>
 
 function AccordionContent({
   className,
@@ -62,10 +70,15 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
-      className="h-[var(--accordion-panel-height)] overflow-hidden text-sm transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0"
+      className="h-[var(--accordion-panel-height)] overflow-hidden text-base transition-[height] duration-200 ease-out data-ending-style:h-0 data-starting-style:h-0"
       {...props}
     >
-      <div className={cn("text-muted-foreground pt-0 pb-4 leading-relaxed", className)}>
+      <div
+        className={cn(
+          "pt-0 pb-5 leading-relaxed text-muted-foreground",
+          className
+        )}
+      >
         {children}
       </div>
     </AccordionPrimitive.Panel>

@@ -158,7 +158,7 @@ export const IMAGES = {
   },
   aboutDocument: {
     src: "/images/about/sinaispark-document.jpg",
-    alt: "Signing a corporate document with a gold pen",
+    alt: "Signing a corporate document with a brand pen",
     focal: "center",
     credit: "AI Generated",
     license: "Proprietary",
