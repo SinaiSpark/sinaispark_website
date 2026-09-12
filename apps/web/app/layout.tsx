@@ -1,26 +1,37 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { IBM_Plex_Mono, Manrope, Schibsted_Grotesk } from "next/font/google"
 
-import "@workspace/ui/globals.css"
+import "./globals.css"
 
+import { Cursor } from "@/components/chrome/loader"
+import { SiteFooter } from "@/components/chrome/site-footer"
+import { SiteNav } from "@/components/chrome/site-nav"
 import { SITE } from "@/lib/site-config"
-import { cn } from "@workspace/ui/lib/utils"
 
 /**
- * Neutral root layout. The previous shell (header, footer, motion provider,
- * WhatsApp button) belonged to the superseded design and was removed; the
- * rebuild supplies its own chrome. Fonts stay wired so the design tokens in
- * globals.css resolve.
+ * Root layout: the three typefaces from the design, then the shared chrome in
+ * the design's DOM order — cursor, header, mobile sheet, main, footer.
  */
 
-const geist = Geist({
+const display = Schibsted_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["500", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
 })
 
-const fontMono = Geist_Mono({
+const body = Manrope({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+})
+
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-mono",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -34,16 +45,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={cn("antialiased", fontMono.variable, geist.variable)}
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
     >
-      <body className="flex min-h-svh flex-col overflow-x-hidden">
-        <main className="flex-1">{children}</main>
+      <body>
+        <Cursor />
+        <SiteNav />
+        <main id="top">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   )
