@@ -8,6 +8,7 @@ import { ButtonArrow, ChevronIcon, ArrowIcon } from "@/components/ui/icons"
 import { Clock } from "@/components/ui/clock"
 import { SmartLink } from "@/components/ui/smart-link"
 import { BRAND, CLOCKS, MEGA, NAV, ROUTES, SHEET } from "@/content/site"
+import { cx } from "@/lib/cx"
 
 /**
  * Header and mobile sheet.
@@ -127,7 +128,7 @@ export function SiteNav() {
       </header>
 
       <nav
-        className={`nav-sheet${open ? "is-open" : ""}`}
+        className={cx("nav-sheet", open && "is-open")}
         id="sheet"
         aria-label="Mobile"
       >

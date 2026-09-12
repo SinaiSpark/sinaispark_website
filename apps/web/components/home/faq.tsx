@@ -5,6 +5,7 @@ import { useState } from "react"
 import { ArrowIcon } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
+import { cx } from "@/lib/cx"
 
 /**
  * FAQ accordion — one answer open at a time, clicking the open one closes it.
@@ -59,7 +60,7 @@ export function Faq({
             const isOpen = open === i
             return (
               <li
-                className={`faq-item${isOpen ? "is-open" : ""}`}
+                className={cx("faq-item", isOpen && "is-open")}
                 key={item.question}
               >
                 <button

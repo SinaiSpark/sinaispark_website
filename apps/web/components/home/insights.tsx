@@ -2,6 +2,7 @@ import { ButtonArrow, LockIcon } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { INSIGHTS, type Insight } from "@/content/insights"
+import { cx } from "@/lib/cx"
 
 /**
  * Research and insights: one feature card and two compact rows.
@@ -26,7 +27,7 @@ function Meta({ meta, gated }: { meta: string; gated: boolean }) {
 function Card({ item, feature }: { item: Insight; feature?: boolean }) {
   return (
     <SmartLink
-      className={`ins ins--${feature ? "feat" : "row"}`}
+      className={cx("ins", feature ? "ins--feat" : "ins--row")}
       href={item.href}
       data-reveal
     >

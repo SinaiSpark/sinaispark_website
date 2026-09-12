@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { SplitText } from "@/components/ui/split-text"
+import { cx } from "@/lib/cx"
 
 /**
  * Hero shared by the hub pages and the ten detail pages: a full-bleed
@@ -40,7 +41,7 @@ export function PageHero({
   className?: string
 }) {
   return (
-    <section className={`phero ${className}`.trim()} data-surface="dark">
+    <section className={cx("phero", className)} data-surface="dark">
       {image ? (
         <div className="phero-media">
           <img src={image} alt="" />

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowIcon } from "@/components/ui/icons"
 import { SplitText } from "@/components/ui/split-text"
 import { MARKETS } from "@/content/home"
+import { cx } from "@/lib/cx"
 
 /**
  * The five markets, scrolled sideways while the section is pinned.
@@ -28,7 +29,7 @@ export function Markets() {
                 <div className="ph">
                   <img src={card.image} alt={card.alt} />
                 </div>
-                <span className={`tag${card.flagship ? "is-flag" : ""}`}>
+                <span className={cx("tag", card.flagship && "is-flag")}>
                   {card.tag}
                 </span>
                 <div className="body">

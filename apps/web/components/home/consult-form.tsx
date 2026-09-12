@@ -6,6 +6,7 @@ import { Clock } from "@/components/ui/clock"
 import { ButtonArrow, TickIcon } from "@/components/ui/icons"
 import { SplitText } from "@/components/ui/split-text"
 import { CONSULT } from "@/content/home"
+import { cx } from "@/lib/cx"
 
 /**
  * Consultation request form.
@@ -84,7 +85,7 @@ export function ConsultForm() {
         </div>
 
         <form
-          className={`form${done ? "is-done" : ""}`}
+          className={cx("form", done && "is-done")}
           id="form"
           noValidate
           data-pending="backend"
@@ -165,7 +166,7 @@ export function ConsultForm() {
 
           <div className="form-foot">
             <button
-              className={`btn${busy ? "is-busy" : ""}`}
+              className={cx("btn", busy && "is-busy")}
               type="submit"
               id="submit"
               disabled={busy}
