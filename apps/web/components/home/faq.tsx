@@ -27,6 +27,7 @@ export function Faq({
   id = "faq",
   className = "faq",
   style,
+  spy = false,
 }: {
   eyebrow: string
   headline: string
@@ -36,11 +37,19 @@ export function Faq({
   id?: string
   className?: string
   style?: React.CSSProperties
+  /** Registers the section with the sticky sub-nav on pages that have one. */
+  spy?: boolean
 }) {
   const [open, setOpen] = useState(0)
 
   return (
-    <section className={className} id={id} data-surface="light" style={style}>
+    <section
+      className={className}
+      id={id}
+      data-surface="light"
+      style={style}
+      data-spy-section={spy ? "" : undefined}
+    >
       <div className="wrap">
         <div className="faq-lead">
           <p className="eyebrow" data-reveal>

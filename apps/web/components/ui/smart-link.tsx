@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation"
 /**
  * Link that keeps the design's smooth-scrolling behaviour.
  *
- * Anchors written as `/#who` point at a section of the home page. When the
- * visitor is already on the home page it renders a bare `#who`, which the Lenis
- * handler picks up and scrolls to; from any other page it stays a real route
- * link so navigation still works. Everything else is an ordinary Next link.
+ * Anchors are written in full — `/#markets`, `/contact/#form` — so they work
+ * from anywhere. When the visitor is already on that page the link collapses to
+ * a bare `#form`, which the Lenis handler picks up and scrolls to smoothly;
+ * from any other page it stays a real route link so navigation still works.
+ * Everything else is an ordinary Next link.
  */
 export function SmartLink({
   href,
@@ -30,8 +31,8 @@ export function SmartLink({
   }
 
   const [path, hash] = href.split("#")
-  const isHomeAnchor = Boolean(hash) && (path === "/" || path === "")
-  if (isHomeAnchor && pathname === "/") {
+  const target = path === "" ? "/" : path
+  if (hash && target === pathname) {
     return (
       <a
         href={`#${hash}`}

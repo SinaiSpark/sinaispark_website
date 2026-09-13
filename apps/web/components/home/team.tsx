@@ -1,6 +1,7 @@
 import { LinkedInIcon } from "@/components/ui/icons"
 import { SplitText } from "@/components/ui/split-text"
 import { TEAM } from "@/content/team"
+import { cx } from "@/lib/cx"
 
 /**
  * "The minds behind Sinai Spark".
@@ -9,9 +10,21 @@ import { TEAM } from "@/content/team"
  * card falls back to the brand mark and a "pending" chip. Fill in `name`,
  * `photo` or `linkedin` in content/team.ts and that card upgrades itself.
  */
-export function Team() {
+export function Team({
+  className,
+  spy = false,
+}: {
+  className?: string
+  /** Registers the section with the sticky sub-nav on pages that have one. */
+  spy?: boolean
+} = {}) {
   return (
-    <section className="team" id="team" data-surface="light">
+    <section
+      className={cx("team", className)}
+      id="team"
+      data-surface="light"
+      data-spy-section={spy ? "" : undefined}
+    >
       <div className="wrap">
         <div className="team-head">
           <div>

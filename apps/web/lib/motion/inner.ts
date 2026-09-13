@@ -12,12 +12,14 @@ import {
   initSurfaceNav,
   type CoreOptions,
 } from "@/lib/motion/core"
+import { initCompanyMotion } from "@/lib/motion/company"
 import { gsap, isFinePointer, q, qa, ScrollTrigger } from "@/lib/motion/gsap"
 import type { MotionVariant } from "@/components/motion/page-motion"
 
 /**
  * Motion for every page that is not the home page: the two hubs, the ten
- * service and licence pages, and the India landing page.
+ * service and licence pages, the India landing page, and the four company and
+ * content pages.
  *
  * The shared part runs first, in the order the design ran it, then anything
  * whose markup is actually present on the page is wired up. Detecting by
@@ -35,7 +37,7 @@ export function initInnerMotion(variant: MotionVariant, signal: AbortSignal) {
     initSmoothScroll(opts)
     initCursor(opts)
     initMagnetic(opts)
-    initSpotlights([".cta"], opts)
+    initSpotlights([".mv-panel", ".cta"], opts)
 
     pageHeroIntro()
     heroParallax()
@@ -56,6 +58,7 @@ export function initInnerMotion(variant: MotionVariant, signal: AbortSignal) {
     processTrack()
 
     if (variant === "india") indiaMotion(signal)
+    if (variant === "company") initCompanyMotion(signal)
 
     initMarkDraw("#ctaMark", ".cta")
 

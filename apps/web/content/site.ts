@@ -22,16 +22,22 @@ export const ROUTES = {
   services: "/services/",
   licences: "/licences/",
   india: "/india/",
+  about: "/about/",
+  blog: "/blog/",
+  research: "/research/",
+  contact: "/contact/",
   service: (slug: string) => `/services/${slug}/`,
   licence: (slug: string) => `/licences/${slug}/`,
-  /** In-page anchors on the home page. */
+  /**
+   * Anchors. `consult` is the consultation form, which lives on the contact
+   * page — the home page keeps a copy of the same form for anyone already
+   * scrolling it, but every "book a consultation" in the chrome and on the
+   * inner pages leads to the contact page.
+   */
+  consult: "/contact/#form",
+  team: "/about/#team",
   markets: "/#markets",
-  who: "/#who",
-  team: "/#team",
-  insights: "/#insights",
   faq: "/#faq",
-  consult: "/#consult",
-  contact: "/#contact",
 } as const
 
 export const BRAND = {
@@ -49,9 +55,9 @@ export const NAV = {
   links: [
     { label: "Where we work", href: ROUTES.markets },
     { label: "India", href: ROUTES.india },
-    { label: "About", href: ROUTES.who },
+    { label: "About", href: ROUTES.about },
     { label: "Team", href: ROUTES.team },
-    { label: "Insights", href: ROUTES.insights },
+    { label: "Insights", href: ROUTES.research },
   ] satisfies NavLink[],
   cta: { label: "Book a consultation", href: ROUTES.consult },
   burger: { open: "Menu", close: "Close" },
@@ -135,9 +141,9 @@ export const SHEET = {
   primary: [
     { label: "Where we work", href: ROUTES.markets },
     { label: "India", href: ROUTES.india },
-    { label: "About", href: ROUTES.who },
+    { label: "About", href: ROUTES.about },
     { label: "Team", href: ROUTES.team },
-    { label: "Insights", href: ROUTES.insights },
+    { label: "Insights", href: ROUTES.research },
     { label: "Contact", href: ROUTES.contact },
   ] satisfies NavLink[],
   groups: [
@@ -219,8 +225,9 @@ export const FOOTER = {
     {
       heading: "Company",
       items: [
-        { label: "About us", href: ROUTES.who },
-        { label: "Research", href: ROUTES.insights },
+        { label: "About us", href: ROUTES.about },
+        { label: "Research", href: ROUTES.research },
+        { label: "Blog", href: ROUTES.blog },
         { label: "FAQs", href: ROUTES.faq },
         { label: "Contact", href: ROUTES.contact },
       ] satisfies NavLink[],
