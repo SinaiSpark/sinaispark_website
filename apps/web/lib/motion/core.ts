@@ -137,7 +137,13 @@ export function initSurfaceNav(nav: HTMLElement | null) {
   )
 }
 
-/** Everything tagged data-reveal rises into place once. */
+/**
+ * Everything tagged data-reveal rises into place.
+ *
+ * The tween is cleared when it lands: a finished `from()` leaves
+ * `transform: translate(0px, 0px)` inline, which outranks any `:hover`
+ * transform in the stylesheet and quietly kills the card lifts.
+ */
 export function initReveals() {
   qa("[data-reveal]").forEach((el) =>
     gsap.from(el, {
@@ -146,6 +152,9 @@ export function initReveals() {
       duration: 1.1,
       ease: "power3.out",
       scrollTrigger: { trigger: el, start: "top 88%" },
+      onComplete: () => {
+        gsap.set(el, { clearProps: "transform" })
+      },
     })
   )
 }
@@ -183,31 +192,46 @@ export function initSpotlights(selectors: string[], { signal }: CoreOptions) {
     )
 }
 
-/** Count-up numbers. */
-export function initCounters({ delay = 0, once = true } = {}) {
+/**
+ * Count-up numbers.
+ *
+ * `onScroll: false` runs them straight away — the inner pages put their figures
+ * in the page hero, where there is nothing to scroll down to. Otherwise they
+ * count on entry and rewind to zero once the section leaves upward, so a second
+ * pass down the page counts again instead of showing a number already landed.
+ */
+export function initCounters({ delay = 0, onScroll = true } = {}) {
   qa<HTMLElement>("[data-count]").forEach((el) => {
     const value = Number(el.dataset.count)
     const obj = { n: 0 }
+    const write = () => {
+      el.textContent = String(Math.round(obj.n))
+    }
     const run = () =>
       gsap.to(obj, {
         n: value,
         duration: 1.8,
         ease: "power3.out",
         delay,
-        onUpdate: () => {
-          el.textContent = String(Math.round(obj.n))
-        },
+        overwrite: true,
+        onUpdate: write,
       })
-    if (once) {
-      ScrollTrigger.create({
-        trigger: el,
-        start: "top 85%",
-        once: true,
-        onEnter: run,
-      })
-    } else {
+
+    if (!onScroll) {
       run()
+      return
     }
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 85%",
+      onEnter: run,
+      onLeaveBack: () => {
+        gsap.killTweensOf(obj)
+        obj.n = 0
+        write()
+      },
+    })
   })
 }
 
@@ -229,6 +253,56 @@ export function initMarkDraw(selector: string, triggerSel: string) {
       end: "bottom bottom",
       scrub: 0.6,
     },
+  })
+}
+
+/**
+ * Couples a CSS marquee's speed to how fast the page is scrolling.
+ *
+ * The loop itself stays a CSS animation, so it keeps running on the compositor
+ * — this only nudges `playbackRate`, which is why hover-to-pause
+ * (`animation-play-state`) still wins. Speed decays back to 1x once the scroll
+ * settles, and direction never flips: reversing a list of regulator names on
+ * every upward scroll reads as a glitch rather than as motion.
+ */
+export function initMarqueeVelocity(selector: string, { signal }: CoreOptions) {
+  const tracks = qa(selector)
+  if (!tracks.length) return
+
+  /** Resolved lazily: the CSS animation may not exist on the first frame. */
+  const animations = () => tracks.flatMap((t) => t.getAnimations?.() ?? [])
+
+  let boost = 1
+  let current = 1
+  let applied = 1
+
+  tracks.forEach((track) =>
+    ScrollTrigger.create({
+      trigger: track,
+      start: "top bottom",
+      end: "bottom top",
+      onUpdate: (self) => {
+        boost = Math.min(1 + Math.abs(self.getVelocity()) / 1600, 3)
+      },
+    })
+  )
+
+  const tick = () => {
+    boost += (1 - boost) * 0.06 // settle back to the resting speed
+    current += (boost - current) * 0.1
+    if (Math.abs(current - applied) < 0.01) return
+    applied = current
+    animations().forEach((a) => {
+      a.playbackRate = current
+    })
+  }
+
+  gsap.ticker.add(tick)
+  signal.addEventListener("abort", () => {
+    gsap.ticker.remove(tick)
+    animations().forEach((a) => {
+      a.playbackRate = 1
+    })
   })
 }
 

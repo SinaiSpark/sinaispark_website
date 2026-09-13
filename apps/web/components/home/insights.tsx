@@ -29,7 +29,6 @@ function Card({ item, feature }: { item: Insight; feature?: boolean }) {
     <SmartLink
       className={cx("ins", feature ? "ins--feat" : "ins--row")}
       href={item.href}
-      data-reveal
     >
       <div className="ph">
         <img src={item.image} alt="" />

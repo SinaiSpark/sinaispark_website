@@ -2213,6 +2213,17 @@ body.is-sheet .nav .nav-burger {
 .member:hover .ghost {
   transform: rotate(-8deg) scale(1.08);
 }
+.member-ph img:not(.ghost) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease-out);
+}
+.member:hover .member-ph img:not(.ghost) {
+  transform: scale(1.04);
+}
 .member-ph .pending {
   position: absolute;
   left: 14px;
@@ -3002,6 +3013,15 @@ body.is-sheet .nav .nav-burger {
   isolation: isolate;
   min-width: 0;
 }
+/* Overscanned wrapper so the photo can drift without baring an edge. The
+   parallax runs here, which leaves the image's own transform free for the
+   hover zoom below. */
+.reg-ph {
+  position: absolute;
+  inset: -7% 0;
+  z-index: -1;
+  display: block;
+}
 .region img {
   position: absolute;
   inset: 0;
@@ -3009,7 +3029,6 @@ body.is-sheet .nav .nav-burger {
   height: 100%;
   object-fit: cover;
   transition: transform 1.4s var(--ease-out);
-  z-index: -1;
 }
 .region::after {
   content: "";
