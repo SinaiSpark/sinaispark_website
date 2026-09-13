@@ -237,7 +237,12 @@ export function WhereWeDeliver({ service }: { service: ServiceContent }) {
       : DETAIL_PAGE.where.many(places.length)
 
   return (
-    <section className="where" id="where" data-surface="light" data-spy-section>
+    <section
+      className="dwhere"
+      id="where"
+      data-surface="light"
+      data-spy-section
+    >
       <div className="wrap">
         <div className="head">
           <div>

@@ -102,23 +102,23 @@ export function initMagnetic({ signal }: CoreOptions) {
   })
 }
 
-/** Hides the nav on the way down, shows it on the way back up. */
+/**
+ * Gives the nav its scrolled treatment — the translucent dark bar and blur —
+ * once the page has moved past the hero.
+ *
+ * The nav stays on screen the whole way down. The design hid it on the way
+ * down and brought it back on the way up, but that left the sub-nav with
+ * nothing fixed to sit under, so the header is now simply always there and the
+ * spy bar parks below it at a constant offset.
+ */
 export function initNav() {
   const nav = q("#nav")
   if (!nav) return null
 
   ScrollTrigger.create({
     start: 80,
-    onUpdate: (s) => {
-      nav.classList.toggle(
-        "is-hidden",
-        s.direction === 1 &&
-          s.scroll() > 200 &&
-          !document.body.classList.contains("is-sheet")
-      )
-      nav.classList.add("is-scrolled")
-    },
-    onLeaveBack: () => nav.classList.remove("is-scrolled", "is-hidden"),
+    onUpdate: () => nav.classList.add("is-scrolled"),
+    onLeaveBack: () => nav.classList.remove("is-scrolled"),
   })
 
   return nav
