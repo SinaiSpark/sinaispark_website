@@ -41,6 +41,21 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
+  /**
+   * Pre-launch: nothing here should reach a search result yet.
+   *
+   * `app/robots.ts` already refuses crawling, but a URL that is merely
+   * disallowed can still be indexed from a link elsewhere — the crawler skips
+   * the page and lists the bare address. This header is what actually keeps it
+   * out, and it also covers crawlers that ignore robots.txt. Remove both at
+   * launch.
+   */
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: { index: false, follow: false },
+  },
 }
 
 export default function RootLayout({
