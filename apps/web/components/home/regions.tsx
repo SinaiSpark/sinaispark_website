@@ -14,10 +14,12 @@ export function Regions() {
           {REGIONS.eyebrow}
         </p>
         <SplitText as="h2" className="h2" text={REGIONS.headline} />
-        <div className="reg-row" data-reveal>
+        <div className="reg-row">
           {REGIONS.tiles.map((tile) => (
             <SmartLink className="region" href={ROUTES.contact} key={tile.name}>
-              <img src={tile.image} alt="" />
+              <span className="reg-ph">
+                <img src={tile.image} alt="" />
+              </span>
               <div className="in">
                 <span className="k">{tile.kicker}</span>
                 <h3>{tile.name}</h3>

@@ -39,7 +39,7 @@ export function initInnerMotion(variant: MotionVariant, signal: AbortSignal) {
 
     pageHeroIntro()
     heroParallax()
-    initCounters({ delay: 0.9, once: false })
+    initCounters({ delay: 0.9, onScroll: false })
 
     const nav = initNav()
     initSurfaceNav(nav)

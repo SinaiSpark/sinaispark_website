@@ -27,7 +27,7 @@ export function Team() {
 
         <div className="team-grid">
           {TEAM.members.map((member, i) => (
-            <article className="member" data-reveal key={member.role}>
+            <article className="member" key={member.role}>
               <div className="member-ph">
                 {member.photo ? (
                   <img src={member.photo} alt={member.name ?? member.role} />

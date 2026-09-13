@@ -4,6 +4,7 @@ import {
   initCursor,
   initMagnetic,
   initMarkDraw,
+  initMarqueeVelocity,
   initNav,
   initReveals,
   initSmoothScroll,
@@ -63,6 +64,11 @@ export function initHomeMotion(signal: AbortSignal) {
     servicesStack()
     processRail()
     whyRows()
+    teamCards()
+    testimonialCards()
+    regionTiles()
+    insightCards()
+    initMarqueeVelocity(".gov-track, .marquee-track", opts)
 
     ScrollTrigger.sort()
     ScrollTrigger.refresh()
@@ -353,13 +359,13 @@ function statsDots(signal: AbortSignal) {
   ScrollTrigger.create({
     trigger: "#stats",
     start: "top 75%",
-    once: true,
     onEnter: () => {
       gsap.to(dots(), {
         scale: 1,
         opacity: 0.55,
         duration: 0.8,
         ease: "power2.out",
+        overwrite: true,
         stagger: { grid, from: [0.08, 0.55], amount: 1.4 },
       })
       gsap.to(dots(), {
@@ -372,6 +378,11 @@ function statsDots(signal: AbortSignal) {
         delay: 1.9,
         stagger: { grid, from: [0.08, 0.55], amount: 1.3 },
       })
+    },
+    // Back to nothing, so the ripple runs again on the next pass down.
+    onLeaveBack: () => {
+      gsap.killTweensOf(dots())
+      gsap.set(dots(), { scale: 0, opacity: 0 })
     },
   })
 
@@ -569,5 +580,209 @@ function whyRows() {
         ease: "power3.out",
         overwrite: true,
       }),
+    onLeaveBack: (batch) =>
+      gsap.to(batch, {
+        y: 10,
+        autoAlpha: 0,
+        duration: 0.25,
+        ease: "power2.in",
+        overwrite: true,
+      }),
+  })
+}
+
+/**
+ * Team cards: the portrait fills in from the card's top edge, then the name,
+ * role and bio step in under it.
+ *
+ * One trigger drives the whole row so the four cards arrive in sequence rather
+ * than popping together, and the clip runs on `.member-ph` rather than on the
+ * image — nothing inline is left on a transform, so the card's hover lift and
+ * the ghost mark's tilt both stay owned by the stylesheet.
+ */
+function teamCards() {
+  const cards = qa(".member")
+  if (!cards.length) return
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: ".team-grid", start: "top 85%" },
+  })
+
+  cards.forEach((card, i) => {
+    const at = i * 0.1
+    const photo = q(".member-ph", card)
+    const lines = qa("h3, .role, .bio", card)
+
+    tl.from(
+      card,
+      {
+        y: 30,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        onComplete: () => {
+          gsap.set(card, { clearProps: "transform" })
+        },
+      },
+      at
+    )
+
+    if (photo) {
+      tl.from(
+        photo,
+        {
+          clipPath: "inset(0 0 100% 0)",
+          duration: 0.95,
+          ease: "power3.out",
+          onComplete: () => {
+            gsap.set(photo, { clearProps: "clipPath" })
+          },
+        },
+        at + 0.06
+      )
+    }
+
+    if (lines.length) {
+      tl.from(
+        lines,
+        {
+          y: 14,
+          autoAlpha: 0,
+          duration: 0.55,
+          stagger: 0.05,
+          ease: "power3.out",
+          onComplete: () => {
+            gsap.set(lines, { clearProps: "transform" })
+          },
+        },
+        at + 0.3
+      )
+    }
+  })
+}
+
+/** Testimonial cards rise into the marquee as the band arrives. */
+function testimonialCards() {
+  const cards = qa(".tcard")
+  if (!cards.length) return
+  gsap.from(cards, {
+    y: 28,
+    autoAlpha: 0,
+    duration: 0.8,
+    stagger: 0.06,
+    ease: "power3.out",
+    scrollTrigger: { trigger: ".marquee", start: "top 88%" },
+    onComplete: () => {
+      gsap.set(cards, { clearProps: "transform" })
+    },
+  })
+}
+
+/**
+ * Region tiles wipe up in sequence, and each photograph drifts at its own rate
+ * so the row reads as three places rather than three panels.
+ *
+ * The parallax moves `.reg-ph`, the overscanned wrapper, which leaves the image
+ * itself free for the CSS hover zoom.
+ */
+function regionTiles() {
+  const tiles = qa(".region")
+  if (!tiles.length) return
+
+  gsap.from(tiles, {
+    clipPath: "inset(0 0 100% 0 round 22px)",
+    duration: 1.1,
+    stagger: 0.1,
+    ease: "power3.out",
+    scrollTrigger: { trigger: ".reg-row", start: "top 82%" },
+    onComplete: () => {
+      gsap.set(tiles, { clearProps: "clipPath" })
+    },
+  })
+
+  qa(".reg-ph").forEach((ph, i) => {
+    const depth = 0.6 + (i % 3) * 0.4
+    gsap.fromTo(
+      ph,
+      { yPercent: -5 * depth },
+      {
+        yPercent: 5 * depth,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".reg-row",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      }
+    )
+  })
+}
+
+/**
+ * Insight cards: the cover fills in from the card's top edge and the tag chips
+ * follow it, one trigger driving the feature card and the two rows in turn.
+ */
+function insightCards() {
+  const cards = qa(".ins")
+  if (!cards.length) return
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: ".ins-grid", start: "top 86%" },
+  })
+
+  cards.forEach((card, i) => {
+    const at = i * 0.12
+    const img = q<HTMLImageElement>(".ph img", card)
+    const tags = qa(".tags span", card)
+
+    tl.from(
+      card,
+      {
+        y: 28,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        onComplete: () => {
+          gsap.set(card, { clearProps: "transform" })
+        },
+      },
+      at
+    )
+
+    if (img) {
+      tl.fromTo(
+        img,
+        { clipPath: "inset(0 0 100% 0)", scale: 1.12 },
+        {
+          clipPath: "inset(0 0 0% 0)",
+          scale: 1,
+          duration: 1.1,
+          ease: "power3.out",
+          // Hand the image back to `.ins:hover .ph img`, which zooms it.
+          onComplete: () => {
+            gsap.set(img, { clearProps: "transform,clipPath" })
+          },
+        },
+        at + 0.06
+      )
+    }
+
+    if (tags.length) {
+      tl.from(
+        tags,
+        {
+          y: 10,
+          autoAlpha: 0,
+          duration: 0.5,
+          stagger: 0.05,
+          ease: "power3.out",
+          onComplete: () => {
+            gsap.set(tags, { clearProps: "transform" })
+          },
+        },
+        at + 0.3
+      )
+    }
   })
 }
