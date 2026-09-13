@@ -1,3 +1,4 @@
+import { BridgeGlobe } from "@/components/india/bridge-globe"
 import { Clock } from "@/components/ui/clock"
 import { ArrowIcon, ButtonArrow, CheckIcon } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
@@ -27,11 +28,6 @@ export function IndiaHero() {
 
       <div className="wrap">
         <div>
-          <div className="crumbs">
-            <SmartLink href="/">Home</SmartLink>
-            <span>/</span>
-            <span>India</span>
-          </div>
           <p className="eyebrow" data-reveal>
             <i className="tri" />
             {INDIA.hero.eyebrow}
@@ -121,7 +117,7 @@ export function IndiaHero() {
 export function IndiaTicker() {
   const items = [...INDIA.hero.trustStrip, ...INDIA.trustStrip2]
   return (
-    <div className="tick">
+    <div className="itick">
       <div className="marquee">
         <div className="marquee-track">
           {[...items, ...items].map((item, i) => (
@@ -247,17 +243,7 @@ export function IndiaBridge() {
         </div>
 
         <div className="bmap">
-          <svg viewBox="0 0 560 560" aria-hidden="true">
-            <circle className="ring" cx="280" cy="280" r="200" />
-            <circle className="ring" cx="280" cy="280" r="130" />
-            <path className="arc" d="M70 380 C 150 120, 330 60, 500 90" />
-            <path
-              className="arcfill"
-              id="arcFill"
-              d="M70 380 C 150 120, 330 60, 500 90"
-            />
-            <circle className="dot" id="arcDot" cx="70" cy="380" r="6" />
-          </svg>
+          <BridgeGlobe />
 
           <div className="bnode a">
             <span>

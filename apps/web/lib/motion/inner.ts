@@ -84,21 +84,41 @@ function pageHeroIntro() {
   })
   gsap.set("#nav", { y: -24, autoAlpha: 0 })
 
-  gsap
-    .timeline({ defaults: { ease: "power4.out" } })
-    .from(
+  const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
+
+  // Not every page hero has a photo — the licences hero carries the card fan
+  // instead — and GSAP warns about a tween with no target.
+  if (q(".phero-media img")) {
+    tl.from(
       ".phero-media img",
       { scale: 1.16, duration: 1.8, ease: "power3.out" },
       0
     )
-    .to(".phero .wi", { yPercent: 0, duration: 1.1, stagger: 0.05 }, 0.15)
+  }
+
+  tl.to(".phero .wi", { yPercent: 0, duration: 1.1, stagger: 0.05 }, 0.15)
     .to(".phero .crumbs", { y: 0, autoAlpha: 1, duration: 0.8 }, 0.5)
     .to(
       ".phero .lede, .phero-meta, .phero-side",
       { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.1 },
       0.7
     )
-    .to("#nav", { y: 0, autoAlpha: 1, duration: 0.8 }, 0.6)
+    .to(
+      "#nav",
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.8,
+        // Hand the nav back to CSS. Left alone, this tween keeps an inline
+        // `transform: translate(0px, 0px)` on the header for the life of the
+        // page, and an inline transform outranks the stylesheet — so any rule
+        // that later moves the nav would silently do nothing.
+        onComplete: () => {
+          gsap.set("#nav", { clearProps: "all" })
+        },
+      },
+      0.6
+    )
 }
 
 function heroParallax() {
@@ -412,7 +432,7 @@ function processTrack() {
 /** India page: the incorporation certificate, the Gulf-to-Mumbai arc and fees. */
 function indiaMotion(signal: AbortSignal) {
   certificate(signal)
-  bridgeArc()
+  bridgeReveals()
 
   qa(".aud-list .why-row").forEach((row) =>
     gsap.from(row, {
@@ -548,36 +568,13 @@ function certificate(signal: AbortSignal) {
   }
 }
 
-/** Riyadh to Mumbai: the arc draws and a dot travels along it. */
-function bridgeArc() {
-  const arc = q<SVGPathElement>("#arcFill")
-  const dot = q<SVGCircleElement>("#arcDot")
-  if (!arc || !dot) return
-
-  const len = arc.getTotalLength()
-  gsap.set(arc, { strokeDasharray: len, strokeDashoffset: len })
-
-  gsap.to(
-    { p: 0 },
-    {
-      p: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".bmap",
-        start: "top 80%",
-        end: "bottom 45%",
-        scrub: 0.6,
-      },
-      onUpdate() {
-        const target = this.targets()[0] as { p: number }
-        gsap.set(arc, { strokeDashoffset: len * (1 - target.p) })
-        const pt = arc.getPointAtLength(len * target.p)
-        dot.setAttribute("cx", String(pt.x))
-        dot.setAttribute("cy", String(pt.y))
-      },
-    }
-  )
-
+/**
+ * The two city cards and the big zero rising over the bridge globe.
+ *
+ * The arc itself used to be an SVG path drawn on scroll; it is the globe's
+ * own animated arc now, so only the overlay is animated here.
+ */
+function bridgeReveals() {
   qa(".bnode").forEach((node, i) =>
     gsap.from(node, {
       y: 20,
