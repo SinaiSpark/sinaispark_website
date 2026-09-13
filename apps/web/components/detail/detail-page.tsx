@@ -77,7 +77,7 @@ export function DetailPage({
         .replace("pro &", "PRO &")
 
   return (
-    <>
+    <PageMotion variant="detail">
       <PageHero
         className="dhero"
         image={SLUG_IMAGE[service.slug]}
@@ -144,7 +144,6 @@ export function DetailPage({
         secondary={{ label: CLOSING_CTA.secondary.label, href: ROUTES.faq }}
         primary={{ label: CLOSING_CTA.primary.label, href: ROUTES.consult }}
       />
-      <PageMotion variant="detail" />
-    </>
+    </PageMotion>
   )
 }

@@ -29,7 +29,7 @@ export default function ServicesPage() {
   const licences = LICENCE_SLUGS.flatMap((slug) => getService(slug) ?? [])
 
   return (
-    <>
+    <PageMotion variant="inner">
       <PageHero
         image={SERVICES_PAGE.hero}
         crumbs={[{ label: "Home", href: ROUTES.home }, { label: "Services" }]}
@@ -104,7 +104,6 @@ export default function ServicesPage() {
         secondary={{ label: CLOSING_CTA.secondary.label, href: ROUTES.faq }}
         primary={{ label: CLOSING_CTA.primary.label, href: ROUTES.consult }}
       />
-      <PageMotion variant="inner" />
-    </>
+    </PageMotion>
   )
 }

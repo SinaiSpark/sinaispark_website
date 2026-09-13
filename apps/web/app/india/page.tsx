@@ -29,7 +29,7 @@ export const metadata: Metadata = {
  */
 export default function IndiaPage() {
   return (
-    <>
+    <PageMotion variant="india">
       <IndiaHero />
       <IndiaTicker />
       <IndiaAudiences />
@@ -76,8 +76,6 @@ export default function IndiaPage() {
           ))}
         </ul>
       </CtaSection>
-
-      <PageMotion variant="india" />
-    </>
+    </PageMotion>
   )
 }
