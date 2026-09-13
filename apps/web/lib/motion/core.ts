@@ -306,6 +306,129 @@ export function initMarqueeVelocity(selector: string, { signal }: CoreOptions) {
   })
 }
 
+/**
+ * The parallax photo stack beside a story section. Each figure drifts at its
+ * own `data-speed`, and the whole stack rises in when it arrives. Used by the
+ * home page's "who we are" and the About page's "our story".
+ */
+export function initStoryStack() {
+  qa<HTMLElement>(".who-stack [data-speed]").forEach((el) =>
+    gsap.to(el, {
+      y: () => (1 - parseFloat(el.dataset.speed ?? "1")) * -240,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".who",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    })
+  )
+  gsap.from(".who-stack > *", {
+    y: 60,
+    autoAlpha: 0,
+    stagger: 0.1,
+    duration: 1.2,
+    ease: "power3.out",
+    scrollTrigger: { trigger: ".who-stack", start: "top 80%" },
+  })
+}
+
+/** Editorial rows that arrive as a batch and rewind when they leave upward. */
+export function initWhyRows() {
+  gsap.set(".why-row", { y: 10, autoAlpha: 0 })
+  ScrollTrigger.batch(".why-row", {
+    start: "top 90%",
+    onEnter: (batch) =>
+      gsap.to(batch, {
+        y: 0,
+        autoAlpha: 1,
+        stagger: 0.05,
+        duration: 0.35,
+        ease: "power3.out",
+        overwrite: true,
+      }),
+    onLeaveBack: (batch) =>
+      gsap.to(batch, {
+        y: 10,
+        autoAlpha: 0,
+        duration: 0.25,
+        ease: "power2.in",
+        overwrite: true,
+      }),
+  })
+}
+
+/**
+ * Team cards: the portrait fills in from the card's top edge, then the name,
+ * role and bio step in under it.
+ *
+ * One trigger drives the whole row so the four cards arrive in sequence rather
+ * than popping together, and the clip runs on `.member-ph` rather than on the
+ * image — nothing inline is left on a transform, so the card's hover lift and
+ * the ghost mark's tilt both stay owned by the stylesheet.
+ */
+export function initTeamCards() {
+  const cards = qa(".member")
+  if (!cards.length) return
+
+  const tl = gsap.timeline({
+    scrollTrigger: { trigger: ".team-grid", start: "top 85%" },
+  })
+
+  cards.forEach((card, i) => {
+    const at = i * 0.1
+    const photo = q(".member-ph", card)
+    const lines = qa("h3, .role, .bio", card)
+
+    tl.from(
+      card,
+      {
+        y: 30,
+        autoAlpha: 0,
+        duration: 0.7,
+        ease: "power3.out",
+        onComplete: () => {
+          gsap.set(card, { clearProps: "transform" })
+        },
+      },
+      at
+    )
+
+    if (photo) {
+      tl.from(
+        photo,
+        {
+          clipPath: "inset(0 0 100% 0)",
+          duration: 0.95,
+          ease: "power3.out",
+          onComplete: () => {
+            gsap.set(photo, { clearProps: "clipPath" })
+          },
+        },
+        at + 0.06
+      )
+    }
+
+    if (lines.length) {
+      tl.from(
+        lines,
+        {
+          y: 14,
+          autoAlpha: 0,
+          duration: 0.55,
+          stagger: 0.05,
+          ease: "power3.out",
+          onComplete: () => {
+            gsap.set(lines, { clearProps: "transform" })
+          },
+        },
+        at + 0.3
+      )
+    }
+  })
+}
+
 /** Static end-state used when the visitor asks for reduced motion. */
 export function applyReducedMotionFallback() {
   qa(".step").forEach((s) => s.classList.add("is-on"))

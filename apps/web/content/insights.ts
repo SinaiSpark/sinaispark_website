@@ -22,7 +22,7 @@ export interface Insight {
 export const INSIGHTS = {
   eyebrow: "Research & insights",
   headline: "What we're reading into.",
-  cta: { label: "All research", href: ROUTES.contact },
+  cta: { label: "All research", href: ROUTES.research },
   gatedLabel: "Gated",
   feature: {
     tags: ["Market entry", "Saudi Arabia"],
@@ -32,7 +32,7 @@ export const INSIGHTS = {
     meta: "24-page whitepaper · 18 min read",
     gated: true,
     image: "/images/home/riyadh-skyline-kafd-dusk.jpg",
-    href: ROUTES.contact,
+    href: ROUTES.research,
   } satisfies Insight,
   rows: [
     {
@@ -42,7 +42,7 @@ export const INSIGHTS = {
       meta: "12 min read",
       gated: false,
       image: "/images/countries/saudi-arabia-riyadh.jpg",
-      href: ROUTES.contact,
+      href: ROUTES.research,
     },
     {
       tags: ["Taxation", "India"],
@@ -50,7 +50,7 @@ export const INSIGHTS = {
       meta: "15 min read",
       gated: true,
       image: "/images/india/mumbai-business-district.jpg",
-      href: ROUTES.contact,
+      href: ROUTES.research,
     },
   ] satisfies Insight[],
 }

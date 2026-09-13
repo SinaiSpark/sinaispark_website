@@ -31,7 +31,7 @@ import { useEffect, useLayoutEffect, type ReactNode } from "react"
  * gsap.context each initialiser wraps itself in, so React's development double
  * mount does not leave duplicate triggers behind.
  */
-export type MotionVariant = "home" | "inner" | "detail" | "india"
+export type MotionVariant = "home" | "inner" | "detail" | "india" | "company"
 
 /** Layout effects do not run on the server; fall back so SSR stays quiet. */
 const useIsomorphicLayoutEffect =

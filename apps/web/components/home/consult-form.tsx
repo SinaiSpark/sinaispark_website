@@ -16,10 +16,24 @@ import { cx } from "@/lib/cx"
  * form says so. The endpoint is specified in BACKEND_AND_AI_REQUIREMENTS.md.
  *
  * Choosing a market also switches the local-office readout beside the form.
+ *
+ * The home page carries it inline as `#consult`; the contact page makes it the
+ * page's own first section, so the section id, class and headline are props.
  */
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
 
-export function ConsultForm() {
+export function ConsultForm({
+  id = "consult",
+  className,
+  headline = CONSULT.headline,
+  spy = false,
+}: {
+  id?: string
+  className?: string
+  headline?: string
+  /** Registers the section with the sticky sub-nav on pages that have one. */
+  spy?: boolean
+} = {}) {
   const [marketIndex, setMarketIndex] = useState(0)
   const [errors, setErrors] = useState<Record<string, boolean>>({})
   const [busy, setBusy] = useState(false)
@@ -54,13 +68,18 @@ export function ConsultForm() {
     errors[key] ? { style: { borderColor: "#D0473C" } } : {}
 
   return (
-    <section className="consult" id="consult" data-surface="light">
+    <section
+      className={cx("consult", className)}
+      id={id}
+      data-surface="light"
+      data-spy-section={spy ? "" : undefined}
+    >
       <div className="wrap">
         <div className="consult-lead">
           <p className="eyebrow" data-reveal>
             {CONSULT.eyebrow}
           </p>
-          <SplitText as="h2" className="h2" text={CONSULT.headline} />
+          <SplitText as="h2" className="h2" text={headline} />
           <p className="lede muted" data-reveal>
             {CONSULT.lede}
           </p>
@@ -86,7 +105,7 @@ export function ConsultForm() {
 
         <form
           className={cx("form", done && "is-done")}
-          id="form"
+          id="consult-form"
           noValidate
           data-pending="backend"
           onSubmit={onSubmit}

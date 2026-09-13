@@ -126,6 +126,7 @@ export function DetailPage({
         lede={DETAIL_PAGE.faq.lede}
         link={DETAIL_PAGE.faq.link}
         items={faqItems}
+        spy
       />
 
       <UpNext

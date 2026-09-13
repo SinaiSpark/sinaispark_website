@@ -10,6 +10,9 @@ import {
   initSmoothScroll,
   initSpotlights,
   initSplits,
+  initStoryStack,
+  initTeamCards,
+  initWhyRows,
   initSurfaceNav,
   type CoreOptions,
 } from "@/lib/motion/core"
@@ -59,12 +62,12 @@ export function initHomeMotion(signal: AbortSignal) {
     initReveals()
     initSplits(":not(.hero-h)")
     marketsStrip()
-    whoStack()
+    initStoryStack()
     initCounters()
     servicesStack()
     processRail()
-    whyRows()
-    teamCards()
+    initWhyRows()
+    initTeamCards()
     testimonialCards()
     regionTiles()
     insightCards()
@@ -462,29 +465,6 @@ function marketsStrip() {
   })
 }
 
-function whoStack() {
-  qa<HTMLElement>(".who-stack [data-speed]").forEach((el) =>
-    gsap.to(el, {
-      y: () => (1 - parseFloat(el.dataset.speed ?? "1")) * -240,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".who",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    })
-  )
-  gsap.from(".who-stack > *", {
-    y: 60,
-    autoAlpha: 0,
-    stagger: 0.1,
-    duration: 1.2,
-    ease: "power3.out",
-    scrollTrigger: { trigger: ".who-stack", start: "top 80%" },
-  })
-}
-
 /** Service cards stack and dim as the next one arrives. */
 function servicesStack() {
   const cards = qa(".svc-card")
@@ -565,100 +545,6 @@ function processRail() {
         )
       )
     })
-}
-
-function whyRows() {
-  gsap.set(".why-row", { y: 10, autoAlpha: 0 })
-  ScrollTrigger.batch(".why-row", {
-    start: "top 90%",
-    onEnter: (batch) =>
-      gsap.to(batch, {
-        y: 0,
-        autoAlpha: 1,
-        stagger: 0.05,
-        duration: 0.35,
-        ease: "power3.out",
-        overwrite: true,
-      }),
-    onLeaveBack: (batch) =>
-      gsap.to(batch, {
-        y: 10,
-        autoAlpha: 0,
-        duration: 0.25,
-        ease: "power2.in",
-        overwrite: true,
-      }),
-  })
-}
-
-/**
- * Team cards: the portrait fills in from the card's top edge, then the name,
- * role and bio step in under it.
- *
- * One trigger drives the whole row so the four cards arrive in sequence rather
- * than popping together, and the clip runs on `.member-ph` rather than on the
- * image — nothing inline is left on a transform, so the card's hover lift and
- * the ghost mark's tilt both stay owned by the stylesheet.
- */
-function teamCards() {
-  const cards = qa(".member")
-  if (!cards.length) return
-
-  const tl = gsap.timeline({
-    scrollTrigger: { trigger: ".team-grid", start: "top 85%" },
-  })
-
-  cards.forEach((card, i) => {
-    const at = i * 0.1
-    const photo = q(".member-ph", card)
-    const lines = qa("h3, .role, .bio", card)
-
-    tl.from(
-      card,
-      {
-        y: 30,
-        autoAlpha: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        onComplete: () => {
-          gsap.set(card, { clearProps: "transform" })
-        },
-      },
-      at
-    )
-
-    if (photo) {
-      tl.from(
-        photo,
-        {
-          clipPath: "inset(0 0 100% 0)",
-          duration: 0.95,
-          ease: "power3.out",
-          onComplete: () => {
-            gsap.set(photo, { clearProps: "clipPath" })
-          },
-        },
-        at + 0.06
-      )
-    }
-
-    if (lines.length) {
-      tl.from(
-        lines,
-        {
-          y: 14,
-          autoAlpha: 0,
-          duration: 0.55,
-          stagger: 0.05,
-          ease: "power3.out",
-          onComplete: () => {
-            gsap.set(lines, { clearProps: "transform" })
-          },
-        },
-        at + 0.3
-      )
-    }
-  })
 }
 
 /** Testimonial cards rise into the marquee as the band arrives. */

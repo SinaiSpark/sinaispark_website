@@ -21,7 +21,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(ROUTES.services, 0.9),
     entry(ROUTES.licences, 0.9),
     entry(ROUTES.india, 0.9),
+    entry(ROUTES.about, 0.8),
+    entry(ROUTES.contact, 0.8),
     ...CORE_SLUGS.map((slug) => entry(ROUTES.service(slug), 0.8)),
     ...LICENCE_SLUGS.map((slug) => entry(ROUTES.licence(slug), 0.8)),
+    entry(ROUTES.research, 0.7),
+    entry(ROUTES.blog, 0.7),
   ]
 }

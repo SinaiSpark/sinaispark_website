@@ -1,7 +1,7 @@
 /*
  * Global stylesheet.
  *
- * The five files below are the approved design's CSS, split at its own section
+ * The six files below are the approved design's CSS, split at its own section
  * banners. The order is the order the design concatenated them in, so cascade
  * behaviour matches the signed-off pages exactly. Do not reorder.
  */
@@ -11,6 +11,7 @@
 @import "../styles/3-inner-pages.css";
 @import "../styles/4-detail-pages.css";
 @import "../styles/5-india.css";
+@import "../styles/6-company.css";
 
 /*
  * The design loaded Schibsted Grotesk, Manrope and IBM Plex Mono from Google

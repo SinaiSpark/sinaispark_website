@@ -32,10 +32,10 @@ export function PageHero({
   className = "",
 }: {
   image?: string
-  crumbs: Crumb[]
+  crumbs: readonly Crumb[]
   headline: string
   lede: string
-  stats?: HeroStat[]
+  stats?: readonly HeroStat[]
   actions?: React.ReactNode
   side?: React.ReactNode
   className?: string

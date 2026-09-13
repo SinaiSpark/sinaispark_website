@@ -6,9 +6,19 @@ import { MISSION_VISION } from "@/content/home"
  * Mission and vision as two spotlit panels. The glow inside each one follows
  * the pointer, wired up by the motion layer.
  */
-export function MissionVision() {
+export function MissionVision({
+  spy = false,
+}: {
+  /** Registers the section with the sticky sub-nav on pages that have one. */
+  spy?: boolean
+} = {}) {
   return (
-    <section className="mv" id="mission" data-surface="dark">
+    <section
+      className="mv"
+      id="mission"
+      data-surface="dark"
+      data-spy-section={spy ? "" : undefined}
+    >
       <BrandMark className="bgmark" preserveAspectRatio="xMidYMid meet" />
       <div className="wrap">
         <div className="mv-head">

@@ -153,17 +153,29 @@ export function ProcessTrack({
   headline,
   note = DETAIL_PAGE.process.note,
   id = "process",
+  stepLabel = DETAIL_PAGE.process.stepLabel,
+  cta = DETAIL_PAGE.process.cta,
+  spy = true,
 }: {
   phases: { title: string; body: string }[]
   eyebrow?: string
   headline?: string
   note?: string
   id?: string
+  /** "Step" on a service page, "Chapter" in the About page's history. */
+  stepLabel?: string
+  cta?: { label: string; href: string }
+  spy?: boolean
 }) {
   const last = String(phases.length).padStart(2, "0")
 
   return (
-    <section className="dproc" id={id} data-surface="dark" data-spy-section>
+    <section
+      className="dproc"
+      id={id}
+      data-surface="dark"
+      data-spy-section={spy ? "" : undefined}
+    >
       <div className="wrap">
         <div className="head">
           <div>
@@ -191,7 +203,7 @@ export function ProcessTrack({
             <div className="pc" key={phase.title}>
               <span className="nd">{String(i + 1).padStart(2, "0")}</span>
               <span className="k">
-                {DETAIL_PAGE.process.stepLabel} {String(i + 1).padStart(2, "0")}
+                {stepLabel} {String(i + 1).padStart(2, "0")}
               </span>
               <h3>{phase.title}</h3>
               <p>{phase.body}</p>
@@ -200,12 +212,8 @@ export function ProcessTrack({
         </div>
 
         <div className="foot" data-reveal>
-          <SmartLink
-            className="btn"
-            href={DETAIL_PAGE.process.cta.href}
-            data-magnetic
-          >
-            {DETAIL_PAGE.process.cta.label} <ButtonArrow />
+          <SmartLink className="btn" href={cta.href} data-magnetic>
+            {cta.label} <ButtonArrow />
           </SmartLink>
           <span className="muted" style={{ fontSize: 13.5 }}>
             {note}

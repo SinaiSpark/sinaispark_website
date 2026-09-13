@@ -1,8 +1,9 @@
 # Sinai Spark Global — web
 
-The site is a direct build of the approved animation-heavy design. Fourteen
+The site is a direct build of the approved animation-heavy design. Eighteen
 pages: the home page, the services and licences hubs, ten per-service and
-per-licence pages, and the India landing page.
+per-licence pages, the India landing page, and four company and content pages
+— about, contact, blog and research.
 
 ## Where things live
 
@@ -12,6 +13,8 @@ app/                     routes only — each page composes sections, holds no c
   services/                hub + [service] detail pages
   licences/                hub + [licence] detail pages
   india/                   India landing page
+  about/ contact/          the firm, and how to reach it
+  blog/ research/          short regulatory notes, and long-form reports
   globals.css              imports styles/ in order, then re-points the font tokens
 
 content/                 ALL copy. Edit here, not in components.
@@ -22,7 +25,9 @@ content/                 ALL copy. Edit here, not in components.
   india.ts                 India copy (client-supplied, verbatim)
   india-page.ts            the framing the design added around it
   licence-finder.ts        the finder's chips and answers
-  faqs.ts  team.ts  testimonials.ts  insights.ts  markets.ts  research.ts
+  about.ts contact.ts      the two company pages
+  blog.ts  research.ts     posts and reports — both still sample content
+  faqs.ts  team.ts  testimonials.ts  insights.ts  newsletter.ts  markets.ts
 
 components/
   chrome/                  header, mobile sheet, footer, loader, cursor, closing CTA
@@ -30,10 +35,12 @@ components/
   pages/                   hub pieces: page hero, spy bar, service section, fan, matrix
   detail/                  the detail-page template and its sections
   india/                   India-only sections and the structure picker
+  company/                 about, contact, blog and research sections
   ui/                      icons, brand mark, split text, clock, smart link
   motion/                  PageMotion — starts a page's animations after it mounts
 
-lib/motion/              GSAP. core.ts is shared, home.ts and inner.ts are per page kind
+lib/motion/              GSAP. core.ts is shared; home.ts, inner.ts and company.ts
+                         are per page kind
 styles/                  the design's CSS, split at its own section banners
 scripts/shoot-site.mjs   headless render check across routes and widths
 ```
@@ -43,9 +50,14 @@ scripts/shoot-site.mjs   headless render check across routes and widths
 **Copy belongs in `content/`.** A component should read a value, never hold one.
 Changing wording or a link should not mean opening a component.
 
-**`styles/` is the design's CSS, unedited.** The five files are imported in a
+**`styles/` is the design's CSS, unedited.** The six files are imported in a
 fixed order in `app/globals.css` because that is the order the design
 concatenated them in, and the cascade depends on it. Do not reorder them.
+
+Every file loads on every route, so a bare single-word rule restyles the whole
+site. New rules are prefixed per page — `ab-` `ct-` `bl-` `rs-` `nl-` in
+`6-company.css` — and a section class that clashes with an earlier file gets
+renamed rather than fought with specificity.
 
 **React renders markup, GSAP animates it.** Anything stateful and interactive —
 the mobile sheet, the licence finder, the FAQ accordion, the consultation form —
@@ -64,7 +76,7 @@ off screen.
 ```bash
 pnpm build
 npx next start -p 3411
-node scripts/shoot-site.mjs http://localhost:3411 ./shots / /services/ /licences/ /india/
+node scripts/shoot-site.mjs http://localhost:3411 ./shots \n  / /services/ /licences/ /india/ /about/ /contact/ /blog/ /research/
 ```
 
 The script reports console errors, failed requests and horizontal overflow at
@@ -75,4 +87,6 @@ The script reports console errors, failed requests and horizontal overflow at
 Tracked in `PENDING_CLIENT_DATA.md`. The page copy says so wherever it applies:
 team names and photographs, the regulator and industry lists, the track-record
 figures, the testimonials, the India package fees, and the general FAQ answers.
-The consultation form has no backend — see `BACKEND_AND_AI_REQUIREMENTS.md`.
+The blog posts and the research catalogue are sample content, the phone number
+and office addresses are placeholders, and neither the consultation form nor
+the newsletter is connected — see `BACKEND_AND_AI_REQUIREMENTS.md`.
