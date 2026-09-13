@@ -27,7 +27,7 @@ export default function LicencesPage() {
   const licences = LICENCE_SLUGS.flatMap((slug) => getService(slug) ?? [])
 
   return (
-    <>
+    <PageMotion variant="inner">
       <PageHero
         className="phero--lic"
         crumbs={[
@@ -89,7 +89,6 @@ export default function LicencesPage() {
         secondary={{ label: CLOSING_CTA.secondary.label, href: ROUTES.faq }}
         primary={{ label: CLOSING_CTA.primary.label, href: ROUTES.consult }}
       />
-      <PageMotion variant="inner" />
-    </>
+    </PageMotion>
   )
 }

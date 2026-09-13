@@ -30,7 +30,7 @@ export default function HomePage() {
   const faqItems = HOME_FAQ.pick.flatMap((i) => faqs[i] ?? [])
 
   return (
-    <>
+    <PageMotion variant="home">
       <Loader />
       <Hero />
       <GovBand />
@@ -63,7 +63,6 @@ export default function HomePage() {
         secondary={CLOSING_CTA.secondary}
         primary={CLOSING_CTA.primary}
       />
-      <PageMotion variant="home" />
-    </>
+    </PageMotion>
   )
 }

@@ -7,8 +7,8 @@ import { ArrowIcon } from "@/components/ui/icons"
  * view; the motion layer owns that, reading `data-spy` here and
  * `data-spy-section` on the sections themselves.
  *
- * It sits under the header and rises to the top when the header hides, which
- * the stylesheet handles with `body:has(#nav.is-hidden)`.
+ * It parks directly under the header, which stays on screen for the whole
+ * page, so the offset is the constant 80px in the stylesheet.
  */
 export function SpyNav({
   items,

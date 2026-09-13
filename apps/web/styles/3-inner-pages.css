@@ -139,9 +139,6 @@
 .spy .wrap::-webkit-scrollbar {
   display: none;
 }
-body:has(#nav.is-hidden) .spy {
-  top: 0;
-}
 @media (max-width: 960px) {
   .spy {
     top: 80px;
@@ -922,4 +919,40 @@ table.mx {
 .mx[data-col="4"] thead th:nth-child(5),
 .mx[data-col="5"] thead th:nth-child(6) {
   background: var(--navy);
+}
+
+/* The header row rides down the table under the spy bar, so the licence a cell
+   belongs to stays readable in the long rows.
+
+   Only where the table fits without sideways scrolling. Below that .mx-wrap is
+   a scroll container (overflow-x:auto forces overflow-y:auto), and a sticky
+   cell inside one sticks to that container rather than to the page — so it
+   would simply never stick. 1200px is the narrowest viewport where the wrap is
+   still wider than the table's 1040px minimum; dropping the clipping any
+   earlier would push the table out of its rounded corner and overflow the page.
+
+   Offsets mirror .spy: 80px nav + 65px spy bar, collapsing to just the spy bar
+   when the nav hides, on the same easing so the two move together. */
+@media (min-width: 1200px) {
+  .mx-wrap {
+    overflow: visible;
+  }
+  .mx thead th {
+    position: sticky;
+    top: 145px;
+    z-index: 3;
+    transition:
+      background 0.25s,
+      top 0.6s var(--ease-out);
+  }
+  .mx thead th:first-child {
+    z-index: 4;
+  }
+  /* overflow:visible no longer clips the table to the wrapper's radius */
+  .mx tbody tr:last-child th {
+    border-bottom-left-radius: 23px;
+  }
+  .mx tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 23px;
+  }
 }

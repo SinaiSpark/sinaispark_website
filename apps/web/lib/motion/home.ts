@@ -231,7 +231,20 @@ function intro(onLoaderDone: () => void) {
       { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.1 },
       "-=.9"
     )
-    .to("#nav", { y: 0, autoAlpha: 1, duration: 0.8 }, "-=.9")
+    .to(
+      "#nav",
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.8,
+        // See the same call in inner.ts: clear the inline transform this
+        // leaves behind, so the stylesheet keeps ownership of the nav.
+        onComplete: () => {
+          gsap.set("#nav", { clearProps: "all" })
+        },
+      },
+      "-=.9"
+    )
 }
 
 function heroParallax() {

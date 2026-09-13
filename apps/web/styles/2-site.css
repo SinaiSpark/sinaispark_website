@@ -1182,9 +1182,6 @@
     background 0.4s,
     backdrop-filter 0.4s;
 }
-.nav.is-hidden {
-  transform: translateY(-110%);
-}
 .nav.is-scrolled {
   background: rgba(7, 21, 40, 0.62);
   backdrop-filter: blur(18px);

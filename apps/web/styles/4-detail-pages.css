@@ -235,22 +235,22 @@
   }
 }
 
-.where {
+.dwhere {
   padding: clamp(80px, 10vw, 140px) 0;
   background: var(--mist-2);
 }
-.where .head {
+.dwhere .head {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 30px;
   align-items: end;
   margin-bottom: 40px;
 }
-.where .h2 {
+.dwhere .h2 {
   margin: 22px 0 0;
   max-width: 16ch;
 }
-.where .reg-row {
+.dwhere .reg-row {
   height: min(520px, 64vh);
 }
 .reg-row.many .region h3 {
@@ -287,10 +287,10 @@
   line-height: 1.5;
 }
 @media (max-width: 900px) {
-  .where .head {
+  .dwhere .head {
     grid-template-columns: 1fr;
   }
-  .where .reg-row {
+  .dwhere .reg-row {
     height: auto;
   }
 }
