@@ -1,7 +1,6 @@
 import { CtaSection } from "@/components/chrome/cta-section"
 import { Loader } from "@/components/chrome/loader"
 import { BrandInterlude } from "@/components/home/brand-interlude"
-import { ConsultForm } from "@/components/home/consult-form"
 import { Faq } from "@/components/home/faq"
 import { GovBand } from "@/components/home/gov-band"
 import { Hero } from "@/components/home/hero"
@@ -19,18 +18,36 @@ import { Testimonials } from "@/components/home/testimonials"
 import { Who } from "@/components/home/who"
 import { Why } from "@/components/home/why"
 import { PageMotion } from "@/components/motion/page-motion"
+import { PageJsonLd } from "@/components/seo/json-ld"
 import { CLOSING_CTA } from "@/content/home"
 import { faqs, HOME_FAQ } from "@/content/faqs"
+import { ROUTES } from "@/content/site"
+import { pageMetadata } from "@/lib/seo"
+import { getSiteSettings } from "@/lib/settings"
+import { SITE } from "@/lib/site-config"
+
+export function generateMetadata() {
+  return pageMetadata({
+    // The full name, not run through the "%s | Sinai Spark Global" template.
+    title: `${SITE.name}: Business Setup Services in Saudi Arabia and Beyond`,
+    absoluteTitle: true,
+    description: SITE.description,
+    path: ROUTES.home,
+  })
+}
 
 /**
  * Home page — the section order is the approved design's, top to bottom.
  * Every string comes from the content folder; every animation from lib/motion.
+ * The Insights section only shows once an admin switches Insights on.
  */
-export default function HomePage() {
+export default async function HomePage() {
+  const { insightsEnabled } = await getSiteSettings()
   const faqItems = HOME_FAQ.pick.flatMap((i) => faqs[i] ?? [])
 
   return (
     <PageMotion variant="home">
+      <PageJsonLd path={ROUTES.home} />
       <Loader />
       <Hero />
       <GovBand />
@@ -47,8 +64,7 @@ export default function HomePage() {
       <Testimonials />
       <Regions />
       <IndiaSpotlight />
-      <Insights />
-      <ConsultForm />
+      {insightsEnabled ? <Insights /> : null}
       <Faq
         eyebrow={HOME_FAQ.eyebrow}
         headline={HOME_FAQ.headline}

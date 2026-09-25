@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react"
 import { ArrowIcon } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
-import { BLOG, type Post, type PostFormat } from "@/content/blog"
+import { BLOG, type PostFormat } from "@/content/blog"
+import type { Post } from "@/lib/content-api"
 import { cx } from "@/lib/cx"
 
 /**
@@ -22,8 +23,7 @@ import { cx } from "@/lib/cx"
  */
 type Filter = PostFormat | "all"
 
-/** Cards carry no link yet: the articles themselves arrive with the CMS. */
-function PostCard({
+export function PostCard({
   post,
   featured = false,
   hidden = false,
@@ -33,11 +33,12 @@ function PostCard({
   hidden?: boolean
 }) {
   return (
-    <article
+    <SmartLink
       className={cx("bl-post", featured && "is-feat", hidden && "is-hidden")}
+      href={post.href}
     >
       <div className="ph">
-        <img src={post.image} alt="" />
+        <img src={post.image} alt={post.imageAlt} />
         <span className="tag">{featured ? BLOG.featuredTag : post.format}</span>
       </div>
       <div className="tx">
@@ -48,11 +49,11 @@ function PostCard({
         <h3>{post.title}</h3>
         <p>{post.excerpt}</p>
         <div className="meta">
-          <span>{post.date}</span>
+          <time dateTime={post.isoDate}>{post.date}</time>
           <span>{post.readTime} read</span>
         </div>
       </div>
-    </article>
+    </SmartLink>
   )
 }
 
@@ -85,16 +86,16 @@ function FilingRhythm() {
   )
 }
 
-export function BlogPosts() {
+export function BlogPosts({ posts }: { posts: Post[] }) {
   const [active, setActive] = useState<Filter>("all")
   const barRef = useRef<HTMLDivElement>(null)
   const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(
     null
   )
 
-  const [featured, ...rest] = BLOG.posts
+  const [featured, ...rest] = posts
   const matches = (post: Post) => active === "all" || post.format === active
-  const shown = BLOG.posts.filter(matches).length
+  const shown = posts.filter(matches).length
 
   // The pill slides to the selected format. Measured rather than animated by
   // the motion layer, so it is in the right place before GSAP has loaded.
@@ -113,11 +114,11 @@ export function BlogPosts() {
   }, [active])
 
   const tabs: { id: Filter; label: string; count: number }[] = [
-    { id: "all", label: BLOG.filter.all, count: BLOG.posts.length },
+    { id: "all", label: BLOG.filter.all, count: posts.length },
     ...BLOG.formats.map((format) => ({
       id: format as Filter,
       label: BLOG.filter.labels[format],
-      count: BLOG.posts.filter((post) => post.format === format).length,
+      count: posts.filter((post) => post.format === format).length,
     })),
   ]
 
@@ -165,7 +166,6 @@ export function BlogPosts() {
         <div className="wrap">
           <div className="head">
             <p className="eyebrow">{BLOG.allPosts}</p>
-            <span className="mock">{BLOG.note}</span>
           </div>
 
           <div className="bl-grid" id="blGrid">
@@ -174,7 +174,9 @@ export function BlogPosts() {
             ))}
           </div>
 
-          {shown === 0 ? (
+          {posts.length === 0 ? (
+            <div className="bl-empty">{BLOG.filter.none}</div>
+          ) : shown === 0 ? (
             <div className="bl-empty">
               {BLOG.filter.empty}
               <button

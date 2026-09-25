@@ -22,7 +22,8 @@ export function CtaSection({
   headline: string
   lede: string
   primary: { label: string; href: string }
-  secondary: { label: string; href: string }
+  /** Optional: left out when its target is hidden (e.g. research). */
+  secondary?: { label: string; href: string }
   /** Optional extra row under the buttons, used by the India page. */
   children?: React.ReactNode
   id?: string
@@ -43,13 +44,15 @@ export function CtaSection({
           {lede}
         </p>
         <div className="cta-btns" data-reveal>
-          <SmartLink
-            className="btn btn--ghost"
-            href={secondary.href}
-            data-magnetic
-          >
-            {secondary.label} <ButtonArrow />
-          </SmartLink>
+          {secondary ? (
+            <SmartLink
+              className="btn btn--ghost"
+              href={secondary.href}
+              data-magnetic
+            >
+              {secondary.label} <ButtonArrow />
+            </SmartLink>
+          ) : null}
           <SmartLink className="btn" href={primary.href} data-magnetic>
             {primary.label} <ButtonArrow />
           </SmartLink>

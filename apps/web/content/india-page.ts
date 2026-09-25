@@ -1,3 +1,11 @@
+import { consultHref } from "@/content/site"
+
+/** Every button on the India page books the NRI company-registration call. */
+export const INDIA_CONSULT = consultHref({
+  service: "Indian company registration (NRI)",
+  market: "India",
+})
+
 /**
  * Presentation copy for the India landing page.
  *
@@ -57,7 +65,7 @@ export const INDIA_PAGE = {
   included: {
     eyebrow: "What we handle",
     headline: "Everything from incorporation to the bank account.",
-    cta: { label: "Get the document checklist", href: "/#consult" },
+    cta: { label: "Get the document checklist", href: INDIA_CONSULT },
   },
 
   process: {
@@ -117,18 +125,18 @@ export const INDIA_PAGE = {
     eyebrow: "FAQ",
     headline: "Questions NRIs ask us.",
     lede: "Client-supplied answers for Gulf-based founders.",
-    link: { label: "Ask your own", href: "/#consult" },
+    link: { label: "Ask your own", href: INDIA_CONSULT },
   },
 
   cta: {
     eyebrow: "Sinai Spark India",
     secondary: { label: "See the FAQs", href: "#faq" },
-    primary: { label: "Register my Indian company", href: "/#consult" },
+    primary: { label: "Register my Indian company", href: INDIA_CONSULT },
   },
 
   hero: {
     /** Where the two hero buttons point. */
-    primary: "/#consult",
+    primary: INDIA_CONSULT,
     secondary: "#how",
   },
 } as const

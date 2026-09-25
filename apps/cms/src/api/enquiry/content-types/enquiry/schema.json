@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enquiries",
+  "info": {
+    "singularName": "enquiry",
+    "pluralName": "enquiries",
+    "displayName": "Enquiry",
+    "description": "Consultation requests from the website forms."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "leadStatus": {
+      "type": "enumeration",
+      "enum": ["New", "Contacted", "Qualified", "Won", "Lost", "Spam"],
+      "default": "New",
+      "required": true
+    },
+    "fullName": { "type": "string", "required": true, "maxLength": 120 },
+    "email": { "type": "email", "required": true },
+    "phone": { "type": "string", "maxLength": 32 },
+    "market": { "type": "string", "maxLength": 60 },
+    "service": { "type": "string", "maxLength": 120 },
+    "message": { "type": "text", "maxLength": 2000 },
+    "page": { "type": "string", "maxLength": 200 },
+    "notes": { "type": "text" }
+  }
+}

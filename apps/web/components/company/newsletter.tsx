@@ -7,11 +7,8 @@ import { SplitText } from "@/components/ui/split-text"
 import { NEWSLETTER } from "@/content/newsletter"
 
 /**
- * Email capture, shared by the blog and the research page.
- *
- * FRONTEND ONLY: nothing is sent or stored — a valid address just swaps the
- * field for the confirmation line, and the copy under it says so. The provider
- * is still to be chosen.
+ * Email capture, shared by the blog and the research page. Posts to
+ * /api/subscribe, which adds the address to the CMS email list.
  */
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
 
@@ -30,15 +27,35 @@ export function Newsletter({
   const [email, setEmail] = useState("")
   const [invalid, setInvalid] = useState(false)
   const [done, setDone] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [failure, setFailure] = useState("")
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!EMAIL.test(email)) {
+    if (!EMAIL.test(email.trim())) {
       setInvalid(true)
       return
     }
     setInvalid(false)
-    setDone(true)
+    setFailure("")
+    setBusy(true)
+    try {
+      const res = await fetch("/api/subscribe/", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, source: "Newsletter" }),
+      })
+      if (!res.ok) {
+        const body = (await res.json().catch(() => ({}))) as { error?: string }
+        setFailure(body.error ?? NEWSLETTER.failure)
+        return
+      }
+      setDone(true)
+    } catch {
+      setFailure(NEWSLETTER.failure)
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -95,11 +112,13 @@ export function Newsletter({
                   aria-invalid={invalid || undefined}
                   style={invalid ? { borderColor: "#D0473C" } : undefined}
                 />
-                <button className="btn" type="submit">
+                <button className="btn" type="submit" disabled={busy}>
                   {NEWSLETTER.submit} <ButtonArrow />
                 </button>
               </div>
-              <small>{NEWSLETTER.disclaimer}</small>
+              <small role={failure ? "alert" : undefined}>
+                {failure || NEWSLETTER.disclaimer}
+              </small>
             </>
           )}
         </form>

@@ -92,7 +92,7 @@ export function DetailPage({
         stats={stats}
         actions={
           <div className="d-actions">
-            <SmartLink className="btn" href={ROUTES.contact} data-magnetic>
+            <SmartLink className="btn" href={ROUTES.consult} data-magnetic>
               Book a free consultation <ButtonArrow />
             </SmartLink>
             <a className="btn btn--ghost" href="#overview" data-magnetic>

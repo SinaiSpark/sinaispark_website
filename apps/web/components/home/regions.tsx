@@ -1,7 +1,7 @@
 import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { REGIONS } from "@/content/home"
-import { ROUTES } from "@/content/site"
+import { consultHref } from "@/content/site"
 
 /**
  * Regional coverage inside Saudi Arabia. Three tiles that expand on hover.
@@ -16,7 +16,11 @@ export function Regions() {
         <SplitText as="h2" className="h2" text={REGIONS.headline} />
         <div className="reg-row">
           {REGIONS.tiles.map((tile) => (
-            <SmartLink className="region" href={ROUTES.contact} key={tile.name}>
+            <SmartLink
+              className="region"
+              href={consultHref({ market: "Saudi Arabia" })}
+              key={tile.name}
+            >
               <span className="reg-ph">
                 <img src={tile.image} alt="" />
               </span>

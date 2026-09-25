@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page_seos",
+  "info": {
+    "singularName": "page-seo",
+    "pluralName": "page-seos",
+    "displayName": "Page SEO",
+    "description": "Search and social settings for each website page (home, services, licences, about...). Blog posts and research articles have their own SEO section."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "page": { "type": "string", "required": true },
+    "path": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "regex": "^/([a-z0-9-]+/)*$"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

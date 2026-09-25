@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscribers",
+  "info": {
+    "singularName": "subscriber",
+    "pluralName": "subscribers",
+    "displayName": "Subscriber",
+    "description": "The email list: newsletter sign-ups and readers who unlocked gated research."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "email": { "type": "email", "required": true, "unique": true },
+    "newsletter": { "type": "boolean", "default": false, "required": true },
+    "firstSource": {
+      "type": "enumeration",
+      "enum": ["Newsletter", "Research gate"],
+      "required": true,
+      "default": "Newsletter"
+    },
+    "unlockedResearch": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::research-article.research-article"
+    },
+    "unsubscribedAt": { "type": "datetime" }
+  }
+}

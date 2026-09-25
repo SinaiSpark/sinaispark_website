@@ -1,0 +1,445 @@
+/*
+ * Article pages: blog posts and research articles (/blog/[slug], /research/[slug]).
+ * Every rule is scoped under an .ar-* class; the design stylesheets share short
+ * class names, so nothing here may target a bare element or a shared class.
+ */
+
+/* ============ HERO ============ */
+.ar-hero {
+  min-height: 0;
+}
+.ar-hero .wrap {
+  grid-template-columns: 1fr;
+  padding-bottom: 64px;
+}
+.ar-hero .h1 {
+  font-size: clamp(34px, 4.6vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  max-width: 24ch;
+}
+.ar-hero .lede {
+  max-width: 62ch;
+  margin-top: 20px;
+}
+
+/* ============ BODY ============ */
+.ar-body {
+  background: #fff;
+  color: var(--ink);
+  padding: clamp(56px, 8vw, 110px) 0;
+}
+.ar-body .wrap {
+  display: grid;
+  grid-template-columns: minmax(220px, 3fr) minmax(0, 8fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+
+.ar-side {
+  position: sticky;
+  top: 110px;
+  display: grid;
+  gap: 28px;
+}
+.ar-back svg {
+  transform: scaleX(-1);
+}
+.ar-facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line-l);
+}
+.ar-facts div:last-child {
+  border-bottom: 1px solid var(--line-l);
+}
+.ar-facts dt {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding-top: 2px;
+}
+.ar-facts dd {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+}
+.ar-cta {
+  background: var(--mist);
+  border-radius: 18px;
+  padding: 22px;
+}
+.ar-cta b {
+  display: block;
+  font-family: var(--display);
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.ar-cta p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 8px 0 18px;
+}
+
+/* ============ PROSE ============ */
+/*
+ * The article body is HTML from the CMS's article editor, cleaned by
+ * lib/article-html.ts. Its figure classes (.image, .table, .media and the
+ * image-style-* placements) are CKEditor's names, kept by the new editor so
+ * older bodies still match.
+ */
+.ar-prose {
+  max-width: 70ch;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.ar-rich > p:first-child {
+  font-size: 21px;
+  line-height: 1.6;
+}
+.ar-rich > * + * {
+  margin-top: 1.1em;
+}
+.ar-rich h2,
+.ar-rich h3,
+.ar-rich h4 {
+  font-family: var(--display);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+}
+.ar-rich h2 + *,
+.ar-rich h3 + *,
+.ar-rich h4 + * {
+  margin-top: 0;
+}
+.ar-rich h2 {
+  font-size: clamp(24px, 2.2vw, 32px);
+}
+.ar-rich h3 {
+  font-size: 22px;
+}
+.ar-rich h4 {
+  font-size: 18px;
+}
+.ar-rich ul,
+.ar-rich ol {
+  padding-left: 1.3em;
+}
+.ar-rich li + li {
+  margin-top: 0.4em;
+}
+.ar-rich li::marker {
+  color: var(--teal);
+}
+.ar-rich a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ar-rich blockquote {
+  border-left: 3px solid var(--teal);
+  padding-left: 20px;
+  font-size: 20px;
+  color: var(--ink-2);
+}
+.ar-rich blockquote > * + * {
+  margin-top: 0.6em;
+}
+.ar-rich hr {
+  border: 0;
+  border-top: 1px solid var(--line-l);
+  margin: 2.2em 0;
+}
+.ar-rich code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--mist);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.ar-rich sub,
+.ar-rich sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+/* Images: full width by default, "inline" and "side" as CKEditor places them. */
+.ar-rich figure {
+  margin-inline: 0;
+}
+.ar-rich figure.image img,
+.ar-rich img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+.ar-rich figure.image img {
+  width: 100%;
+}
+.ar-rich figure.image-style-side {
+  float: right;
+  width: min(45%, 320px);
+  margin: 0.3em 0 1em 1.6em;
+}
+.ar-rich figure.image-style-block-align-left {
+  width: min(60%, 420px);
+  margin-right: auto;
+}
+.ar-rich figure.image-style-block-align-right {
+  width: min(60%, 420px);
+  margin-left: auto;
+}
+.ar-rich figcaption {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-top: 8px;
+  text-align: center;
+}
+.ar-rich::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Tables scroll sideways on a phone rather than squashing their columns. */
+.ar-rich figure.table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.ar-rich table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.ar-rich th,
+.ar-rich td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-l);
+  text-align: left;
+  vertical-align: top;
+}
+.ar-rich thead th {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  border-bottom: 2px solid var(--ink);
+}
+.ar-rich tbody tr:nth-child(even) {
+  background: var(--mist);
+}
+.ar-rich figure.table figcaption,
+.ar-rich table caption {
+  caption-side: bottom;
+  text-align: left;
+}
+
+/* Video: sized by the stylesheet, not the editor's inline wrapper. */
+.ar-rich figure.media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--abyss);
+}
+.ar-rich figure.media > div,
+.ar-rich figure.media > div > div {
+  position: absolute;
+  inset: 0;
+}
+.ar-rich figure.media iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ============ PREVIEW BAR ============ */
+/* Draft mode only: pinned above everything so it cannot be missed. */
+.ar-previewbar {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: calc(100% - 32px);
+  padding: 10px 12px 10px 16px;
+  border-radius: 999px;
+  background: #1f1a0b;
+  color: #fff4d6;
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.ar-previewbar b {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffcf5a;
+}
+.ar-previewbar a {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #ffcf5a;
+  color: #1f1a0b;
+  font-weight: 600;
+}
+
+/* ============ EMAIL GATE ============ */
+/* The preview fades out into the gate, so it reads as the same article. */
+.ar-preview {
+  position: relative;
+}
+.ar-preview::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 120px;
+  background: linear-gradient(rgba(255, 255, 255, 0), #fff);
+  pointer-events: none;
+}
+.ar-gate {
+  margin-top: 12px;
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: 22px;
+  background: linear-gradient(
+    160deg,
+    var(--deep),
+    var(--navy) 70%,
+    var(--teal) 150%
+  );
+  color: var(--on-dark);
+}
+.ar-gate .eyebrow {
+  color: var(--spark);
+}
+.ar-gate .eyebrow svg {
+  width: 14px;
+  height: 14px;
+}
+.ar-gate h2 {
+  font-family: var(--display);
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 12px 0 8px;
+}
+.ar-gate p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--on-dark-2);
+}
+.ar-gate form {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+.ar-gate .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ar-gate input[type="email"] {
+  flex: 1 1 240px;
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line-d);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--on-dark);
+  font: inherit;
+  font-size: 16px;
+}
+.ar-gate input[type="email"]::placeholder {
+  color: var(--on-dark-2);
+}
+.ar-gate input[type="email"]:focus {
+  outline: none;
+  border-color: var(--spark);
+  box-shadow: 0 0 0 4px rgba(60, 201, 210, 0.2);
+}
+.ar-gate input[aria-invalid] {
+  border-color: #ff8a80;
+}
+.ar-gate .opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--on-dark-2);
+  cursor: pointer;
+}
+.ar-gate .opt input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--spark);
+}
+.ar-gate small {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--on-dark-2);
+}
+
+/* ============ MORE READING ============ */
+.ar-more {
+  background: var(--mist);
+  padding: clamp(70px, 9vw, 120px) 0;
+}
+.ar-more .eyebrow {
+  margin-bottom: 28px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1000px) {
+  .ar-more .bl-grid,
+  .ar-more .rs-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .ar-body .wrap {
+    grid-template-columns: 1fr;
+  }
+  .ar-side {
+    position: static;
+    order: 2;
+  }
+}
+@media (max-width: 640px) {
+  .ar-prose {
+    font-size: 17px;
+  }
+  .ar-rich figure.image-style-side {
+    float: none;
+    width: 100%;
+    margin: 0;
+  }
+  .ar-previewbar span {
+    display: none;
+  }
+  .ar-more .bl-grid,
+  .ar-more .rs-grid {
+    grid-template-columns: 1fr;
+  }
+}

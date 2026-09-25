@@ -57,6 +57,6 @@ export const HOME_FAQ = {
   eyebrow: "FAQ",
   headline: "Questions we hear every week.",
   lede: "Short answers here; the full set lives on the FAQ page.",
-  link: { label: "All FAQs", href: "/#consult" },
+  link: { label: "Ask your own question", href: "/contact/#form" },
   pick: [0, 1, 3, 4, 5],
 } as const

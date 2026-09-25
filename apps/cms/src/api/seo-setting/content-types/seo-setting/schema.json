@@ -1,0 +1,68 @@
+{
+  "kind": "singleType",
+  "collectionName": "seo_settings",
+  "info": {
+    "singularName": "seo-setting",
+    "pluralName": "seo-settings",
+    "displayName": "SEO settings",
+    "description": "Site-wide search and social defaults. Each page and article can override them in its own SEO section."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "required": true,
+      "default": "Sinai Spark Global"
+    },
+    "titleTemplate": {
+      "type": "string",
+      "required": true,
+      "default": "%s | Sinai Spark Global",
+      "regex": ".*%s.*"
+    },
+    "defaultDescription": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "defaultShareImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "allowIndexing": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "robotsDisallow": {
+      "type": "text"
+    },
+    "googleSiteVerification": {
+      "type": "string"
+    },
+    "bingSiteVerification": {
+      "type": "string"
+    },
+    "twitterHandle": {
+      "type": "string",
+      "regex": "^@?[A-Za-z0-9_]{1,15}$"
+    },
+    "organizationLegalName": {
+      "type": "string"
+    },
+    "organizationEmail": {
+      "type": "email"
+    },
+    "organizationPhone": {
+      "type": "string"
+    },
+    "organizationAddress": {
+      "type": "text"
+    },
+    "organizationProfiles": {
+      "type": "text"
+    }
+  }
+}

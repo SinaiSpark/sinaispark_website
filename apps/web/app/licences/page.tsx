@@ -1,5 +1,3 @@
-import type { Metadata } from "next"
-
 import { CtaSection } from "@/components/chrome/cta-section"
 import { LicenceFinder } from "@/components/home/licence-finder"
 import { PageMotion } from "@/components/motion/page-motion"
@@ -13,10 +11,15 @@ import { CLOSING_CTA } from "@/content/home"
 import { LICENCE_SLUGS, LICENCES_PAGE, SHORT_TITLES } from "@/content/pages"
 import { getService } from "@/content/services"
 import { ROUTES } from "@/content/site"
+import { PageJsonLd } from "@/components/seo/json-ld"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Licences",
-  description: LICENCES_PAGE.lede,
+export function generateMetadata() {
+  return pageMetadata({
+    title: "Licences",
+    description: LICENCES_PAGE.lede,
+    path: ROUTES.licences,
+  })
 }
 
 /**
@@ -28,6 +31,7 @@ export default function LicencesPage() {
 
   return (
     <PageMotion variant="inner">
+      <PageJsonLd path={ROUTES.licences} />
       <PageHero
         className="phero--lic"
         crumbs={[

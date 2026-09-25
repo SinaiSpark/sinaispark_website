@@ -28,17 +28,36 @@ export const ROUTES = {
   contact: "/contact/",
   service: (slug: string) => `/services/${slug}/`,
   licence: (slug: string) => `/licences/${slug}/`,
+  blogPost: (slug: string) => `/blog/${slug}/`,
+  researchArticle: (slug: string) => `/research/${slug}/`,
   /**
-   * Anchors. `consult` is the consultation form, which lives on the contact
-   * page — the home page keeps a copy of the same form for anyone already
-   * scrolling it, but every "book a consultation" in the chrome and on the
-   * inner pages leads to the contact page.
+   * Anchors. `consult` is the consultation form, the site's only one, on the
+   * contact page. Every "book a consultation" leads there; the form records
+   * the page the visitor came from and preselects its service.
    */
   consult: "/contact/#form",
   team: "/about/#team",
   markets: "/#markets",
   faq: "/#faq",
 } as const
+
+/**
+ * The consultation form with fields preselected, for buttons that know more
+ * than their page does (an India package, a market tile). Values must match
+ * the form's options in content/home.ts (CONSULT); anything else is ignored.
+ */
+export function consultHref(prefill: {
+  service?: string
+  market?: string
+  plan?: string
+}) {
+  const params = new URLSearchParams()
+  for (const [key, value] of Object.entries(prefill)) {
+    if (value) params.set(key, value)
+  }
+  const query = params.toString()
+  return `${ROUTES.contact}${query ? `?${query}` : ""}#form`
+}
 
 export const BRAND = {
   name: "Sinai Spark Global",
@@ -57,7 +76,8 @@ export const NAV = {
     { label: "India", href: ROUTES.india },
     { label: "About", href: ROUTES.about },
     { label: "Team", href: ROUTES.team },
-    { label: "Insights", href: ROUTES.research },
+    { label: "Blog", href: ROUTES.blog },
+    { label: "Research", href: ROUTES.research },
   ] satisfies NavLink[],
   cta: { label: "Book a consultation", href: ROUTES.consult },
   burger: { open: "Menu", close: "Close" },
@@ -132,7 +152,7 @@ export const MEGA: {
     image: "/images/services/service-licensing.jpg",
     title: "Not sure which licence fits your activity?",
     body: "A 30-minute call is enough to tell you the class, the capital and the timeline.",
-    cta: { label: "Book a free consultation", href: ROUTES.contact },
+    cta: { label: "Book a free consultation", href: ROUTES.consult },
   },
 }
 
@@ -143,7 +163,8 @@ export const SHEET = {
     { label: "India", href: ROUTES.india },
     { label: "About", href: ROUTES.about },
     { label: "Team", href: ROUTES.team },
-    { label: "Insights", href: ROUTES.research },
+    { label: "Blog", href: ROUTES.blog },
+    { label: "Research", href: ROUTES.research },
     { label: "Contact", href: ROUTES.contact },
   ] satisfies NavLink[],
   groups: [
@@ -177,7 +198,7 @@ export const SHEET = {
       ] satisfies NavLink[],
     },
   ],
-  cta: { label: "Book a free consultation", href: ROUTES.contact },
+  cta: { label: "Book a free consultation", href: ROUTES.consult },
 } as const
 
 /**

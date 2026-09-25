@@ -1,0 +1,61 @@
+{
+  "name": "cms",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sinai Spark Global CMS and admin (Strapi 5)",
+  "scripts": {
+    "build": "strapi build",
+    "console": "strapi console",
+    "dev": "strapi develop",
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "strapi": "strapi",
+    "upgrade": "npx @strapi/upgrade latest",
+    "upgrade:dry": "npx @strapi/upgrade latest --dry",
+    "typecheck": "tsc --noEmit",
+    "token:web": "node scripts/create-web-token.js",
+    "seed:samples": "node scripts/seed-samples.js",
+    "media:webp": "node scripts/convert-media-to-webp.js"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.8.0",
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/schibsted-grotesk": "^5.3.0",
+    "@strapi-community/plugin-seo": "2.1.1",
+    "@strapi/database": "5.55.1",
+    "@strapi/design-system": "2.2.4",
+    "@strapi/icons": "2.2.4",
+    "@strapi/plugin-users-permissions": "5.55.1",
+    "@strapi/strapi": "5.55.1",
+    "@tiptap/core": "3.31.3",
+    "@tiptap/extension-subscript": "3.31.3",
+    "@tiptap/extension-superscript": "3.31.3",
+    "@tiptap/extension-table": "3.31.3",
+    "@tiptap/extension-text-align": "3.31.3",
+    "@tiptap/extensions": "3.31.3",
+    "@tiptap/pm": "3.31.3",
+    "@tiptap/react": "3.31.3",
+    "@tiptap/starter-kit": "3.31.3",
+    "@tiptap/suggestion": "3.31.3",
+    "pg": "8.20.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.30.3",
+    "sharp": "0.35.3",
+    "styled-components": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20.0.0 <=26.x.x",
+    "npm": ">=6.0.0"
+  },
+  "strapi": {
+    "uuid": "4dd2e470-9d6e-4fc4-89b4-818ae5265311",
+    "installId": "e66afd2fe576906a698a9a9b4363083c9ef302eab07801e02b9bdc89d06482fd"
+  }
+}

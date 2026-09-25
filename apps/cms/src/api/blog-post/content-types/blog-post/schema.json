@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blog_posts",
+  "info": {
+    "singularName": "blog-post",
+    "pluralName": "blog-posts",
+    "displayName": "Blog post",
+    "description": "Short, practical notes from the desk: regulatory updates, guides and market news."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "options": {
+        "decamelize": false
+      }
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true,
+      "maxLength": 320
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "format": {
+      "type": "enumeration",
+      "enum": ["Regulatory update", "Guide", "Market news"],
+      "required": true,
+      "default": "Regulatory update"
+    },
+    "market": {
+      "type": "enumeration",
+      "enum": [
+        "Saudi Arabia",
+        "UAE",
+        "India",
+        "United Kingdom",
+        "Bahrain",
+        "GCC"
+      ],
+      "required": true,
+      "default": "Saudi Arabia"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "readMinutes": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "default": 5
+    },
+    "body": {
+      "type": "customField",
+      "customField": "global::rich-text",
+      "required": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "publishAt": {
+      "type": "datetime"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

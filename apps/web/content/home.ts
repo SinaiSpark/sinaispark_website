@@ -1,4 +1,4 @@
-import { ROUTES } from "@/content/site"
+import { consultHref, ROUTES } from "@/content/site"
 
 /**
  * Home page copy, section by section, in the order the page renders them.
@@ -17,7 +17,7 @@ export const HERO = {
   eyebrow: "Welcome to Sinai Spark Global",
   headline: "Expand with confidence, wherever you're growing.",
   lede: "From company formation and licensing to legal advisory and PRO support, we manage the regulatory groundwork across five global markets, so you can focus on the business, not the paperwork.",
-  primary: { label: "Book a free consultation", href: ROUTES.contact },
+  primary: { label: "Book a free consultation", href: ROUTES.consult },
   secondary: { label: "Explore our services", href: "#services" },
   video: {
     /** Local file first, CDN copy as the fallback source. */
@@ -277,7 +277,7 @@ export const WHY = {
   eyebrow: "Why Sinai Spark Global",
   headline: "A partner invested in your outcome.",
   lede: "Six reasons clients stay with us long after the licence is issued.",
-  link: { label: "Talk to us", href: ROUTES.contact },
+  link: { label: "Talk to us", href: ROUTES.consult },
   rows: [
     {
       kicker: "Reach",
@@ -343,7 +343,13 @@ export const INDIA_SPOTLIGHT = {
   headline: "Register your Indian company, from anywhere in the world.",
   lede: "Set up a Private Limited Company, LLP or OPC in India without visiting a government office. Fully online, NRI friendly, with support in Hindi and English.",
   trust: ["100% Online", "MCA Compliant", "NRI Friendly", "Hindi Support"],
-  primary: { label: "Register my Indian company", href: ROUTES.contact },
+  primary: {
+    label: "Register my Indian company",
+    href: consultHref({
+      service: "Indian company registration (NRI)",
+      market: "India",
+    }),
+  },
   secondary: { label: "See how it works", href: `${ROUTES.india}#how` },
   image: {
     src: "/images/india/mumbai-business-district.jpg",
@@ -398,8 +404,11 @@ export const CONSULT = {
     },
   },
   submit: "Send request",
-  /** The form has no backend yet — see BACKEND_AND_AI_REQUIREMENTS.md. */
-  disclaimer: "Prototype — not connected yet. Submissions are not stored.",
+  disclaimer:
+    "We reply within one business day. Your details are only used to answer this request.",
+  /** Shown when the request could not be sent at all. */
+  failure:
+    "We couldn't send your request just now. Please try again in a moment.",
   done: {
     title: "Request received.",
     body: "A specialist for your market will be in touch to set up the call.",
@@ -411,5 +420,5 @@ export const CLOSING_CTA = {
   headline: "Still have questions?",
   lede: "Explore our detailed FAQs or speak to our experts for personalised guidance.",
   secondary: { label: "View FAQs", href: "#faq" },
-  primary: { label: "Contact us", href: "#consult" },
+  primary: { label: "Contact us", href: ROUTES.consult },
 } as const

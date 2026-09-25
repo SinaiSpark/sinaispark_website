@@ -1,26 +1,46 @@
 "use client"
 
-import { useState } from "react"
+import type { CountryCode } from "libphonenumber-js"
+import { useEffect, useState } from "react"
 
 import { Clock } from "@/components/ui/clock"
 import { ButtonArrow, TickIcon } from "@/components/ui/icons"
+import {
+  PhoneField,
+  phoneIsValid,
+  type PhoneValue,
+} from "@/components/ui/phone-field"
 import { SplitText } from "@/components/ui/split-text"
 import { CONSULT } from "@/content/home"
 import { cx } from "@/lib/cx"
+import {
+  prefillFor,
+  prefillFromQuery,
+  previousPath,
+} from "@/lib/enquiry-source"
 
 /**
- * Consultation request form.
+ * Consultation request form. Posts to /api/enquiry, which emails the team and
+ * stores the enquiry in the CMS.
  *
- * FRONTEND ONLY: there is no backend yet, so a valid submission just shows the
- * confirmation panel after a short delay. Nothing is sent or stored, and the
- * form says so. The endpoint is specified in BACKEND_AND_AI_REQUIREMENTS.md.
+ * Choosing a market also switches the local-office readout beside the form
+ * and the phone field's country (until the visitor picks one themselves).
  *
- * Choosing a market also switches the local-office readout beside the form.
- *
- * The home page carries it inline as `#consult`; the contact page makes it the
- * page's own first section, so the section id, class and headline are props.
+ * It lives on the contact page; every "book a consultation" button on the
+ * site leads here. On arrival it preselects the service and market from the
+ * page the visitor came from (or from ?service=&market=&plan= on the link),
+ * and it sends that page along so the team sees where the enquiry started.
  */
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
+
+/** The phone country each market starts with. */
+const MARKET_COUNTRY: Record<string, CountryCode> = {
+  "Saudi Arabia": "SA",
+  "United Arab Emirates": "AE",
+  India: "IN",
+  "United Kingdom": "GB",
+  Bahrain: "BH",
+}
 
 export function ConsultForm({
   id = "consult",
@@ -35,33 +55,100 @@ export function ConsultForm({
   spy?: boolean
 } = {}) {
   const [marketIndex, setMarketIndex] = useState(0)
+  const [service, setService] = useState<string>(CONSULT.services[0])
+  const [message, setMessage] = useState("")
+  const [phone, setPhone] = useState<PhoneValue>({ country: "SA", number: "" })
+  const [phoneCountryPicked, setPhoneCountryPicked] = useState(false)
+  const [from, setFrom] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, boolean>>({})
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState(false)
+  const [failure, setFailure] = useState("")
 
   const market = (CONSULT.markets[marketIndex] ?? CONSULT.markets[0])!
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    const name = String(data.get("name") ?? "").trim()
-    const email = String(data.get("email") ?? "").trim()
+  const chooseMarket = (index: number) => {
+    setMarketIndex(index)
+    const country = MARKET_COUNTRY[CONSULT.markets[index]?.label ?? ""]
+    if (country && !phoneCountryPicked) setPhone((p) => ({ ...p, country }))
+  }
 
-    const next = { name: !name, email: !email || !EMAIL.test(email) }
+  // Preselect from the link and the page the visitor came from.
+  useEffect(() => {
+    const came = previousPath(window.location.pathname)
+    const fromPage = prefillFor(came)
+    const fromLink = prefillFromQuery(window.location.search)
+    setFrom(came)
+    const pickedMarket = fromLink.market ?? fromPage.market
+    const pickedService = fromLink.service ?? fromPage.service
+    if (pickedMarket) {
+      const index = CONSULT.markets.findIndex((m) => m.label === pickedMarket)
+      if (index >= 0) {
+        setMarketIndex(index)
+        const country = MARKET_COUNTRY[pickedMarket]
+        if (country) setPhone((p) => ({ ...p, country }))
+      }
+    }
+    if (pickedService) setService(pickedService)
+    if (fromLink.plan) {
+      setMessage(`I'm interested in the ${fromLink.plan} package.`)
+    }
+  }, [])
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const data = Object.fromEntries(new FormData(form)) as Record<
+      string,
+      string
+    >
+    const name = (data.name ?? "").trim()
+    const email = (data.email ?? "").trim()
+
+    const next = {
+      name: !name,
+      email: !email || !EMAIL.test(email),
+      phone: !phoneIsValid(phone),
+    }
     setErrors(next)
-    if (next.name || next.email) {
-      const field = e.currentTarget.querySelector<HTMLInputElement>(
-        next.name ? "#f-name" : "#f-email"
-      )
-      field?.focus()
+    setFailure("")
+    if (next.name || next.email || next.phone) {
+      form
+        .querySelector<HTMLInputElement>(
+          next.name ? "#f-name" : next.email ? "#f-email" : "#f-phone"
+        )
+        ?.focus()
+      if (next.phone && !next.name && !next.email) {
+        setFailure(
+          "That phone number doesn't look right for the country chosen."
+        )
+      }
       return
     }
 
     setBusy(true)
-    window.setTimeout(() => {
-      setBusy(false)
+    try {
+      const res = await fetch("/api/enquiry/", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        // The page before this one; the server turns it into a label.
+        body: JSON.stringify({ ...data, from }),
+      })
+      const body = (await res.json().catch(() => ({}))) as {
+        error?: string
+        fields?: string[]
+      }
+      if (!res.ok) {
+        setErrors(Object.fromEntries((body.fields ?? []).map((f) => [f, true])))
+        setFailure(body.error ?? CONSULT.failure)
+        return
+      }
       setDone(true)
-    }, 700)
+    } catch {
+      setFailure(CONSULT.failure)
+    } finally {
+      setBusy(false)
+    }
   }
 
   const invalid = (key: string) =>
@@ -140,12 +227,15 @@ export function ConsultForm({
           <div className="row">
             <div className="field">
               <label htmlFor="f-phone">{CONSULT.fields.phone.label}</label>
-              <input
+              <PhoneField
                 id="f-phone"
                 name="phone"
-                type="tel"
-                autoComplete="tel"
-                placeholder={CONSULT.fields.phone.placeholder}
+                value={phone}
+                invalid={errors.phone}
+                onChange={(value, picked) => {
+                  setPhone(value)
+                  if (picked) setPhoneCountryPicked(true)
+                }}
               />
             </div>
             <div className="field">
@@ -153,11 +243,15 @@ export function ConsultForm({
               <select
                 id="f-market"
                 name="market"
-                value={String(marketIndex)}
-                onChange={(e) => setMarketIndex(Number(e.target.value))}
+                value={market.label}
+                onChange={(e) =>
+                  chooseMarket(
+                    CONSULT.markets.findIndex((m) => m.label === e.target.value)
+                  )
+                }
               >
-                {CONSULT.markets.map((m, i) => (
-                  <option value={String(i)} key={m.label}>
+                {CONSULT.markets.map((m) => (
+                  <option value={m.label} key={m.label}>
                     {m.label}
                   </option>
                 ))}
@@ -167,7 +261,12 @@ export function ConsultForm({
 
           <div className="field">
             <label htmlFor="f-service">{CONSULT.fields.service.label}</label>
-            <select id="f-service" name="service">
+            <select
+              id="f-service"
+              name="service"
+              value={service}
+              onChange={(e) => setService(e.target.value)}
+            >
               {CONSULT.services.map((service) => (
                 <option key={service}>{service}</option>
               ))}
@@ -179,9 +278,26 @@ export function ConsultForm({
             <textarea
               id="f-msg"
               name="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
               placeholder={CONSULT.fields.message.placeholder}
             />
           </div>
+
+          {/* Honeypot: invisible to people, filled in by bots. */}
+          <input
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="sr-only"
+          />
+
+          {failure ? (
+            <p className="form-error" role="alert">
+              {failure}
+            </p>
+          ) : null}
 
           <div className="form-foot">
             <button

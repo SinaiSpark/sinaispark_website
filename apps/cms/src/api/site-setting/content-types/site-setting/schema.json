@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site settings",
+    "description": "Switches that change what the website shows. Changes go live straight away."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "insightsEnabled": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

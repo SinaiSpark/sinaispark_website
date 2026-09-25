@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "research_articles",
+  "info": {
+    "singularName": "research-article",
+    "pluralName": "research-articles",
+    "displayName": "Research article",
+    "description": "Long-form research, written here like a blog post. Optionally asks for an email before the full text."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "options": {
+        "decamelize": false
+      }
+    },
+    "summary": {
+      "type": "text",
+      "required": true,
+      "maxLength": 400
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "market": {
+      "type": "enumeration",
+      "enum": [
+        "Saudi Arabia",
+        "UAE",
+        "India",
+        "United Kingdom",
+        "Bahrain",
+        "GCC"
+      ],
+      "required": true,
+      "default": "Saudi Arabia"
+    },
+    "topic": {
+      "type": "enumeration",
+      "enum": ["Market entry", "Licensing", "Taxation", "Compliance"],
+      "required": true,
+      "default": "Market entry"
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "readMinutes": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "default": 10
+    },
+    "body": {
+      "type": "customField",
+      "customField": "global::rich-text",
+      "required": true
+    },
+    "emailGate": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "previewBlocks": {
+      "type": "integer",
+      "default": 3,
+      "min": 1,
+      "max": 20
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "publishAt": {
+      "type": "datetime"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

@@ -1,4 +1,3 @@
-import type { Metadata } from "next"
 import Link from "next/link"
 
 import { CtaSection } from "@/components/chrome/cta-section"
@@ -17,10 +16,15 @@ import {
 } from "@/content/pages"
 import { getService } from "@/content/services"
 import { ROUTES } from "@/content/site"
+import { PageJsonLd } from "@/components/seo/json-ld"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Services",
-  description: SERVICES_PAGE.lede,
+export function generateMetadata() {
+  return pageMetadata({
+    title: "Services",
+    description: SERVICES_PAGE.lede,
+    path: ROUTES.services,
+  })
 }
 
 /** Services hub: the five core services in full, then a teaser for licensing. */
@@ -30,6 +34,7 @@ export default function ServicesPage() {
 
   return (
     <PageMotion variant="inner">
+      <PageJsonLd path={ROUTES.services} />
       <PageHero
         image={SERVICES_PAGE.hero}
         crumbs={[{ label: "Home", href: ROUTES.home }, { label: "Services" }]}

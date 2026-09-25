@@ -1,8 +1,13 @@
 import { SmartLink } from "@/components/ui/smart-link"
 import { BRAND, FOOTER } from "@/content/site"
+import { visibleLinks } from "@/lib/insights-links"
 
-/** Site footer: brand blurb, three link columns and the legal line. */
-export function SiteFooter() {
+/**
+ * Site footer: brand blurb, three link columns and the legal line. The
+ * Research links only appear once Insights is switched on; the blog is
+ * always there.
+ */
+export function SiteFooter({ insights }: { insights: boolean }) {
   return (
     <footer className="footer">
       <div className="wrap">
@@ -15,7 +20,7 @@ export function SiteFooter() {
             <div key={column.heading}>
               <h4>{column.heading}</h4>
               <ul>
-                {column.items.map((item) => (
+                {visibleLinks(column.items, insights).map((item) => (
                   <li key={item.label}>
                     <SmartLink href={item.href}>{item.label}</SmartLink>
                   </li>

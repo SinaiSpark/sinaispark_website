@@ -1,4 +1,4 @@
-import { ROUTES } from "@/content/site"
+import { consultHref, ROUTES } from "@/content/site"
 
 /**
  * The licence finder — the chip picker that appears on both the home page and
@@ -28,9 +28,22 @@ export const FINDER = {
   lede: "Pick the closest description. We'll show the licence class that usually applies and how it is issued.",
   chipsLabel: "Your activity",
   /** Default call to action on the home page. */
-  cta: { label: "Book a consultation", href: "#contact" },
+  cta: {
+    label: "Book a consultation",
+    href: consultHref({
+      service:
+        "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+      market: "Saudi Arabia",
+    }),
+  },
   /** The India answer is a different route, so it gets its own call to action. */
-  indiaCta: { label: "Register my Indian company", href: "#india" },
+  indiaCta: {
+    label: "Register my Indian company",
+    href: consultHref({
+      service: "Indian company registration (NRI)",
+      market: "India",
+    }),
+  },
   /** On the licences page the button jumps to the matching section instead. */
   readCta: "Read this licence",
   indiaReadCta: "See Sinai Spark India",

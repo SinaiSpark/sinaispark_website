@@ -5,7 +5,18 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": [
+        "CMS_URL",
+        "CMS_API_TOKEN",
+        "REVALIDATE_SECRET",
+        "RESEND_API_KEY",
+        "MAIL_FROM",
+        "ENQUIRY_NOTIFY_TO",
+        "CMS_PUBLIC_URL",
+        "READER_COOKIE_SECRET",
+        "PREVIEW_SECRET"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]

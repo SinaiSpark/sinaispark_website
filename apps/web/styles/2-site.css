@@ -936,6 +936,82 @@
   box-shadow: 0 0 0 4px rgba(22, 149, 159, 0.16);
   background: #fff;
 }
+/* Phone: country code picker + number, drawn as one field. The picker is a
+   transparent native select over the flag-and-code label. */
+.field .phone {
+  display: flex;
+  align-items: stretch;
+  height: 50px;
+  background: var(--mist);
+  border: 1px solid var(--line-l);
+  border-radius: 12px;
+  transition:
+    border-color 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out),
+    background 160ms;
+}
+.field .phone:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 4px rgba(22, 149, 159, 0.16);
+  background: #fff;
+}
+.field .phone.is-invalid {
+  border-color: #d0473c;
+}
+.phone-cc {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: none;
+  padding: 0 10px 0 14px;
+  border-right: 1px solid var(--line-l);
+  font-size: 15px;
+  color: var(--ink);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.phone-cc > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.phone-cc b {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+}
+.phone-cc svg {
+  color: var(--ink-2);
+}
+.field .phone-cc select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+}
+.field .phone input {
+  flex: 1;
+  min-width: 0;
+  height: auto;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.field .phone input:focus {
+  background: transparent;
+  box-shadow: none;
+}
+.form .form-error {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b3372d;
+}
 .form-foot {
   display: flex;
   align-items: center;

@@ -5,6 +5,7 @@ import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { INDIA } from "@/content/india"
 import { INDIA_PAGE } from "@/content/india-page"
+import { consultHref } from "@/content/site"
 import { cx } from "@/lib/cx"
 
 /**
@@ -358,7 +359,11 @@ export function IndiaPricing() {
               </ul>
               <SmartLink
                 className={cx("btn", !pack.popular && "btn--navy")}
-                href={INDIA_PAGE.cta.primary.href}
+                href={consultHref({
+                  service: "Indian company registration (NRI)",
+                  market: "India",
+                  plan: pack.name,
+                })}
                 data-magnetic
               >
                 {copy.choosePrefix} {pack.name} <ButtonArrow />

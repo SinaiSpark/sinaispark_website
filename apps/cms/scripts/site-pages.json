@@ -1,0 +1,74 @@
+[
+  {
+    "page": "Home",
+    "path": "/"
+  },
+  {
+    "page": "Services",
+    "path": "/services/"
+  },
+  {
+    "page": "Service: Business Setup in Saudi Arabia",
+    "path": "/services/administrative-solutions/"
+  },
+  {
+    "page": "Service: Legal & Regulatory Advisory",
+    "path": "/services/legal-services/"
+  },
+  {
+    "page": "Service: PRO & Visa Services",
+    "path": "/services/pro-visa-services/"
+  },
+  {
+    "page": "Service: Compliance",
+    "path": "/services/compliance/"
+  },
+  {
+    "page": "Service: Property Management",
+    "path": "/services/property-management/"
+  },
+  {
+    "page": "Licences",
+    "path": "/licences/"
+  },
+  {
+    "page": "Licence: Commercial License",
+    "path": "/licences/commercial-license/"
+  },
+  {
+    "page": "Licence: Industrial License",
+    "path": "/licences/industrial-license/"
+  },
+  {
+    "page": "Licence: Entrepreneurial License",
+    "path": "/licences/entrepreneurial-license/"
+  },
+  {
+    "page": "Licence: Service License",
+    "path": "/licences/service-license/"
+  },
+  {
+    "page": "Licence: Real Estate License",
+    "path": "/licences/real-estate-license/"
+  },
+  {
+    "page": "India",
+    "path": "/india/"
+  },
+  {
+    "page": "About",
+    "path": "/about/"
+  },
+  {
+    "page": "Contact",
+    "path": "/contact/"
+  },
+  {
+    "page": "Blog (index)",
+    "path": "/blog/"
+  },
+  {
+    "page": "Research (index)",
+    "path": "/research/"
+  }
+]

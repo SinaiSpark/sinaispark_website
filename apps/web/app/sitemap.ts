@@ -1,31 +1,48 @@
 import type { MetadataRoute } from "next"
 
-import { CORE_SLUGS, LICENCE_SLUGS } from "@/content/pages"
-import { ROUTES } from "@/content/site"
+import { getPosts, getReports } from "@/lib/content-api"
+import { isInsightsLink } from "@/lib/insights-links"
+import { getPageSeo, getSiteSettings } from "@/lib/settings"
 import { SITE } from "@/lib/site-config"
+import { SITE_PAGES } from "@/lib/site-pages"
 
-/** Every route the site actually publishes, in priority order. */
-export default function sitemap(): MetadataRoute.Sitemap {
+/**
+ * Every route the site publishes, in priority order. Left out: research
+ * while Insights is switched off, and any page an editor has marked
+ * "noindex" in its SEO. The blog is always listed.
+ */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE.url.replace(/\/$/, "")
   const now = new Date()
+  const { insightsEnabled } = await getSiteSettings()
 
-  const entry = (path: string, priority: number) => ({
+  const entry = (path: string, lastModified = now) => ({
     url: `${base}${path}`,
-    lastModified: now,
+    lastModified,
     changeFrequency: "monthly" as const,
-    priority,
+    priority: path === "/" ? 1 : path.split("/").length > 3 ? 0.6 : 0.8,
   })
 
+  const noindex = async (path: string) =>
+    /noindex|none/i.test((await getPageSeo(path))?.metaRobots ?? "")
+
+  const pages = []
+  for (const page of SITE_PAGES) {
+    if (!insightsEnabled && isInsightsLink(page.path)) continue
+    if (await noindex(page.path)) continue
+    pages.push(entry(page.path))
+  }
+
+  // A sitemap without the articles beats no sitemap, so a CMS outage only
+  // drops them from this copy. Research is listed only while Insights is on.
+  const [posts, reports] = await Promise.all([
+    getPosts().catch(() => []),
+    insightsEnabled ? getReports().catch(() => []) : [],
+  ])
+
   return [
-    entry(ROUTES.home, 1),
-    entry(ROUTES.services, 0.9),
-    entry(ROUTES.licences, 0.9),
-    entry(ROUTES.india, 0.9),
-    entry(ROUTES.about, 0.8),
-    entry(ROUTES.contact, 0.8),
-    ...CORE_SLUGS.map((slug) => entry(ROUTES.service(slug), 0.8)),
-    ...LICENCE_SLUGS.map((slug) => entry(ROUTES.licence(slug), 0.8)),
-    entry(ROUTES.research, 0.7),
-    entry(ROUTES.blog, 0.7),
+    ...pages,
+    ...reports.map((r) => entry(r.href, new Date(r.isoDate))),
+    ...posts.map((p) => entry(p.href, new Date(p.isoDate))),
   ]
 }

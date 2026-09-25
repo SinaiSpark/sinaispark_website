@@ -1,0 +1,22 @@
+# Local development services. Production runs its own compose file on the VPS.
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: sinaispark-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sinaispark_cms
+      POSTGRES_USER: strapi
+      POSTGRES_PASSWORD: strapi_local
+    ports:
+      # 5432/5433 are taken by other projects on the dev machine.
+      - "55432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strapi -d sinaispark_cms"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  postgres-data:

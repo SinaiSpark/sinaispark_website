@@ -1,3 +1,5 @@
+import { consultHref } from "@/content/site"
+
 import type { ImageKey } from "@/lib/images"
 
 /**
@@ -11,7 +13,13 @@ export const INDIA = {
     headline: "Register Your Indian Company, From Anywhere in the World",
     subheadline:
       "Set up a Private Limited Company, LLP or OPC in India without visiting a government office. Fully online, NRI friendly, with support in Hindi and English.",
-    primaryCta: { label: "Register My Indian Company", href: "/contact/" },
+    primaryCta: {
+      label: "Register My Indian Company",
+      href: consultHref({
+        service: "Indian company registration (NRI)",
+        market: "India",
+      }),
+    },
     secondaryCta: { label: "See How It Works", href: "#how-it-works" },
     trustStrip: [
       "100% Online",

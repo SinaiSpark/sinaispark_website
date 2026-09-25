@@ -1,5 +1,3 @@
-import type { Metadata } from "next"
-
 import { CtaSection } from "@/components/chrome/cta-section"
 import {
   AboutApart,
@@ -17,10 +15,15 @@ import { ButtonArrow } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
 import { ABOUT } from "@/content/about"
 import { ROUTES } from "@/content/site"
+import { PageJsonLd } from "@/components/seo/json-ld"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "About",
-  description: ABOUT.hero.lede,
+export function generateMetadata() {
+  return pageMetadata({
+    title: "About",
+    description: ABOUT.hero.lede,
+    path: ROUTES.about,
+  })
 }
 
 /**
@@ -31,6 +34,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <PageMotion variant="company">
+      <PageJsonLd path={ROUTES.about} />
       <PageHero
         className="dhero ab-hero"
         image={ABOUT.hero.image}

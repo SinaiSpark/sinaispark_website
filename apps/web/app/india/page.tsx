@@ -1,5 +1,3 @@
-import type { Metadata } from "next"
-
 import { CtaSection } from "@/components/chrome/cta-section"
 import { ProcessTrack } from "@/components/detail/detail-sections"
 import { Faq } from "@/components/home/faq"
@@ -16,10 +14,16 @@ import { StructurePicker } from "@/components/india/structure-picker"
 import { PageMotion } from "@/components/motion/page-motion"
 import { INDIA } from "@/content/india"
 import { INDIA_PAGE } from "@/content/india-page"
+import { ROUTES } from "@/content/site"
+import { PageJsonLd } from "@/components/seo/json-ld"
+import { pageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Sinai Spark India",
-  description: INDIA.hero.subheadline,
+export function generateMetadata() {
+  return pageMetadata({
+    title: "Sinai Spark India",
+    description: INDIA.hero.subheadline,
+    path: ROUTES.india,
+  })
 }
 
 /**
@@ -30,6 +34,7 @@ export const metadata: Metadata = {
 export default function IndiaPage() {
   return (
     <PageMotion variant="india">
+      <PageJsonLd path={ROUTES.india} />
       <IndiaHero />
       <IndiaTicker />
       <IndiaAudiences />

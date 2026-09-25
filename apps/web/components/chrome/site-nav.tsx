@@ -9,6 +9,7 @@ import { Clock } from "@/components/ui/clock"
 import { SmartLink } from "@/components/ui/smart-link"
 import { BRAND, CLOCKS, MEGA, NAV, ROUTES, SHEET } from "@/content/site"
 import { cx } from "@/lib/cx"
+import { visibleLinks } from "@/lib/insights-links"
 
 /**
  * Header and mobile sheet.
@@ -19,8 +20,10 @@ import { cx } from "@/lib/cx"
  *
  * The nav's scrolled / hidden / light classes are driven by ScrollTrigger in
  * lib/motion, not from here.
+ *
+ * The Insights links only appear once an admin switches Insights on.
  */
-export function SiteNav() {
+export function SiteNav({ insights }: { insights: boolean }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
@@ -95,7 +98,7 @@ export function SiteNav() {
                 </div>
               </div>
             </li>
-            {NAV.links.map((link) => (
+            {visibleLinks(NAV.links, insights).map((link) => (
               <li key={link.href}>
                 <SmartLink href={link.href}>{link.label}</SmartLink>
               </li>
@@ -133,7 +136,7 @@ export function SiteNav() {
         aria-label="Mobile"
       >
         <div className="sheet-big">
-          {SHEET.primary.map((link) => (
+          {visibleLinks(SHEET.primary, insights).map((link) => (
             <SmartLink
               key={link.href + link.label}
               href={link.href}
@@ -149,7 +152,7 @@ export function SiteNav() {
             <div key={group.heading}>
               <h5>{group.heading}</h5>
               <div className="sheet-grid">
-                {group.items.map((item) => (
+                {visibleLinks(group.items, insights).map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}

@@ -4,6 +4,9 @@ import { notFound } from "next/navigation"
 import { DetailPage } from "@/components/detail/detail-page"
 import { CORE_SLUGS } from "@/content/pages"
 import { getService } from "@/content/services"
+import { ROUTES } from "@/content/site"
+import { PageJsonLd } from "@/components/seo/json-ld"
+import { pageMetadata } from "@/lib/seo"
 
 /** One page per core service, built from content/services.ts. */
 export function generateStaticParams() {
@@ -18,7 +21,11 @@ export async function generateMetadata({
   const { service: slug } = await params
   const service = getService(slug)
   if (!service) return {}
-  return { title: service.title, description: service.metaDescription }
+  return pageMetadata({
+    title: service.title,
+    description: service.metaDescription,
+    path: ROUTES.service(slug),
+  })
 }
 
 export default async function ServiceDetailPage({
@@ -32,5 +39,10 @@ export default async function ServiceDetailPage({
     notFound()
 
   const siblings = CORE_SLUGS.flatMap((s) => getService(s) ?? [])
-  return <DetailPage service={service} siblings={siblings} kind="service" />
+  return (
+    <>
+      <PageJsonLd path={ROUTES.service(slug)} />
+      <DetailPage service={service} siblings={siblings} kind="service" />
+    </>
+  )
 }

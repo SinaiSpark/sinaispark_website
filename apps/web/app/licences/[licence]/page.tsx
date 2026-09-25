@@ -4,6 +4,9 @@ import { notFound } from "next/navigation"
 import { DetailPage } from "@/components/detail/detail-page"
 import { LICENCE_SLUGS } from "@/content/pages"
 import { getService } from "@/content/services"
+import { ROUTES } from "@/content/site"
+import { PageJsonLd } from "@/components/seo/json-ld"
+import { pageMetadata } from "@/lib/seo"
 
 /** One page per licence class, built from content/services.ts. */
 export function generateStaticParams() {
@@ -18,7 +21,11 @@ export async function generateMetadata({
   const { licence: slug } = await params
   const licence = getService(slug)
   if (!licence) return {}
-  return { title: licence.title, description: licence.metaDescription }
+  return pageMetadata({
+    title: licence.title,
+    description: licence.metaDescription,
+    path: ROUTES.licence(slug),
+  })
 }
 
 export default async function LicenceDetailPage({
@@ -35,5 +42,10 @@ export default async function LicenceDetailPage({
     notFound()
 
   const siblings = LICENCE_SLUGS.flatMap((s) => getService(s) ?? [])
-  return <DetailPage service={licence} siblings={siblings} kind="licence" />
+  return (
+    <>
+      <PageJsonLd path={ROUTES.licence(slug)} />
+      <DetailPage service={licence} siblings={siblings} kind="licence" />
+    </>
+  )
 }

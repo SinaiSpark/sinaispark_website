@@ -7,22 +7,25 @@ import { ArrowIcon, ButtonArrow, LockIcon } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { BRAND } from "@/content/site"
-import { REPORTS, RESEARCH, type Market, type Topic } from "@/content/research"
+import { RESEARCH, type Market, type Topic } from "@/content/research"
+import type { Report } from "@/lib/content-api"
 import { cx } from "@/lib/cx"
 
 /**
- * Research page sections: the featured report, the filterable library and the
- * method behind the reports.
- *
- * Nothing is downloadable yet, so every card and button leads to the contact
- * page and the gated ones say "request access" rather than pretending at a
- * file. The catalogue carries a pending flag of its own.
+ * Research page sections: the featured article, the filterable library and
+ * the method behind the research. Articles come from the CMS; gated ones ask
+ * for an email on the article page itself.
  */
 
-/** The flagship report, shown as a cover that tilts toward the pointer. */
-export function FeaturedReport() {
+/** The featured article, shown as a cover that tilts toward the pointer. */
+export function FeaturedReport({
+  report,
+  total,
+}: {
+  report: Report
+  total: number
+}) {
   const copy = RESEARCH.featured
-  const report = copy.report
 
   return (
     <section
@@ -33,21 +36,19 @@ export function FeaturedReport() {
     >
       <div className="wrap">
         <div className="rs-cover-wrap" data-reveal>
-          <div className="rs-cover" id="rsCover">
+          <SmartLink className="rs-cover" id="rsCover" href={report.href}>
             <BrandMark className="mk" />
             <div className="hd">
-              <span>{copy.cover.kicker}</span>
-              <span>{copy.cover.edition}</span>
+              <span>{report.topic}</span>
+              <span>{report.date}</span>
             </div>
             <h3>{report.title}</h3>
             <div className="ft">
               <img src="/brand/logo-white.svg" alt={BRAND.name} />
-              <span>
-                {report.pages} pages · {report.readTime} read
-              </span>
-              <span>{copy.cover.footnote}</span>
+              <span>{report.readTime} read</span>
+              <span>{report.market}</span>
             </div>
-          </div>
+          </SmartLink>
         </div>
 
         <div>
@@ -71,21 +72,12 @@ export function FeaturedReport() {
             ) : null}
           </div>
 
-          <ul className="rs-inside" data-reveal>
-            {copy.inside.map((line, i) => (
-              <li key={line}>
-                <b>{String(i + 1).padStart(2, "0")}</b>
-                {line}
-              </li>
-            ))}
-          </ul>
-
           <div className="d-actions" style={{ marginTop: 0 }} data-reveal>
-            <SmartLink className="btn" href={copy.primary.href} data-magnetic>
-              {copy.primary.label} <ButtonArrow />
+            <SmartLink className="btn" href={report.href} data-magnetic>
+              {copy.primary} <ButtonArrow />
             </SmartLink>
-            <a className="link" href={copy.link.href}>
-              {copy.link.label} <ArrowIcon />
+            <a className="link" href="#library">
+              {copy.link(total)} <ArrowIcon />
             </a>
           </div>
         </div>
@@ -94,8 +86,55 @@ export function FeaturedReport() {
   )
 }
 
+export function ReportCard({
+  report,
+  hidden = false,
+}: {
+  report: Report
+  hidden?: boolean
+}) {
+  const copy = RESEARCH.library
+
+  return (
+    <SmartLink
+      className={cx("rs-card", hidden && "is-hidden")}
+      href={report.href}
+    >
+      <div className="rs-thumb">
+        <img src={report.image} alt={report.imageAlt} />
+        <span className="tag">{report.topic}</span>
+        {report.gated ? (
+          <span className="rs-lock">
+            <LockIcon />
+            {copy.gatedLabel}
+          </span>
+        ) : null}
+        <span className="pg" aria-hidden="true">
+          {report.readMinutes}
+          <small>min</small>
+        </span>
+      </div>
+      <div className="tx">
+        <div className="tags">
+          <span>{report.market}</span>
+          <time dateTime={report.isoDate}>{report.date}</time>
+        </div>
+        <h3>{report.title}</h3>
+        <p>{report.summary}</p>
+        <div className="meta">
+          <span>{report.readTime} read</span>
+          <span className="dl">
+            {copy.read} <ArrowIcon />
+          </span>
+        </div>
+      </div>
+    </SmartLink>
+  )
+}
+
 /**
- * The catalogue, filterable by market and by topic.
+ * The library, filterable by market and by topic. Only markets with at least
+ * one article get a chip.
  *
  * Cards are hidden rather than unmounted so the entrance triggers the motion
  * layer created keep pointing at live nodes.
@@ -103,15 +142,18 @@ export function FeaturedReport() {
 type MarketFilter = Market | "all"
 type TopicFilter = Topic | "all"
 
-export function ReportLibrary() {
+export function ReportLibrary({ reports }: { reports: Report[] }) {
   const copy = RESEARCH.library
   const [market, setMarket] = useState<MarketFilter>("all")
   const [topic, setTopic] = useState<TopicFilter>("all")
 
-  const matches = (report: (typeof REPORTS)[number]) =>
+  const matches = (report: Report) =>
     (market === "all" || report.market === market) &&
     (topic === "all" || report.topic === topic)
-  const shown = REPORTS.filter(matches).length
+  const shown = reports.filter(matches).length
+  const markets = copy.markets.filter((option) =>
+    reports.some((r) => r.market === option)
+  )
 
   const reset = () => {
     setMarket("all")
@@ -133,125 +175,99 @@ export function ReportLibrary() {
             </p>
             <SplitText as="h2" className="h2" text={copy.headline} />
           </div>
-          <span className="mock" data-reveal>
-            {copy.note}
-          </span>
         </div>
 
-        <div className="rs-filters" data-reveal>
-          <div className="row">
-            <span className="lbl">{copy.marketLabel}</span>
-            <button
-              className="rs-chip"
-              type="button"
-              aria-pressed={market === "all"}
-              onClick={() => setMarket("all")}
-            >
-              {copy.all}
-            </button>
-            {copy.markets.map((option) => (
-              <button
-                className="rs-chip"
-                type="button"
-                key={option}
-                aria-pressed={market === option}
-                onClick={() => setMarket(option)}
-              >
-                {option}
-                <b>
-                  {String(
-                    REPORTS.filter((r) => r.market === option).length
-                  ).padStart(2, "0")}
-                </b>
-              </button>
-            ))}
-          </div>
+        {reports.length === 0 ? (
+          <div className="rs-empty">{copy.none}</div>
+        ) : (
+          <>
+            <div className="rs-filters" data-reveal>
+              <div className="row">
+                <span className="lbl">{copy.marketLabel}</span>
+                <button
+                  className="rs-chip"
+                  type="button"
+                  aria-pressed={market === "all"}
+                  onClick={() => setMarket("all")}
+                >
+                  {copy.all}
+                </button>
+                {markets.map((option) => (
+                  <button
+                    className="rs-chip"
+                    type="button"
+                    key={option}
+                    aria-pressed={market === option}
+                    onClick={() => setMarket(option)}
+                  >
+                    {option}
+                    <b>
+                      {String(
+                        reports.filter((r) => r.market === option).length
+                      ).padStart(2, "0")}
+                    </b>
+                  </button>
+                ))}
+              </div>
 
-          <div className="row">
-            <span className="lbl">{copy.topicLabel}</span>
-            <button
-              className="rs-chip"
-              type="button"
-              aria-pressed={topic === "all"}
-              onClick={() => setTopic("all")}
-            >
-              {copy.all}
-            </button>
-            {copy.topics.map((option) => (
-              <button
-                className="rs-chip"
-                type="button"
-                key={option}
-                aria-pressed={topic === option}
-                onClick={() => setTopic(option)}
-              >
-                {option}
-                <b>
-                  {String(
-                    REPORTS.filter((r) => r.topic === option).length
-                  ).padStart(2, "0")}
-                </b>
-              </button>
-            ))}
-            <span className="rs-count">
-              {copy.count(shown, REPORTS.length)}
-            </span>
-          </div>
-        </div>
-
-        <div className="rs-grid" id="rsGrid">
-          {REPORTS.map((report) => (
-            <SmartLink
-              className={cx("rs-card", !matches(report) && "is-hidden")}
-              href={copy.href}
-              key={report.title}
-            >
-              <div className="rs-thumb">
-                <img src={report.image} alt="" />
-                <span className="tag">{report.topic}</span>
-                {report.gated ? (
-                  <span className="rs-lock">
-                    <LockIcon />
-                    {copy.gatedLabel}
-                  </span>
-                ) : null}
-                <span className="pg" aria-hidden="true">
-                  {report.pages}
-                  <small>pp</small>
+              <div className="row">
+                <span className="lbl">{copy.topicLabel}</span>
+                <button
+                  className="rs-chip"
+                  type="button"
+                  aria-pressed={topic === "all"}
+                  onClick={() => setTopic("all")}
+                >
+                  {copy.all}
+                </button>
+                {copy.topics.map((option) => (
+                  <button
+                    className="rs-chip"
+                    type="button"
+                    key={option}
+                    aria-pressed={topic === option}
+                    onClick={() => setTopic(option)}
+                  >
+                    {option}
+                    <b>
+                      {String(
+                        reports.filter((r) => r.topic === option).length
+                      ).padStart(2, "0")}
+                    </b>
+                  </button>
+                ))}
+                <span className="rs-count">
+                  {copy.count(shown, reports.length)}
                 </span>
               </div>
-              <div className="tx">
-                <div className="tags">
-                  <span>{report.market}</span>
-                  <span>{report.date}</span>
-                </div>
-                <h3>{report.title}</h3>
-                <p>{report.summary}</p>
-                <div className="meta">
-                  <span>{report.readTime} read</span>
-                  <span className="dl">
-                    {report.gated ? copy.request : copy.download} <ArrowIcon />
-                  </span>
-                </div>
-              </div>
-            </SmartLink>
-          ))}
-        </div>
+            </div>
 
-        {shown === 0 ? (
-          <div className="rs-empty">
-            {copy.empty}
-            <button type="button" className="link" onClick={reset}>
-              {copy.reset} <ArrowIcon />
-            </button>
-          </div>
-        ) : null}
+            <div className="rs-grid" id="rsGrid">
+              {reports.map((report) => (
+                <ReportCard
+                  report={report}
+                  hidden={!matches(report)}
+                  key={report.id}
+                />
+              ))}
+            </div>
+
+            {shown === 0 ? (
+              <div className="rs-empty">
+                {copy.empty}
+                <button type="button" className="link" onClick={reset}>
+                  {copy.reset} <ArrowIcon />
+                </button>
+              </div>
+            ) : null}
+          </>
+        )}
       </div>
     </section>
   )
 }
 
-/** How a report gets written, in the order the work happens. */
+/** How the research gets written, in the order the work happens. */
 export function ResearchMethod() {
   const copy = RESEARCH.method
 

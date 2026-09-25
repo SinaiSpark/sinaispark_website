@@ -70,7 +70,7 @@ export const SERVICES_PAGE = {
     cta: { label: "Compare the licences", href: ROUTES.licences },
   },
   sectionCtas: {
-    consult: { label: "Book a free consultation", href: ROUTES.contact },
+    consult: { label: "Book a free consultation", href: ROUTES.consult },
     full: "Read the full page",
     compare: {
       label: "Compare the five licence classes",
@@ -167,7 +167,7 @@ export const DETAIL_PAGE = {
     eyebrow: "How it runs",
     headline: (n: number) => `${n} steps, one owner.`,
     stepLabel: "Step",
-    cta: { label: "Start with a free consultation", href: ROUTES.contact },
+    cta: { label: "Start with a free consultation", href: ROUTES.consult },
     note: "Realistic timelines are confirmed at the first call.",
   },
   where: {

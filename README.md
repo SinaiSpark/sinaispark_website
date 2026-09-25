@@ -40,6 +40,7 @@ App-level scripts (dev/build/test/watch) also live in `apps/web/package.json`.
 
 ```
 ├── apps/
+│   ├── cms/                  # Strapi 5 admin: blog, research, enquiries, email list (see apps/cms/README.md)
 │   └── web/                  # Next.js application
 │       ├── app/              # Routes (home, about-us, services, blog, ...)
 │       ├── components/       # Page sections & motion primitives
