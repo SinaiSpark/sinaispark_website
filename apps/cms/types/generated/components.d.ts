@@ -41,6 +41,34 @@ export interface ContactOffice extends Struct.ComponentSchema {
   }
 }
 
+export interface HomeStat extends Struct.ComponentSchema {
+  collectionName: "components_home_stats"
+  info: {
+    description: "One figure in the home page's track record band."
+    displayName: "Stat"
+    icon: "chartBubble"
+  }
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40
+      }>
+    suffix: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 4
+      }>
+    value: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0
+        },
+        number
+      >
+  }
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: "components_shared_open_graphs"
   info: {
@@ -98,6 +126,7 @@ declare module "@strapi/strapi" {
   export namespace Public {
     export interface ComponentSchemas {
       "contact.office": ContactOffice
+      "home.stat": HomeStat
       "shared.open-graph": SharedOpenGraph
       "shared.seo": SharedSeo
     }

@@ -4,7 +4,7 @@ import { cms } from "@/lib/cms"
 import { mediaUrl } from "@/lib/content-api"
 
 /**
- * FAQs, team, testimonials and contact details from the CMS, so the client
+ * FAQs, team, testimonials, home page stats and contact details from the CMS, so the client
  * can edit them without a developer. The section copy around them (eyebrows,
  * headlines) stays in the content folder.
  *
@@ -153,6 +153,26 @@ export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
       },
     ]
   })
+})
+
+export interface HomeStat {
+  value: number
+  /** What follows the number, e.g. "+"; empty for none. */
+  suffix: string
+  label: string
+}
+
+/** The home page's track record figures (CMS → Home page). */
+export const getHomeStats = cache(async (): Promise<HomeStat[]> => {
+  const res = await cms<{ data: { stats?: HomeStat[] | null } | null }>(
+    "/home-page?populate[stats]=true",
+    cached("home")
+  )
+  return (res.data?.stats ?? []).map(({ value, suffix, label }) => ({
+    value,
+    suffix: suffix ?? "",
+    label,
+  }))
 })
 
 export interface Office {

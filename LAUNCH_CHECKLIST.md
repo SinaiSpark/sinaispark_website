@@ -14,13 +14,13 @@
 
 ## 0. Where things stand
 
-| Area              | State                                                                                                                                                                                                                  |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Website (Next.js) | All 19 pages built, including the new FAQs page (`/faqs/`). Blog, research, FAQs, team, testimonials (incl. the 54 Google reviews) and contact details read from the CMS. More than four team members scroll sideways. |
-| Home page         | Slimmed down: the FAQ, India, licence finder and Insights sections are gone. Each has its own page (`/faqs/`, `/india/`, `/licences/`, `/research/`).                                                                  |
-| Admin (Strapi)    | Articles, enquiries, subscribers, FAQs, team, testimonials, contact details, SEO, site switches, preview and scheduling all work. Enquiries and subscribers export to CSV. Notion-style editor.                        |
-| Runs on           | Local machine only: Postgres in Docker, media files on disk.                                                                                                                                                           |
-| Code              | Branch `feat/strapi-cms`, committed and pushed. Pull request into `main` still to open (1.1).                                                                                                                          |
+| Area              | State                                                                                                                                                                                                                                   |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Website (Next.js) | All 19 pages built, including the new FAQs page (`/faqs/`). Blog, research, FAQs, team, home page stats, testimonials (incl. the 54 Google reviews) and contact details read from the CMS. More than four team members scroll sideways. |
+| Home page         | Slimmed down: the FAQ, India, licence finder and Insights sections are gone. Each has its own page (`/faqs/`, `/india/`, `/licences/`, `/research/`).                                                                                   |
+| Admin (Strapi)    | Articles, enquiries, subscribers, FAQs, team, testimonials, contact details, SEO, site switches, preview and scheduling all work. Enquiries and subscribers export to CSV. Notion-style editor.                                         |
+| Runs on           | Local machine only: Postgres in Docker, media files on disk.                                                                                                                                                                            |
+| Code              | Branch `feat/strapi-cms`, committed and pushed. Pull request into `main` still to open (1.1).                                                                                                                                           |
 
 ---
 
@@ -137,16 +137,16 @@ Waiting on the plan: Hetzner CX23 or Hostinger KVM 2.
 
 ## 8. Content (client)
 
-| #   | Task                                                                                                                                                                                                                                | Who | Status |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------ |
-| 8.1 | Everything in [PENDING_CLIENT_DATA.md](PENDING_CLIENT_DATA.md): real stats, testimonials, team, office addresses, phone, socials, India fees. Testimonials, team, FAQs and contact details can now be entered directly in the admin | 👤  | 🔴     |
-| 8.5 | Review and approve the FAQs (8 general, drafted from service copy; 7 India, client-supplied) in **FAQ**, and pick which pages each one appears on                                                                                   | 👤  | 🔴     |
-| 8.6 | Once the real phone and addresses are in, switch off **Contact details → Still placeholder details** so the contact page stops marking them as pending                                                                              | 👤  | 🔴     |
-| 8.7 | Choose which of the 54 Google reviews (in **Testimonial**, as drafts) to show and publish them. The home page shows no testimonial section until one is published. (The 3 mock testimonials are deleted.)                           | 👤  | 🔴     |
-| 8.8 | Confirm the phone and Dammam address: the Google listing shows +966 51 180 1991 and AZD Business Centre, Al Khobar, not what the site has                                                                                           | 👤  | 🔴     |
-| 8.2 | Replace the services hero photo: it has a fake "RIYADH ADVISORY GROUP" logo baked in (`service-business-setup.jpg`)                                                                                                                 | 👤  | 🔴     |
-| 8.3 | Replace or license the placeholder photos (`apps/web/lib/images.ts` marks each one's status)                                                                                                                                        | 👤  | 🟡     |
-| 8.4 | Write the first real blog posts and research articles                                                                                                                                                                               | 👤  | 🟡     |
+| #   | Task                                                                                                                                                                                                                                       | Who | Status |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | ------ |
+| 8.1 | Everything in [PENDING_CLIENT_DATA.md](PENDING_CLIENT_DATA.md): real stats, testimonials, team, office addresses, phone, socials, India fees. Stats, testimonials, team, FAQs and contact details can now be entered directly in the admin | 👤  | 🔴     |
+| 8.5 | Review and approve the FAQs (8 general, drafted from service copy; 7 India, client-supplied) in **FAQ**, and pick which pages each one appears on                                                                                          | 👤  | 🔴     |
+| 8.6 | Once the real phone and addresses are in, switch off **Contact details → Still placeholder details** so the contact page stops marking them as pending                                                                                     | 👤  | 🔴     |
+| 8.7 | Choose which of the 54 Google reviews (in **Testimonial**, as drafts) to show and publish them. The home page shows no testimonial section until one is published. (The 3 mock testimonials are deleted.)                                  | 👤  | 🔴     |
+| 8.8 | Confirm the phone and Dammam address: the Google listing shows +966 51 180 1991 and AZD Business Centre, Al Khobar, not what the site has                                                                                                  | 👤  | 🔴     |
+| 8.2 | Replace the services hero photo: it has a fake "RIYADH ADVISORY GROUP" logo baked in (`service-business-setup.jpg`)                                                                                                                        | 👤  | 🔴     |
+| 8.3 | Replace or license the placeholder photos (`apps/web/lib/images.ts` marks each one's status)                                                                                                                                               | 👤  | 🟡     |
+| 8.4 | Write the first real blog posts and research articles                                                                                                                                                                                      | 👤  | 🟡     |
 
 ---
 

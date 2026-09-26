@@ -10,6 +10,7 @@ const TAGS = new Set([
   "team",
   "testimonials",
   "contact",
+  "home",
 ])
 
 /**

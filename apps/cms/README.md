@@ -26,10 +26,11 @@ The first visit to `/admin` asks you to create the super-admin account.
 | Team member      | The team section on the home and about pages. A card without a name or photo shows "pending"                                                                                                                | Editors                                                  |
 | Testimonial      | The review band on the home page: star rating, text, and a link that opens the review on Google. Holds the 54 Google reviews (imported as drafts) and any added by hand; only published ones with text show | Editors                                                  |
 | Contact details  | Single type: email, phone, WhatsApp, social links and the office tiles on the contact page, plus a "still placeholder" switch                                                                               | Editors                                                  |
+| Home page        | Single type: the track record stats on the home page (number, suffix, label; up to four). Saves go live straight away                                                                                       | Editors                                                  |
 
 The Google reviews come from the Dammam listing (4.9, 54 reviews), collected once on 2026-09-26 into `scripts/google-reviews.json` and imported as drafts on the next boot (`importGoogleReviews` in `src/lib/site-content.ts`, once, skipping any Google ID already present). There is no automatic re-fetch: a new review is added by hand in the admin, with its Google link. Imported dates are approximate, because Google only shows "4 months ago".
 
-FAQs, team members, testimonials and contact details start filled with the copy the site shipped with (`scripts/site-content.json`, loaded by `src/lib/site-content.ts` on boot). Each type is filled once, ever, so deleting entries never brings them back. **Order** fields sort lowest first.
+FAQs, team members, the home page stats and contact details start filled with the copy the site shipped with (`scripts/site-content.json`, loaded by `src/lib/site-content.ts` on boot). Each type is filled once, ever, so deleting entries never brings them back. **Order** fields sort lowest first.
 
 ## Editing, SEO, preview
 

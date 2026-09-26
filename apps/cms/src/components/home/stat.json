@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_home_stats",
+  "info": {
+    "displayName": "Stat",
+    "icon": "chartBubble",
+    "description": "One figure in the home page's track record band."
+  },
+  "options": {},
+  "attributes": {
+    "value": { "type": "integer", "required": true, "min": 0 },
+    "suffix": { "type": "string", "maxLength": 4 },
+    "label": { "type": "string", "required": true, "maxLength": 40 }
+  }
+}

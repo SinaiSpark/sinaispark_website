@@ -179,14 +179,9 @@ export const MISSION_VISION = {
   ],
 } as const
 
+/** Track record band: the eyebrow. The figures are edited in the CMS (Home page). */
 export const STATS = {
   eyebrow: "Track record",
-  items: [
-    { value: 12, suffix: "+", label: "Years of experience" },
-    { value: 250, suffix: "+", label: "Happy clients" },
-    { value: 5, suffix: "", label: "Countries served" },
-    { value: 40, suffix: "+", label: "Skilled professionals" },
-  ],
 } as const
 
 export const SERVICES_STACK = {

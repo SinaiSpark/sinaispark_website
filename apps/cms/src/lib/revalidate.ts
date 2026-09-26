@@ -15,6 +15,7 @@ export const SITE_TAGS: Record<string, string> = {
   "api::team-member.team-member": "team",
   "api::testimonial.testimonial": "testimonials",
   "api::contact-detail.contact-detail": "contact",
+  "api::home-page.home-page": "home",
 }
 
 /**

@@ -224,6 +224,13 @@ const LABELS: Record<string, Record<string, Field>> = {
     },
     order: ORDER,
   },
+  "api::home-page.home-page": {
+    stats: {
+      label: "Track record stats",
+      description:
+        "The figures that count up on the home page, up to four. Suffix is what follows the number, e.g. + or %.",
+    },
+  },
   "api::contact-detail.contact-detail": {
     email: { label: "Email" },
     phone: {

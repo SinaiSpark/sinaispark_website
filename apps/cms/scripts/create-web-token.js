@@ -24,6 +24,7 @@ const PERMISSIONS = [
   "api::team-member.team-member.find",
   "api::testimonial.testimonial.find",
   "api::contact-detail.contact-detail.find",
+  "api::home-page.home-page.find",
   "api::enquiry.enquiry.create",
   "api::subscriber.subscriber.subscribe",
   "plugin::upload.content-api.find",

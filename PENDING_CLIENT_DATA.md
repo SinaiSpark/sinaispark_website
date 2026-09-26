@@ -10,7 +10,9 @@
 
 ---
 
-## 1. Home — Snapshot Stats (`lib/content/home.ts` → HOME.stats)
+## 1. Home — Snapshot Stats (CMS → **Home page → Track record stats**)
+
+Editable in the admin: number, suffix (e.g. +) and label, up to four.
 
 | Stat                  | Mock value shown | Real value    | Status |
 | --------------------- | ---------------- | ------------- | ------ |

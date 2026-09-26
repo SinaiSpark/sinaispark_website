@@ -13,11 +13,13 @@ interface SeedFaq {
 interface SeedContent {
   faqs: SeedFaq[]
   team: Record<string, unknown>[]
+  home: Record<string, unknown>
   contact: Record<string, unknown>
 }
 
 /**
- * Fills FAQs, team members and contact details with the copy the website
+ * Fills FAQs, team members, the home page stats and contact details with the
+ * copy the website
  * shipped with (scripts/site-content.json), so editors start from the
  * current text instead of an empty list. Testimonials come from the Google
  * import below instead.
@@ -64,6 +66,12 @@ export async function seedSiteContent(strapi: Core.Strapi) {
         .documents("api::team-member.team-member")
         .create({ data: member as never, status: "published" })
     }
+  })
+
+  await once("api::home-page.home-page", async () => {
+    await strapi
+      .documents("api::home-page.home-page")
+      .create({ data: seed.home as never })
   })
 
   await once("api::contact-detail.contact-detail", async () => {

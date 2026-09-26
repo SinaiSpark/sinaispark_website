@@ -679,6 +679,42 @@ export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
+  collectionName: "home_pages"
+  info: {
+    description: "Editable parts of the home page. Changes go live straight away."
+    displayName: "Home page"
+    pluralName: "home-pages"
+    singularName: "home-page"
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::home-page.home-page"
+    > &
+      Schema.Attribute.Private
+    publishedAt: Schema.Attribute.DateTime
+    stats: Schema.Attribute.Component<"home.stat", true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4
+          min: 1
+        },
+        number
+      >
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+  }
+}
+
 export interface ApiPageSeoPageSeo extends Struct.CollectionTypeSchema {
   collectionName: "page_seos"
   info: {
@@ -1562,6 +1598,7 @@ declare module "@strapi/strapi" {
       "api::contact-detail.contact-detail": ApiContactDetailContactDetail
       "api::enquiry.enquiry": ApiEnquiryEnquiry
       "api::faq.faq": ApiFaqFaq
+      "api::home-page.home-page": ApiHomePageHomePage
       "api::page-seo.page-seo": ApiPageSeoPageSeo
       "api::research-article.research-article": ApiResearchArticleResearchArticle
       "api::seo-setting.seo-setting": ApiSeoSettingSeoSetting

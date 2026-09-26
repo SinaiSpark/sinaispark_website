@@ -18,7 +18,7 @@ import { PageJsonLd } from "@/components/seo/json-ld"
 import { CLOSING_CTA } from "@/content/home"
 import { ROUTES } from "@/content/site"
 import { pageMetadata } from "@/lib/seo"
-import { getTeam, getTestimonials } from "@/lib/site-content"
+import { getHomeStats, getTeam, getTestimonials } from "@/lib/site-content"
 import { SITE } from "@/lib/site-config"
 
 export function generateMetadata() {
@@ -33,12 +33,17 @@ export function generateMetadata() {
 
 /**
  * Home page — the section order is the approved design's, top to bottom.
- * Copy comes from the content folder, the team and testimonials from the CMS;
+ * Copy comes from the content folder; the team, stats and testimonials from
+ * the CMS;
  * every animation from lib/motion. FAQs, India, the licence finder and
  * Insights have their own pages and are deliberately not repeated here.
  */
 export default async function HomePage() {
-  const [team, testimonials] = await Promise.all([getTeam(), getTestimonials()])
+  const [team, testimonials, stats] = await Promise.all([
+    getTeam(),
+    getTestimonials(),
+    getHomeStats(),
+  ])
 
   return (
     <PageMotion variant="home">
@@ -51,7 +56,7 @@ export default async function HomePage() {
       <BrandInterlude />
       <MissionVision />
       <Team members={team} />
-      <Stats />
+      <Stats items={stats} />
       <ServicesStack />
       <Process />
       <Why />
