@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assistant_topics",
+  "info": {
+    "singularName": "assistant-topic",
+    "pluralName": "assistant-topics",
+    "displayName": "Assistant menu",
+    "description": "The options the website assistant offers and the answers it gives. Topics without a parent are the first menu; a topic's children are the options shown after its answer."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "question": { "type": "string", "required": true, "maxLength": 90 },
+    "answer": { "type": "text", "required": true, "maxLength": 1500 },
+    "alsoAsked": { "type": "text", "maxLength": 1500 },
+    "parent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::assistant-topic.assistant-topic",
+      "inversedBy": "children"
+    },
+    "children": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::assistant-topic.assistant-topic",
+      "mappedBy": "parent"
+    },
+    "order": { "type": "integer", "default": 10, "required": true },
+    "linkLabel": { "type": "string", "maxLength": 60 },
+    "linkUrl": { "type": "string", "maxLength": 300 },
+    "action": {
+      "type": "enumeration",
+      "enum": ["None", "Book a consultation", "WhatsApp"],
+      "default": "Book a consultation",
+      "required": true
+    },
+    "service": {
+      "type": "enumeration",
+      "enum": [
+        "Business setup / company formation",
+        "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+        "Legal & regulatory advisory",
+        "PRO & visa services",
+        "Compliance",
+        "Property management",
+        "Indian company registration (NRI)",
+        "Not sure yet"
+      ]
+    },
+    "market": {
+      "type": "enumeration",
+      "enum": [
+        "Saudi Arabia",
+        "United Arab Emirates",
+        "India",
+        "United Kingdom",
+        "Bahrain"
+      ]
+    }
+  }
+}

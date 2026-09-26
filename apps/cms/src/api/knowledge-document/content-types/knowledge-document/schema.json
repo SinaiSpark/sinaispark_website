@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "knowledge_documents",
+  "info": {
+    "singularName": "knowledge-document",
+    "pluralName": "knowledge-documents",
+    "displayName": "Assistant knowledge",
+    "description": "Documents the website assistant learns from, on top of the website itself. Upload a PDF, Word or text file, or paste the text. Only published documents are used."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "title": { "type": "string", "required": true, "maxLength": 160 },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files"]
+    },
+    "text": { "type": "text" },
+    "link": { "type": "string", "maxLength": 300 }
+  }
+}

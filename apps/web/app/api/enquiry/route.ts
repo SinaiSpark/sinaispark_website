@@ -1,3 +1,5 @@
+import { assistantEnabled } from "@/lib/assistant/db"
+import { transcript } from "@/lib/assistant/enquiry"
 import { cms } from "@/lib/cms"
 import { enquirySchema, type Enquiry } from "@/lib/contact-schema"
 import { sourceLabel } from "@/lib/enquiry-label"
@@ -30,21 +32,22 @@ export async function POST(request: Request) {
   const enquiry = parsed.data
   const page = sourceLabel(enquiry.from)
 
+  const fields = {
+    fullName: enquiry.name,
+    email: enquiry.email,
+    phone: enquiry.phone,
+    market: enquiry.market,
+    service: enquiry.service,
+    message: enquiry.message,
+    page,
+  }
   const [stored, emailed] = await Promise.allSettled([
-    cms("/enquiries", {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          fullName: enquiry.name,
-          email: enquiry.email,
-          phone: enquiry.phone,
-          market: enquiry.market,
-          service: enquiry.service,
-          message: enquiry.message,
-          page,
-        },
-      }),
-    }),
+    enquiry.chat && assistantEnabled()
+      ? storeWithChat(enquiry.chat, fields)
+      : cms("/enquiries", {
+          method: "POST",
+          body: JSON.stringify({ data: fields }),
+        }),
     notifyTeam(enquiry, page),
   ])
 
@@ -73,6 +76,25 @@ export async function POST(request: Request) {
   })
 
   return Response.json({ ok: true })
+}
+
+/**
+ * A visitor who talked to the assistant first: the form updates that
+ * conversation's enquiry (or starts one carrying the chat) rather than
+ * adding a second lead for the same person.
+ */
+async function storeWithChat(session: string, fields: Record<string, string>) {
+  return cms("/enquiries/chat", {
+    method: "PUT",
+    body: JSON.stringify({
+      data: {
+        ...fields,
+        chatSession: session,
+        channel: "Website form",
+        transcript: await transcript(session).catch(() => ""),
+      },
+    }),
+  })
 }
 
 function notifyTeam(enquiry: Enquiry, page: string) {

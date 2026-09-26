@@ -1,8 +1,10 @@
 /**
  * Creates the "Website" API token the Next.js site uses, scoped to exactly
  * what the site does: read blog, research, settings, page SEO, FAQs, team,
- * testimonials and contact details, create enquiries and add emails to the
- * list. Prints the key once; put it in the site's env as CMS_API_TOKEN.
+ * testimonials, contact details, the home page stats and the assistant's
+ * menu, settings and documents, create enquiries (and the assistant's) and
+ * add emails to the list. Prints the key once; put it in the site's env
+ * as CMS_API_TOKEN.
  *
  *   pnpm --filter cms token:web            # create, or update an existing
  *                                          # token's permissions (same key)
@@ -26,6 +28,10 @@ const PERMISSIONS = [
   "api::contact-detail.contact-detail.find",
   "api::home-page.home-page.find",
   "api::enquiry.enquiry.create",
+  "api::enquiry.enquiry.chat",
+  "api::assistant-topic.assistant-topic.find",
+  "api::assistant-setting.assistant-setting.find",
+  "api::knowledge-document.knowledge-document.find",
   "api::subscriber.subscriber.subscribe",
   "plugin::upload.content-api.find",
   "plugin::upload.content-api.findOne",

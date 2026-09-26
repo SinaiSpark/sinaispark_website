@@ -1,5 +1,8 @@
 import { revalidateTag } from "next/cache"
 
+import { assistantEnabled } from "@/lib/assistant/db"
+import { scheduleIngest } from "@/lib/assistant/knowledge"
+
 /** Tags the CMS may refresh; see SITE_TAGS in apps/cms/src/lib/revalidate.ts. */
 const TAGS = new Set([
   "blog",
@@ -11,6 +14,8 @@ const TAGS = new Set([
   "testimonials",
   "contact",
   "home",
+  "assistant",
+  "knowledge",
 ])
 
 /**
@@ -38,6 +43,9 @@ export async function POST(request: Request) {
   for (const tag of tags) {
     revalidateTag(tag, body.now === true ? { expire: 0 } : "max")
   }
+  // Whatever changed may be something the assistant quotes: re-index it
+  // once the pages have rebuilt (unchanged passages are skipped).
+  if (tags.length && assistantEnabled()) scheduleIngest()
 
   return Response.json({ revalidated: tags })
 }

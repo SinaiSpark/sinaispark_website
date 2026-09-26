@@ -41,12 +41,14 @@ components/
   india/                   India-only sections and the structure picker
   company/                 about, contact, blog and research sections
   ui/                      icons, brand mark, split text, clock, smart link
+  assistant/               the website assistant (see below)
   motion/                  PageMotion — starts a page's animations after it mounts
 
 lib/motion/              GSAP. core.ts is shared; home.ts, inner.ts and company.ts
                          are per page kind
 styles/                  the design's CSS, split at its own section banners
 scripts/shoot-site.mjs   headless render check across routes and widths
+scripts/kb-ingest.mjs    rebuild the assistant's search index
 ```
 
 ## Rules that keep it honest
@@ -74,6 +76,76 @@ client.
 GSAP positions. Browsers disagree on whether GSAP folds that property into its
 own transform, and when one did not, the licence fan lost its centring and slid
 off screen.
+
+## The website assistant
+
+The round chat button at the bottom right of every page (on the home page it
+waits until the hero has scrolled away). Visitors pick from a menu or type a
+question. Before the first answer the assistant asks for their name, email and
+phone, one at a time, as part of the conversation; anyone who declines is
+offered WhatsApp or the contact form instead, and the form arrives pre-filled
+with whatever they did share.
+
+```
+components/assistant/     the launcher and panel (styles/8-assistant.css)
+app/api/assistant/        one POST per visitor action, replies stream as NDJSON
+  reindex/                  rebuild the search index (REVALIDATE_SECRET)
+lib/assistant/
+  conversation.ts           the flow: menu → details → answers, sessions, leads
+  answer.ts                 how a typed question is answered, cheapest first
+  knowledge.ts              the index: site pages, FAQs, menu, uploaded documents
+  groq.ts  embed.ts  db.ts  the model API, local embeddings, the assistant schema
+  lead.ts                   reading name / email / phone out of free text
+  handoff.ts                chat → contact form pre-fill (sessionStorage)
+```
+
+**Where answers come from, cheapest first.** A menu option shows the answer
+written in the CMS. A typed question is matched against the menu's wordings
+and the FAQs, then against answers generated earlier; only then is Groq asked,
+with the four most relevant passages of the site. None of the first steps
+uses a model, and on a consultancy site most questions are the same dozen, so
+the free Groq plan goes a long way. Groq's models each have their own daily
+quota, so a rate-limited model hands the question to the next
+(`ASSISTANT_MODELS`). With no key, or with every quota used, the assistant
+still answers from the menu, FAQs and saved answers, and hands the rest to a
+specialist.
+
+**What it knows.** Every page in the sitemap, as rendered, plus the FAQs, the
+menu, and the files in the CMS under **Assistant knowledge** (PDF, Word, text).
+Embeddings come from a small model that runs inside the site
+(bge-small-en-v1.5, downloaded on first use to `.cache/models`), stored with
+pgvector in an `assistant` schema of the CMS's Postgres. Documents are cut into
+smaller, overlapping passages than pages, so each topic in a file is found on
+its own. The seeded sample articles are skipped: over placeholder text, their
+titles only invite the model to answer from its own knowledge, which the
+prompt forbids (answers may only restate the site and the documents). Publishing anything
+in the CMS re-indexes about 15 seconds later; only changed passages are
+re-embedded. To rebuild by hand: `pnpm --filter web kb:ingest` (with the site
+running; `SITE=https://… pnpm --filter web kb:ingest` for another host).
+
+**What the client edits** (CMS): **Assistant menu** (options, answers, other
+wordings, the next options, the button and prefill), **Assistant settings**
+(name, greeting, the can't-answer message, on/off) and **Assistant knowledge**.
+Leads arrive as **Enquiries** with channel "Assistant", the options they
+picked and the whole conversation, which keeps updating while it continues.
+
+**Setup.** `ASSISTANT_DATABASE_URL` and `GROQ_API_KEY` in `.env.local` (see
+`.env.example`); without the database URL the button doesn't appear. The
+database needs the pgvector extension: locally the repo's `docker-compose.yml`
+builds Postgres with it. In production, build the same image
+(`docker/postgres/Dockerfile`, still Alpine so the existing data volume stays
+valid), then once as a superuser:
+
+```sql
+create extension if not exists vector;
+create schema if not exists assistant;
+create role sinaispark_assistant login password '…';
+grant usage, create on schema assistant to sinaispark_assistant;
+```
+
+and point `ASSISTANT_DATABASE_URL` at that role. The site creates its tables
+on first use. After deploying, run `kb:ingest` once against the live site.
+Behind nginx, the chat route sends `X-Accel-Buffering: no` so replies stream.
 
 ## Verifying a change
 

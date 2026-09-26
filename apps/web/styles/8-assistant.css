@@ -1,0 +1,591 @@
+/* ============ WEBSITE ASSISTANT ============ */
+/*
+ * The chat launcher and panel (components/assistant). Every class is
+ * prefixed sa- so the design's short, shared class names can't restyle it.
+ * Above the nav (50) and its mobile sheet, below the cursor dot (99) and the
+ * home loader (100).
+ */
+
+.sa-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: linear-gradient(145deg, var(--teal), var(--navy));
+  box-shadow:
+    0 12px 28px -10px rgba(7, 21, 40, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(0.86);
+  transition:
+    opacity 280ms var(--ease-out),
+    transform 380ms var(--ease-out),
+    visibility 0s linear 380ms,
+    box-shadow 200ms;
+}
+.sa-launcher.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 280ms var(--ease-out),
+    transform 380ms var(--ease-out),
+    visibility 0s,
+    box-shadow 200ms;
+}
+@media (hover: hover) {
+  .sa-launcher.is-shown:hover {
+    transform: scale(1.06);
+    box-shadow:
+      0 16px 34px -10px rgba(7, 21, 40, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+  }
+}
+.sa-launcher.is-shown:active {
+  transform: scale(0.95);
+}
+.sa-launcher svg {
+  grid-area: 1 / 1;
+  width: 28px;
+  height: 28px;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 300ms var(--ease-out);
+}
+.sa-ico-bot {
+  fill: none;
+  stroke: currentColor;
+}
+.sa-ico-close {
+  width: 24px !important;
+  height: 24px !important;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.6);
+}
+.sa-launcher.is-open .sa-ico-bot {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.6);
+}
+.sa-launcher.is-open .sa-ico-close {
+  opacity: 1;
+  transform: none;
+}
+/* The mobile menu sheet covers the page; the launcher shouldn't float on it. */
+body.is-sheet .sa-launcher {
+  display: none;
+}
+
+/* ---- Panel ---- */
+.sa-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+  z-index: 60;
+  width: 392px;
+  height: min(640px, calc(100dvh - 128px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f5f8f9;
+  color: var(--ink);
+  font-family: var(--body);
+  box-shadow:
+    0 30px 70px -20px rgba(7, 21, 40, 0.5),
+    0 0 0 1px rgba(11, 27, 43, 0.08);
+  transform-origin: calc(100% - 30px) calc(100% + 46px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.94);
+  pointer-events: none;
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 260ms var(--ease-out),
+    visibility 0s linear 260ms;
+}
+.sa-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 320ms var(--ease-out),
+    visibility 0s;
+}
+
+.sa-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  background: var(--deep);
+  color: var(--on-dark);
+}
+.sa-avatar {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, var(--teal), var(--navy));
+}
+.sa-mark {
+  width: 20px;
+  height: 20px;
+}
+.sa-mark .mp {
+  fill: #fff;
+}
+.sa-who {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.sa-who b {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.sa-who small {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--on-dark-2);
+}
+.sa-who small i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3ecf8e;
+  box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.2);
+}
+.sa-close {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--on-dark-2);
+  transition:
+    background 160ms,
+    color 160ms;
+}
+.sa-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.sa-close svg,
+.sa-send svg,
+.sa-link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- Conversation ---- */
+.sa-log {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 14px 14px;
+  scrollbar-width: thin;
+}
+.sa-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: sa-in 320ms var(--ease-out) both;
+}
+.sa-msg.is-user {
+  align-items: flex-end;
+}
+.sa-msg.is-bot {
+  align-items: flex-start;
+}
+@keyframes sa-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.sa-bubble {
+  max-width: 88%;
+  padding: 11px 14px;
+  border-radius: 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.is-bot > .sa-bubble {
+  background: #fff;
+  border: 1px solid rgba(11, 27, 43, 0.07);
+  border-bottom-left-radius: 6px;
+  box-shadow: 0 1px 2px rgba(11, 27, 43, 0.04);
+}
+.is-user > .sa-bubble {
+  background: var(--teal);
+  color: #fff;
+  border-bottom-right-radius: 6px;
+}
+.sa-bubble p + p,
+.sa-bubble p + ul,
+.sa-bubble p + ol,
+.sa-bubble ul + p,
+.sa-bubble ol + p {
+  margin-top: 8px;
+}
+.sa-bubble ul,
+.sa-bubble ol {
+  padding-left: 18px;
+}
+.sa-bubble li + li {
+  margin-top: 3px;
+}
+.sa-bubble li::marker {
+  color: var(--teal);
+}
+.sa-bubble strong {
+  font-weight: 700;
+}
+
+.sa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--teal);
+}
+.sa-link svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 200ms var(--ease-out);
+}
+.sa-link:hover svg {
+  transform: translateX(3px);
+}
+.sa-sources {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.sa-sources a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(22, 149, 159, 0.35);
+}
+
+/* Streaming caret and the typing dots. */
+.sa-caret {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  margin-left: 2px;
+  vertical-align: -2px;
+  border-radius: 1px;
+  background: var(--teal);
+  animation: sa-blink 1s steps(2, start) infinite;
+}
+@keyframes sa-blink {
+  to {
+    visibility: hidden;
+  }
+}
+.sa-typing {
+  display: inline-flex;
+  gap: 4px;
+  padding: 14px 16px;
+}
+.sa-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  opacity: 0.4;
+  animation: sa-dot 1.2s var(--ease-io) infinite;
+}
+.sa-typing i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.sa-typing i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes sa-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* ---- Options and buttons ---- */
+.sa-options,
+.sa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 100%;
+}
+.sa-chip {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 149, 159, 0.45);
+  background: #fff;
+  color: #0f6f77;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  transition:
+    background 160ms,
+    color 160ms,
+    border-color 160ms,
+    transform 120ms var(--ease-out);
+}
+.sa-chip:hover:not(:disabled) {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.sa-chip:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.sa-chip:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.sa-chip.is-quiet {
+  border-color: var(--line-l);
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.sa-chip.is-quiet:hover:not(:disabled) {
+  background: var(--mist-2);
+  border-color: var(--line-l);
+  color: var(--ink);
+}
+.sa-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition:
+    background 160ms,
+    transform 120ms var(--ease-out);
+}
+.sa-cta:hover {
+  background: var(--navy);
+}
+.sa-cta:active {
+  transform: scale(0.97);
+}
+.sa-cta.is-wa {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line-l);
+}
+.sa-cta.is-wa:hover {
+  background: var(--mist);
+}
+.sa-cta.is-wa svg {
+  width: 18px;
+  height: 18px;
+  fill: #1faa53;
+}
+
+/* ---- Composer ---- */
+.sa-compose {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 12px 8px;
+  border-top: 1px solid var(--line-l);
+  background: #fff;
+}
+.sa-compose > input,
+.sa-compose .phone {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid var(--line-l);
+  background: var(--mist);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  transition:
+    border-color 160ms,
+    box-shadow 160ms,
+    background 160ms;
+}
+.sa-compose > input {
+  padding: 0 18px;
+}
+.sa-compose > input::placeholder,
+.sa-compose .phone input::placeholder {
+  color: #7d8b98;
+}
+.sa-compose > input:focus,
+.sa-compose .phone:focus-within {
+  outline: none;
+  border-color: var(--teal);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(22, 149, 159, 0.14);
+}
+.sa-compose .phone {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+.sa-compose .phone-cc {
+  padding-left: 16px;
+}
+.sa-compose .phone-cc select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+}
+.sa-compose .phone input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+}
+.sa-send {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--teal);
+  color: #fff;
+  transition:
+    background 160ms,
+    opacity 160ms,
+    transform 120ms var(--ease-out);
+}
+.sa-send:hover:not(:disabled) {
+  background: var(--navy);
+}
+.sa-send:active:not(:disabled) {
+  transform: scale(0.94);
+}
+.sa-send:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.sa-note {
+  flex: none;
+  padding: 0 16px 12px;
+  background: #fff;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  text-align: center;
+}
+
+/* ---- Phones: a full-screen sheet ---- */
+@media (max-width: 560px) {
+  .sa-launcher {
+    right: 16px;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
+  }
+  .sa-launcher.is-open {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .sa-panel {
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    transform-origin: 50% 100%;
+    transform: translateY(24px);
+  }
+  .sa-head {
+    padding-top: max(14px, env(safe-area-inset-top));
+  }
+  .sa-note {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  /* 16px keeps iOS from zooming into the field. */
+  .sa-compose > input,
+  .sa-compose .phone input {
+    font-size: 16px;
+  }
+}
+html.sa-locked,
+html.sa-locked body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-launcher,
+  .sa-launcher svg,
+  .sa-panel,
+  .sa-msg {
+    transition-duration: 0s !important;
+    animation: none !important;
+  }
+  .sa-launcher,
+  .sa-panel {
+    transform: none !important;
+  }
+  .sa-typing i,
+  .sa-caret {
+    animation: none;
+  }
+}

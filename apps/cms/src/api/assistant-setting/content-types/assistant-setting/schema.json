@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "assistant_settings",
+  "info": {
+    "singularName": "assistant-setting",
+    "pluralName": "assistant-settings",
+    "displayName": "Assistant settings",
+    "description": "The website assistant's name, greeting and on/off switch."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "enabled": { "type": "boolean", "default": true, "required": true },
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40,
+      "default": "Spark Assistant"
+    },
+    "greeting": { "type": "text", "required": true, "maxLength": 400 },
+    "fallback": { "type": "text", "required": true, "maxLength": 400 },
+    "whatsappLabel": {
+      "type": "string",
+      "maxLength": 60,
+      "default": "Chat on WhatsApp"
+    }
+  }
+}

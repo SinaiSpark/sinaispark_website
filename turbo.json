@@ -15,7 +15,14 @@
         "ENQUIRY_NOTIFY_TO",
         "CMS_PUBLIC_URL",
         "READER_COOKIE_SECRET",
-        "PREVIEW_SECRET"
+        "PREVIEW_SECRET",
+        "ASSISTANT_DATABASE_URL",
+        "GROQ_API_KEY",
+        "ASSISTANT_MODELS",
+        "ASSISTANT_FAST_MODELS",
+        "ASSISTANT_MODEL_CACHE",
+        "ASSISTANT_CRAWL_ORIGIN",
+        "PORT"
       ]
     },
     "lint": {

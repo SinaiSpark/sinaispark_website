@@ -45,6 +45,11 @@ export const enquirySchema = z.object({
     .regex(/^\/[\w\-./]*$/)
     .nullish()
     .catch(null),
+  /**
+   * The assistant conversation this visitor had before the form, if any
+   * (lib/assistant/handoff.ts): the enquiry joins that chat's lead.
+   */
+  chat: z.string().uuid().nullish().catch(null),
   /** Honeypot: hidden from people, filled in by bots. Must stay empty. */
   website: z.string().max(0).optional().default(""),
 })

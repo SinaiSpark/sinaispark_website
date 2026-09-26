@@ -1,7 +1,7 @@
 "use client"
 
-import type { CountryCode } from "libphonenumber-js"
-import { useEffect, useState } from "react"
+import { parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js"
+import { useEffect, useRef, useState } from "react"
 
 import { Clock } from "@/components/ui/clock"
 import { ButtonArrow, TickIcon } from "@/components/ui/icons"
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/phone-field"
 import { SplitText } from "@/components/ui/split-text"
 import { CONSULT } from "@/content/home"
+import { HANDOFF_EVENT, readHandoff } from "@/lib/assistant/handoff"
 import { cx } from "@/lib/cx"
 import {
   prefillFor,
@@ -30,6 +31,10 @@ import {
  * site leads here. On arrival it preselects the service and market from the
  * page the visitor came from (or from ?service=&market=&plan= on the link),
  * and it sends that page along so the team sees where the enquiry started.
+ *
+ * A visitor who talked to the website assistant first finds what they told
+ * it already filled in (lib/assistant/handoff.ts), and the submission joins
+ * that conversation's enquiry instead of creating a second one.
  */
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
 
@@ -64,6 +69,9 @@ export function ConsultForm({
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState(false)
   const [failure, setFailure] = useState("")
+  const [chat, setChat] = useState<string | null>(null)
+  const nameRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
 
   const market = (CONSULT.markets[marketIndex] ?? CONSULT.markets[0])!
 
@@ -93,6 +101,44 @@ export function ConsultForm({
     if (fromLink.plan) {
       setMessage(`I'm interested in the ${fromLink.plan} package.`)
     }
+  }, [])
+
+  // What the visitor already told the assistant: on arrival, and again if
+  // the chat sends them here while the form is already on screen.
+  useEffect(() => {
+    const apply = () => {
+      const handoff = readHandoff()
+      if (!handoff) return
+      setChat(handoff.session)
+      const fill = (input: HTMLInputElement | null, value?: string) => {
+        if (input && value && !input.value.trim()) input.value = value
+      }
+      fill(nameRef.current, handoff.name)
+      fill(emailRef.current, handoff.email)
+      if (handoff.phone) {
+        const parsed = parsePhoneNumberFromString(handoff.phone)
+        if (parsed?.country) {
+          setPhone((p) =>
+            p.number
+              ? p
+              : { country: parsed.country!, number: parsed.formatNational() }
+          )
+          setPhoneCountryPicked(true)
+        }
+      }
+      if (handoff.market) {
+        const index = CONSULT.markets.findIndex(
+          (m) => m.label === handoff.market
+        )
+        if (index >= 0) setMarketIndex(index)
+      }
+      const service = CONSULT.services.find((s) => s === handoff.service)
+      if (service) setService(service)
+      if (handoff.message) setMessage((m) => m || handoff.message!)
+    }
+    apply()
+    window.addEventListener(HANDOFF_EVENT, apply)
+    return () => window.removeEventListener(HANDOFF_EVENT, apply)
   }, [])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -132,7 +178,7 @@ export function ConsultForm({
         method: "POST",
         headers: { "content-type": "application/json" },
         // The page before this one; the server turns it into a label.
-        body: JSON.stringify({ ...data, from }),
+        body: JSON.stringify({ ...data, from, chat }),
       })
       const body = (await res.json().catch(() => ({}))) as {
         error?: string
@@ -201,6 +247,7 @@ export function ConsultForm({
             <div className="field">
               <label htmlFor="f-name">{CONSULT.fields.name.label}</label>
               <input
+                ref={nameRef}
                 id="f-name"
                 name="name"
                 type="text"
@@ -213,6 +260,7 @@ export function ConsultForm({
             <div className="field">
               <label htmlFor="f-email">{CONSULT.fields.email.label}</label>
               <input
+                ref={emailRef}
                 id="f-email"
                 name="email"
                 type="email"

@@ -261,6 +261,97 @@ const LABELS: Record<string, Record<string, Field>> = {
     leadStatus: { label: "Status" },
     page: { label: "Came from" },
     notes: { label: "Notes", description: "Private to the team." },
+    channel: {
+      label: "Channel",
+      description: "The contact form, or a conversation with the assistant.",
+    },
+    topics: {
+      label: "Assistant topics",
+      description: "The menu options the visitor picked in the assistant.",
+    },
+    transcript: {
+      label: "Assistant conversation",
+      description: "The whole chat, kept up to date while it continues.",
+    },
+  },
+  "api::assistant-topic.assistant-topic": {
+    question: {
+      label: "Option",
+      description:
+        "The button the visitor taps, worded as they'd ask it. Keep it short.",
+    },
+    answer: {
+      label: "Answer",
+      description:
+        'What the assistant replies, word for word. Start a line with "- " for a bullet or "1. " for a numbered step; wrap words in ** for bold.',
+    },
+    alsoAsked: {
+      label: "Also asked as",
+      description:
+        "Other ways people type this question, one per line. A typed question close to any of them gets this answer.",
+    },
+    parent: {
+      label: "Shown after",
+      description:
+        "The topic whose answer offers this one as a next option. Leave empty to show it on the first menu.",
+    },
+    children: { label: "Next options" },
+    order: ORDER,
+    linkLabel: {
+      label: "Link text",
+      description: "Optional link under the answer, e.g. to the service page.",
+    },
+    linkUrl: {
+      label: "Link address",
+      description: "A page on the site, such as /services/compliance/.",
+    },
+    action: {
+      label: "Button",
+      description: "The button under the answer.",
+    },
+    service: {
+      label: "Service",
+      description:
+        "Preselected on the contact form when the visitor continues there.",
+    },
+    market: {
+      label: "Market",
+      description:
+        "Preselected on the contact form when the visitor continues there.",
+    },
+  },
+  "api::assistant-setting.assistant-setting": {
+    enabled: {
+      label: "Show the assistant",
+      description: "Off hides it on every page.",
+    },
+    name: { label: "Name", description: "What the assistant calls itself." },
+    greeting: {
+      label: "Greeting",
+      description: "The first message, above the menu.",
+    },
+    fallback: {
+      label: "When it can't answer",
+      description:
+        "Shown when a question isn't covered by the site or the documents, next to the consultation and WhatsApp buttons.",
+    },
+    whatsappLabel: { label: "WhatsApp button text" },
+  },
+  "api::knowledge-document.knowledge-document": {
+    title: { label: "Title" },
+    file: {
+      label: "File",
+      description: "A PDF, Word (.docx), text or Markdown file.",
+    },
+    text: {
+      label: "Text",
+      description: "Or paste the content here. Both are used if you fill both.",
+    },
+    link: {
+      label: "Link for answers",
+      description:
+        "Optional page the assistant can point to when it uses this document.",
+    },
   },
   "api::subscriber.subscriber": {
     newsletter: {

@@ -1,0 +1,225 @@
+{
+  "settings": {
+    "enabled": true,
+    "name": "Spark Assistant",
+    "greeting": "Hi, I'm Spark Assistant from Sinai Spark Global. I can walk you through company setup, licences, visas and more. Pick a topic below or type your question.",
+    "fallback": "That one is best answered by a specialist, so I'd rather not guess. A free 30-minute consultation will get you a precise answer, or we can talk on WhatsApp.",
+    "whatsappLabel": "Chat on WhatsApp"
+  },
+  "topics": [
+    {
+      "question": "Set up a company in Saudi Arabia",
+      "alsoAsked": "How do I register a company in Saudi Arabia?\nHow do I get a MISA license?\nCompany formation in KSA\nHow to start a business in Riyadh",
+      "answer": "We handle the full formation process for foreign investors, end to end:\n\n- MISA (Ministry of Investment) investment licence and approvals\n- Commercial Registration (CR) with the Ministry of Commerce\n- Choosing the right entity: LLC, branch or representative office\n- Document preparation, legal translation and government attestation\n\nIt's a process that's easy to get wrong the first time and expensive to redo, which is why most clients hand it to us.",
+      "action": "Book a consultation",
+      "service": "Business setup / company formation",
+      "market": "Saudi Arabia",
+      "linkLabel": "Business setup in Saudi Arabia",
+      "linkUrl": "/services/administrative-solutions/",
+      "children": [
+        {
+          "question": "How long does it take?",
+          "alsoAsked": "How long does company registration take in Saudi Arabia?\nWhat is the timeline for MISA approval?",
+          "answer": "Ministry turnaround is typically 7 to 14 days once your documents are ready. The overall timeline depends mostly on how quickly your parent company's documents can be translated and attested, which we map out with you at the first consultation.",
+          "action": "Book a consultation",
+          "service": "Business setup / company formation",
+          "market": "Saudi Arabia"
+        },
+        {
+          "question": "Can I own 100% of the company?",
+          "alsoAsked": "Is 100% foreign ownership allowed in Saudi Arabia?\nDo I need a Saudi partner or sponsor?",
+          "answer": "Yes. 100% foreign equity is permitted for qualifying activities under the Saudi Investment Law, so you don't need a local partner for most business models. Whether your specific activity qualifies is one of the first things we confirm.",
+          "action": "Book a consultation",
+          "service": "Business setup / company formation",
+          "market": "Saudi Arabia"
+        },
+        {
+          "question": "Which entity type should I choose?",
+          "alsoAsked": "LLC or branch office in Saudi Arabia?\nWhat is the difference between a branch and a representative office?",
+          "answer": "We look at your commercial model and recommend the legal form that fits it under the Saudi Investment Law:\n\n- A 100% foreign-owned LLC\n- A branch of your existing company\n- A representative office\n\nThe right choice depends on what you'll actually do in the Kingdom, so it's the first step of every engagement.",
+          "action": "Book a consultation",
+          "service": "Business setup / company formation",
+          "market": "Saudi Arabia"
+        },
+        {
+          "question": "What happens after registration?",
+          "alsoAsked": "What do I need after getting the CR?\nDo you help with ZATCA, GOSI and bank accounts?",
+          "answer": "Once the MISA licence and CR are issued we complete the statutory handoff so you can operate:\n\n- ZATCA (tax and Zakat) enrolment\n- Chamber of Commerce registration\n- Qiwa, Muqeem and GOSI set-up\n- An introduction to open your corporate bank account\n\nAfter that, our PRO and compliance services can keep visas and renewals current.",
+          "action": "Book a consultation",
+          "service": "Business setup / company formation",
+          "market": "Saudi Arabia"
+        }
+      ]
+    },
+    {
+      "question": "Which licence do I need?",
+      "alsoAsked": "What type of licence do I need in Saudi Arabia?\nWhich MISA licence applies to my business?",
+      "answer": "It mostly depends on your activity and your capital. Pick the description closest to your business and I'll show you the licence that usually applies.",
+      "action": "None",
+      "service": "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+      "market": "Saudi Arabia",
+      "linkLabel": "Compare all licences",
+      "linkUrl": "/licences/",
+      "children": [
+        {
+          "question": "Trading, wholesale or retail",
+          "alsoAsked": "Trading licence in Saudi Arabia\nI want to import and sell products in KSA",
+          "answer": "That's usually a **Commercial licence**: wholesale, retail and general trading for international companies. Getting the category right from the start avoids rework later.\n\n1. Activity and capital assessment\n2. MISA application submission\n3. Ministry approval and licence delivery\n\nWe also advise on import/export integration and customs.",
+          "action": "Book a consultation",
+          "service": "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+          "market": "Saudi Arabia",
+          "linkLabel": "Commercial licence",
+          "linkUrl": "/licences/commercial-license/"
+        },
+        {
+          "question": "Manufacturing or an industrial site",
+          "alsoAsked": "Factory licence in Saudi Arabia\nManufacturing licence KSA",
+          "answer": "That's usually an **Industrial licence**, which opens Saudi Arabia's industrial sector with full foreign ownership available for qualifying activities.\n\n1. Technical and feasibility review\n2. Ministry of Industry and MISA approvals\n3. Site leasing and environmental permits\n\nWe also coordinate MODON industrial land applications.",
+          "action": "Book a consultation",
+          "service": "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+          "market": "Saudi Arabia",
+          "linkLabel": "Industrial licence",
+          "linkUrl": "/licences/industrial-license/"
+        },
+        {
+          "question": "A venture-backed startup",
+          "alsoAsked": "Startup licence in Saudi Arabia\nEntrepreneur licence for founders",
+          "answer": "That's usually an **Entrepreneurial licence**: a structured, fast-track entry for startups and first-time founders, with initial capital deposit requirements waived.\n\n1. Innovation or VC endorsement verification\n2. Accelerated MISA issuance\n3. Commercial setup and founder enablement",
+          "action": "Book a consultation",
+          "service": "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+          "market": "Saudi Arabia",
+          "linkLabel": "Entrepreneurial licence",
+          "linkUrl": "/licences/entrepreneurial-license/"
+        },
+        {
+          "question": "Consulting, IT or professional services",
+          "alsoAsked": "Service licence in Saudi Arabia\nConsulting company licence KSA",
+          "answer": "That's usually a **Service licence**, which matches your business to the right regulated category, whether that's IT, engineering, consulting, healthcare, education or tourism.\n\n1. Sector regulation and activity scoping\n2. Foreign service licence filing\n3. Operational activation",
+          "action": "Book a consultation",
+          "service": "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+          "market": "Saudi Arabia",
+          "linkLabel": "Service licence",
+          "linkUrl": "/licences/service-license/"
+        },
+        {
+          "question": "Property investment or development",
+          "alsoAsked": "Real estate licence in Saudi Arabia\nCan foreigners invest in property in KSA?",
+          "answer": "That's usually a **Real estate licence**, for property investment, development and asset holding.\n\n1. Investment model classification\n2. REGA and MISA approvals\n3. Title and asset operational setup\n\nOur property management service can take over once the assets are in place.",
+          "action": "Book a consultation",
+          "service": "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+          "market": "Saudi Arabia",
+          "linkLabel": "Real estate licence",
+          "linkUrl": "/licences/real-estate-license/"
+        }
+      ]
+    },
+    {
+      "question": "Register a company in India (NRI)",
+      "alsoAsked": "Can an NRI register a company in India?\nIndian company registration from the Gulf\nPrivate limited company in India for NRIs",
+      "answer": "Yes. NRIs in Saudi Arabia or anywhere in the Gulf can register and own an Indian company entirely online, with no travel. We set up a Private Limited Company, LLP or OPC, structured to be FEMA compliant so profits can be repatriated to a Gulf account without complication. Support is in Hindi and English.",
+      "action": "Book a consultation",
+      "service": "Indian company registration (NRI)",
+      "market": "India",
+      "linkLabel": "Sinai Spark India",
+      "linkUrl": "/india/",
+      "children": [
+        {
+          "question": "Which structure suits me?",
+          "alsoAsked": "Private limited, LLP or OPC?\nWhich company type should I choose in India?",
+          "answer": "- **Private Limited Company**: for startups and investment-ready ventures. Separate legal identity and the easiest to raise investment.\n- **LLP**: for professionals and partners. Lower compliance, flexible profit sharing.\n- **One Person Company**: for solo founders who want limited liability.\n- **Sole Proprietorship**: the cheapest and fastest start, for small traders testing an idea.\n\nWe recommend one at the free consultation.",
+          "action": "Book a consultation",
+          "service": "Indian company registration (NRI)",
+          "market": "India"
+        },
+        {
+          "question": "How does it work, and how long?",
+          "alsoAsked": "How long does company registration take in India?\nWhat is the process to register a company in India?",
+          "answer": "1. **Free consultation**: we recommend the right structure\n2. **Document preparation**: KYC, MOA/AOA drafting, DIN and DSC\n3. **MCA filing**: with the Ministry of Corporate Affairs, and your Certificate of Incorporation is issued\n4. **Post-incorporation**: GST, PAN, TAN, bank account and trademark as needed\n\nPrivate Limited companies are typically incorporated in 7 to 10 working days.",
+          "action": "Book a consultation",
+          "service": "Indian company registration (NRI)",
+          "market": "India"
+        },
+        {
+          "question": "What documents do NRIs need?",
+          "alsoAsked": "Documents required for NRI company registration\nDo I need to visit India?",
+          "answer": "Nothing requires a visit to India. We handle the NRI-specific documentation, which usually includes your passport, OCI or PIO card, and proof of your overseas address. Your account manager tells you exactly what's needed for your structure.",
+          "action": "Book a consultation",
+          "service": "Indian company registration (NRI)",
+          "market": "India"
+        },
+        {
+          "question": "What else can you register?",
+          "alsoAsked": "GST registration\nTrademark registration in India\nImport export code",
+          "answer": "Alongside the company itself:\n\n- GST registration and GSTIN\n- Trademark registration\n- Import Export Code (IEC)\n- ROC compliance and annual filings\n- Business bank account assistance",
+          "action": "Book a consultation",
+          "service": "Indian company registration (NRI)",
+          "market": "India"
+        }
+      ]
+    },
+    {
+      "question": "Visas, Iqama & PRO services",
+      "alsoAsked": "Work visa in Saudi Arabia\nHow do I get an Iqama?\nPRO services KSA",
+      "answer": "Once your company is running, someone still has to keep visas, labour documents and ministry paperwork current. We take on that PRO role:\n\n- Executive and employee work visas and Iqama issuance\n- Qiwa workforce management, Ajeer permits and contract authentication\n- Muqeem, exit/re-entry permits and final exit\n- Ministry of Human Resources liaison and Saudization (Nitaqat) quotas",
+      "action": "Book a consultation",
+      "service": "PRO & visa services",
+      "market": "Saudi Arabia",
+      "linkLabel": "PRO & visa services",
+      "linkUrl": "/services/pro-visa-services/",
+      "children": [
+        {
+          "question": "How does the work visa process work?",
+          "alsoAsked": "Steps to hire a foreign employee in Saudi Arabia\nBlock visa process",
+          "answer": "1. **Visa quota (block visa)**: we apply to the Ministry of Human Resources based on your activity and capital\n2. **Consular processing and medicals**: embassy work authorisation and Gulf health clearance in the employee's home country\n3. **Iqama issuance**: fingerprinting, medical tests and the resident ID in the Kingdom\n4. **Ongoing administration**: digital contracts, Saudization calculations and annual renewals",
+          "action": "Book a consultation",
+          "service": "PRO & visa services",
+          "market": "Saudi Arabia"
+        }
+      ]
+    },
+    {
+      "question": "Staying compliant after setup",
+      "alsoAsked": "Licence renewal in Saudi Arabia\nZATCA VAT filing\nAnnual compliance",
+      "answer": "Formation is a one-time event; staying compliant isn't. We track your renewal dates, filing deadlines and regulatory changes year-round:\n\n- CR and MISA licence renewals\n- ZATCA tax, VAT and Zakat filings\n- National Address, Chamber of Commerce and municipal licences\n- Monitoring of new ministerial decrees\n\nYou get 60 days' notice before anything expires. We support compliance in Saudi Arabia, the UAE, the UK, India and Bahrain.",
+      "action": "Book a consultation",
+      "service": "Compliance",
+      "linkLabel": "Compliance",
+      "linkUrl": "/services/compliance/"
+    },
+    {
+      "question": "Legal & contract advice",
+      "alsoAsked": "Contract review in Saudi Arabia\nLegal advisory KSA\nShareholder agreement",
+      "answer": "Legal risk in Saudi Arabia tends to build up quietly, through a clause nobody checked or a filing nobody flagged. We catch it early:\n\n- Commercial contract drafting, bilingual review and negotiation\n- Interpreting regulation for your specific business\n- Corporate governance, shareholder agreements and board resolutions\n- Liaison with government and legal bodies",
+      "action": "Book a consultation",
+      "service": "Legal & regulatory advisory",
+      "market": "Saudi Arabia",
+      "linkLabel": "Legal & regulatory advisory",
+      "linkUrl": "/services/legal-services/"
+    },
+    {
+      "question": "Property management",
+      "alsoAsked": "Commercial property management in Saudi Arabia\nEjar lease",
+      "answer": "For commercial or residential property in Saudi Arabia, we handle the day-to-day running so ownership stays an investment rather than a second job:\n\n- Office sourcing and Ejar lease drafting and validation\n- Tenant relations, rent collection and lease renewals\n- Facility management and maintenance\n- Property compliance",
+      "action": "Book a consultation",
+      "service": "Property management",
+      "market": "Saudi Arabia",
+      "linkLabel": "Property management",
+      "linkUrl": "/services/property-management/"
+    },
+    {
+      "question": "Where do you operate?",
+      "alsoAsked": "Which countries do you cover?\nDo you have an office in Dubai?\nWhere are your offices?",
+      "answer": "Saudi Arabia is our flagship market, with support across Riyadh, Jeddah and Dammam. We also work in the UAE, the United Kingdom, India and Bahrain, with offices in Riyadh, Dubai, Mumbai, London and Manama.",
+      "action": "Book a consultation",
+      "linkLabel": "Contact us",
+      "linkUrl": "/contact/"
+    },
+    {
+      "question": "Talk to a specialist",
+      "alsoAsked": "Book a consultation\nI want to speak to someone\nCan someone call me?",
+      "answer": "The best next step is a free 30-minute consultation, with no obligation:\n\n1. We read your note and match you with the right specialist\n2. A call to map the structure, licence and timeline\n3. A clear scope and clear pricing, in writing",
+      "action": "Book a consultation",
+      "service": "Not sure yet"
+    }
+  ]
+}

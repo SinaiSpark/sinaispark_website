@@ -1,7 +1,9 @@
 # Local development services. Production runs its own compose file on the VPS.
 services:
   postgres:
-    image: postgres:17-alpine
+    # postgres:17-alpine plus pgvector, for the assistant's search index.
+    build: ./docker/postgres
+    image: sinaispark-postgres:17-pgvector
     container_name: sinaispark-postgres
     restart: unless-stopped
     environment:

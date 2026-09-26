@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, Manrope, Schibsted_Grotesk } from "next/font/google"
 
 import "./globals.css"
 
+import { AssistantMount } from "@/components/assistant/assistant-mount"
 import { Cursor } from "@/components/chrome/loader"
 import { PageTrail } from "@/components/chrome/page-trail"
 import { SiteFooter } from "@/components/chrome/site-footer"
@@ -102,6 +103,7 @@ export default async function RootLayout({
         <SiteNav insights={insightsEnabled} />
         <main id="top">{children}</main>
         <SiteFooter insights={insightsEnabled} />
+        <AssistantMount />
       </body>
     </html>
   )

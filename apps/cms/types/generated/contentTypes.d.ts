@@ -443,6 +443,147 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface ApiAssistantSettingAssistantSetting
+  extends Struct.SingleTypeSchema {
+  collectionName: "assistant_settings"
+  info: {
+    description: "The website assistant's name, greeting and on/off switch."
+    displayName: "Assistant settings"
+    pluralName: "assistant-settings"
+    singularName: "assistant-setting"
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    enabled: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>
+    fallback: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400
+      }>
+    greeting: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 400
+      }>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::assistant-setting.assistant-setting"
+    > &
+      Schema.Attribute.Private
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40
+      }> &
+      Schema.Attribute.DefaultTo<"Spark Assistant">
+    publishedAt: Schema.Attribute.DateTime
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    whatsappLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60
+      }> &
+      Schema.Attribute.DefaultTo<"Chat on WhatsApp">
+  }
+}
+
+export interface ApiAssistantTopicAssistantTopic
+  extends Struct.CollectionTypeSchema {
+  collectionName: "assistant_topics"
+  info: {
+    description: "The options the website assistant offers and the answers it gives. Topics without a parent are the first menu; a topic's children are the options shown after its answer."
+    displayName: "Assistant menu"
+    pluralName: "assistant-topics"
+    singularName: "assistant-topic"
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    action: Schema.Attribute.Enumeration<
+      ["None", "Book a consultation", "WhatsApp"]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Book a consultation">
+    alsoAsked: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1500
+      }>
+    answer: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1500
+      }>
+    children: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::assistant-topic.assistant-topic"
+    >
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    linkLabel: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60
+      }>
+    linkUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300
+      }>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::assistant-topic.assistant-topic"
+    > &
+      Schema.Attribute.Private
+    market: Schema.Attribute.Enumeration<
+      [
+        "Saudi Arabia",
+        "United Arab Emirates",
+        "India",
+        "United Kingdom",
+        "Bahrain",
+      ]
+    >
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<10>
+    parent: Schema.Attribute.Relation<
+      "manyToOne",
+      "api::assistant-topic.assistant-topic"
+    >
+    publishedAt: Schema.Attribute.DateTime
+    question: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 90
+      }>
+    service: Schema.Attribute.Enumeration<
+      [
+        "Business setup / company formation",
+        "A licence (commercial, industrial, entrepreneurial, service, real estate)",
+        "Legal & regulatory advisory",
+        "PRO & visa services",
+        "Compliance",
+        "Property management",
+        "Indian company registration (NRI)",
+        "Not sure yet",
+      ]
+    >
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+  }
+}
+
 export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   collectionName: "blog_posts"
   info: {
@@ -571,7 +712,7 @@ export interface ApiContactDetailContactDetail extends Struct.SingleTypeSchema {
 export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
   collectionName: "enquiries"
   info: {
-    description: "Consultation requests from the website forms."
+    description: "Consultation requests from the website form and the website assistant."
     displayName: "Enquiry"
     pluralName: "enquiries"
     singularName: "enquiry"
@@ -580,6 +721,14 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
     draftAndPublish: false
   }
   attributes: {
+    channel: Schema.Attribute.Enumeration<["Website form", "Assistant"]> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Website form">
+    chatSession: Schema.Attribute.String &
+      Schema.Attribute.Private &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 36
+      }>
     createdAt: Schema.Attribute.DateTime
     createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private
@@ -622,6 +771,11 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120
       }>
+    topics: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 2000
+      }>
+    transcript: Schema.Attribute.Text
     updatedAt: Schema.Attribute.DateTime
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private
@@ -709,6 +863,46 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
         },
         number
       >
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+  }
+}
+
+export interface ApiKnowledgeDocumentKnowledgeDocument
+  extends Struct.CollectionTypeSchema {
+  collectionName: "knowledge_documents"
+  info: {
+    description: "Documents the website assistant learns from, on top of the website itself. Upload a PDF, Word or text file, or paste the text. Only published documents are used."
+    displayName: "Assistant knowledge"
+    pluralName: "knowledge-documents"
+    singularName: "knowledge-document"
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    file: Schema.Attribute.Media<"files">
+    link: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300
+      }>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::knowledge-document.knowledge-document"
+    > &
+      Schema.Attribute.Private
+    publishedAt: Schema.Attribute.DateTime
+    text: Schema.Attribute.Text
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160
+      }>
     updatedAt: Schema.Attribute.DateTime
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private
@@ -1594,11 +1788,14 @@ declare module "@strapi/strapi" {
       "admin::transfer-token": AdminTransferToken
       "admin::transfer-token-permission": AdminTransferTokenPermission
       "admin::user": AdminUser
+      "api::assistant-setting.assistant-setting": ApiAssistantSettingAssistantSetting
+      "api::assistant-topic.assistant-topic": ApiAssistantTopicAssistantTopic
       "api::blog-post.blog-post": ApiBlogPostBlogPost
       "api::contact-detail.contact-detail": ApiContactDetailContactDetail
       "api::enquiry.enquiry": ApiEnquiryEnquiry
       "api::faq.faq": ApiFaqFaq
       "api::home-page.home-page": ApiHomePageHomePage
+      "api::knowledge-document.knowledge-document": ApiKnowledgeDocumentKnowledgeDocument
       "api::page-seo.page-seo": ApiPageSeoPageSeo
       "api::research-article.research-article": ApiResearchArticleResearchArticle
       "api::seo-setting.seo-setting": ApiSeoSettingSeoSetting

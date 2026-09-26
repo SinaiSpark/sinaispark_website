@@ -16,6 +16,10 @@ export const SITE_TAGS: Record<string, string> = {
   "api::testimonial.testimonial": "testimonials",
   "api::contact-detail.contact-detail": "contact",
   "api::home-page.home-page": "home",
+  // The assistant: its menu and settings, and the documents it searches.
+  "api::assistant-topic.assistant-topic": "assistant",
+  "api::assistant-setting.assistant-setting": "assistant",
+  "api::knowledge-document.knowledge-document": "knowledge",
 }
 
 /**

@@ -7,7 +7,7 @@ import type { Core } from "@strapi/strapi"
  * Applied once per LAYOUT_VERSION, so anything changed afterwards in the
  * admin's "Configure the view" stays. Bump the version to re-apply.
  */
-const LAYOUT_VERSION = 4
+const LAYOUT_VERSION = 5
 
 type Layout = {
   columns: string[]
@@ -35,6 +35,7 @@ const LAYOUTS: Record<string, Layout> = {
     columns: [
       "fullName",
       "leadStatus",
+      "channel",
       "service",
       "market",
       "page",
@@ -56,6 +57,18 @@ const LAYOUTS: Record<string, Layout> = {
           "The page the visitor was on before the contact form, or the contact page if they opened it directly.",
       },
     },
+  },
+  "api::assistant-topic.assistant-topic": {
+    columns: ["question", "parent", "action", "order", "updatedAt"],
+    sortBy: "order",
+    order: "ASC",
+    pageSize: 50,
+    mainField: "question",
+  },
+  "api::knowledge-document.knowledge-document": {
+    columns: ["title", "file", "updatedAt"],
+    sortBy: "updatedAt",
+    order: "DESC",
   },
   "api::subscriber.subscriber": {
     columns: ["email", "newsletter", "firstSource", "createdAt"],

@@ -50,3 +50,6 @@ next-env.d.ts
 
 # local opencode state
 .opencode/
+
+# Downloaded models (the assistant's embeddings)
+.cache/

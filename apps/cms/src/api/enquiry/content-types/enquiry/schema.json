@@ -5,9 +5,11 @@
     "singularName": "enquiry",
     "pluralName": "enquiries",
     "displayName": "Enquiry",
-    "description": "Consultation requests from the website forms."
+    "description": "Consultation requests from the website form and the website assistant."
   },
-  "options": { "draftAndPublish": false },
+  "options": {
+    "draftAndPublish": false
+  },
   "attributes": {
     "leadStatus": {
       "type": "enumeration",
@@ -15,13 +17,55 @@
       "default": "New",
       "required": true
     },
-    "fullName": { "type": "string", "required": true, "maxLength": 120 },
-    "email": { "type": "email", "required": true },
-    "phone": { "type": "string", "maxLength": 32 },
-    "market": { "type": "string", "maxLength": 60 },
-    "service": { "type": "string", "maxLength": 120 },
-    "message": { "type": "text", "maxLength": 2000 },
-    "page": { "type": "string", "maxLength": 200 },
-    "notes": { "type": "text" }
+    "channel": {
+      "type": "enumeration",
+      "enum": ["Website form", "Assistant"],
+      "default": "Website form",
+      "required": true
+    },
+    "fullName": {
+      "type": "string",
+      "required": true,
+      "maxLength": 120
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "market": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "service": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "page": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "notes": {
+      "type": "text"
+    },
+    "topics": {
+      "type": "text",
+      "maxLength": 2000
+    },
+    "transcript": {
+      "type": "text"
+    },
+    "chatSession": {
+      "type": "string",
+      "maxLength": 36,
+      "private": true
+    }
   }
 }

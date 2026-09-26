@@ -113,6 +113,22 @@ first real publication, gating policy per report, newsletter tooling
 
 Status: 🔴 at least one real report or explicit launch-with-empty decision.
 
+## 10. Website Assistant (CMS → **Assistant settings / menu / knowledge**)
+
+The chat assistant is built and trained on the website's own content. Before
+launch:
+
+| Item                                                                    | Status |
+| ----------------------------------------------------------------------- | ------ |
+| The assistant's name (placeholder: "Spark Assistant")                   | 🔴     |
+| Knowledge documents to add under **Assistant knowledge**                | 🔴     |
+| Review the menu answers drafted from the site copy (**Assistant menu**) | 🟡     |
+| WhatsApp number for the handoff button (same as §4)                     | 🔴     |
+| Groq API key (free plan) in the site's environment                      | 🔴     |
+
+While the India fees above are placeholders, the assistant is told never to
+quote prices.
+
 ---
 
 **Sign-off:** once every 🔴 row above is answered, this file becomes the record

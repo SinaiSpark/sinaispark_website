@@ -2,6 +2,7 @@ import type { Core } from "@strapi/strapi"
 
 import { applyAdminLabels } from "./lib/admin-labels"
 import { applyAdminLayouts } from "./lib/admin-layouts"
+import { seedAssistantContent } from "./lib/assistant-content"
 import { registerSiteRefresh } from "./lib/revalidate"
 import { importGoogleReviews, seedSiteContent } from "./lib/site-content"
 import { ensureSiteDefaults } from "./lib/site-defaults"
@@ -19,6 +20,7 @@ export default {
     await ensureSiteDefaults(strapi)
     await seedSiteContent(strapi)
     await importGoogleReviews(strapi)
+    await seedAssistantContent(strapi)
     await applyAdminLabels(strapi)
     await applyAdminLayouts(strapi)
   },
