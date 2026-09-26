@@ -12,16 +12,15 @@ import { SpyNav } from "@/components/pages/spy-nav"
 import { ButtonArrow } from "@/components/ui/icons"
 import { SmartLink } from "@/components/ui/smart-link"
 import { CLOSING_CTA } from "@/content/home"
-import { faqs } from "@/content/faqs"
 import {
   DETAIL_PAGE,
-  FAQ_PICK,
   LICENCE_FACTS,
   SHORT_TITLES,
   SLUG_IMAGE,
 } from "@/content/pages"
 import type { ServiceContent } from "@/content/services"
 import { ROUTES } from "@/content/site"
+import { getFaqsFor } from "@/lib/site-content"
 
 /**
  * One template for all ten per-service and per-licence pages.
@@ -29,9 +28,10 @@ import { ROUTES } from "@/content/site"
  * The two kinds differ only in framing: licences show their regulators and
  * ownership rule and cycle within the licence set, services cycle within the
  * core five. Everything else — hero, spy bar, overview, process, markets, FAQ,
- * up next — is identical, which is how the design drew them.
+ * up next — is identical, which is how the design drew them. The FAQ block
+ * shows the CMS questions marked for this page, and is left out if none are.
  */
-export function DetailPage({
+export async function DetailPage({
   service,
   siblings,
   kind,
@@ -69,7 +69,7 @@ export function DetailPage({
         { value: service.bullets.length, label: "Deliverables" },
       ]
 
-  const faqItems = (FAQ_PICK[service.slug] ?? []).flatMap((i) => faqs[i] ?? [])
+  const faqItems = await getFaqsFor(hrefFor(service.slug))
   const faqSubject = isLicence
     ? `the ${service.title.toLowerCase()}`
     : (SHORT_TITLES[service.slug] ?? service.title)
@@ -103,7 +103,9 @@ export function DetailPage({
       />
 
       <SpyNav
-        items={DETAIL_PAGE.spy.map((s) => ({ id: s.id, label: s.label }))}
+        items={DETAIL_PAGE.spy
+          .filter((s) => s.id !== "faq" || faqItems.length)
+          .map((s) => ({ id: s.id, label: s.label }))}
         extra={{
           label: `All ${isLicence ? "licences" : "services"}`,
           href: hubHref,
@@ -119,15 +121,17 @@ export function DetailPage({
       <ServiceProcess service={service} />
       <WhereWeDeliver service={service} />
 
-      <Faq
-        className="faq dfaq"
-        eyebrow={DETAIL_PAGE.faq.eyebrow}
-        headline={DETAIL_PAGE.faq.headline(faqSubject)}
-        lede={DETAIL_PAGE.faq.lede}
-        link={DETAIL_PAGE.faq.link}
-        items={faqItems}
-        spy
-      />
+      {faqItems.length ? (
+        <Faq
+          className="faq dfaq"
+          eyebrow={DETAIL_PAGE.faq.eyebrow}
+          headline={DETAIL_PAGE.faq.headline(faqSubject)}
+          lede={DETAIL_PAGE.faq.lede}
+          link={DETAIL_PAGE.faq.link}
+          items={faqItems.map(({ question, answer }) => ({ question, answer }))}
+          spy
+        />
+      ) : null}
 
       <UpNext
         next={next}

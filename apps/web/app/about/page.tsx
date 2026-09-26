@@ -17,6 +17,7 @@ import { ABOUT } from "@/content/about"
 import { ROUTES } from "@/content/site"
 import { PageJsonLd } from "@/components/seo/json-ld"
 import { pageMetadata } from "@/lib/seo"
+import { getTeam } from "@/lib/site-content"
 
 export function generateMetadata() {
   return pageMetadata({
@@ -31,7 +32,9 @@ export function generateMetadata() {
  * what it stands for — mission and vision, the team, and the markets it covers
  * — so those stay in one place and cannot drift from the home page.
  */
-export default function AboutPage() {
+export default async function AboutPage() {
+  const team = await getTeam()
+
   return (
     <PageMotion variant="company">
       <PageJsonLd path={ROUTES.about} />
@@ -86,7 +89,7 @@ export default function AboutPage() {
       <MissionVision spy />
       <AboutApart />
       <AboutValues />
-      <Team className="ab-team" spy />
+      <Team members={team} className="ab-team" spy />
       <AboutWhere />
 
       <CtaSection

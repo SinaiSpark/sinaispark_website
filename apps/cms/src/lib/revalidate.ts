@@ -2,8 +2,8 @@ import type { Core } from "@strapi/strapi"
 
 /**
  * Content types the website renders, and the Next.js cache tag each one feeds.
- * The site tags its fetches with these names (apps/web/lib/content-api.ts and
- * apps/web/lib/settings.ts).
+ * The site tags its fetches with these names (apps/web/lib/content-api.ts,
+ * apps/web/lib/settings.ts and apps/web/lib/site-content.ts).
  */
 export const SITE_TAGS: Record<string, string> = {
   "api::blog-post.blog-post": "blog",
@@ -11,6 +11,10 @@ export const SITE_TAGS: Record<string, string> = {
   "api::site-setting.site-setting": "settings",
   "api::seo-setting.seo-setting": "seo",
   "api::page-seo.page-seo": "seo",
+  "api::faq.faq": "faqs",
+  "api::team-member.team-member": "team",
+  "api::testimonial.testimonial": "testimonials",
+  "api::contact-detail.contact-detail": "contact",
 }
 
 /**

@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_members",
+  "info": {
+    "singularName": "team-member",
+    "pluralName": "team-members",
+    "displayName": "Team member",
+    "description": "The people in the team section on the home and about pages."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "name": { "type": "string", "maxLength": 80 },
+    "role": { "type": "string", "required": true, "maxLength": 80 },
+    "bio": { "type": "text", "required": true, "maxLength": 240 },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "linkedin": { "type": "string", "maxLength": 200 },
+    "order": { "type": "integer", "default": 10, "required": true }
+  }
+}

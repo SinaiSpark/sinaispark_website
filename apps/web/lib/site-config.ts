@@ -1,7 +1,7 @@
 /**
  * Site-wide configuration — Sinai Spark Global.
- * Values marked PENDING_CLIENT_DATA are placeholders seeded from available
- * sources and must be replaced before launch (IMPLEMENTATION_PLAN.md §9).
+ * Contact details (email, phone, WhatsApp, socials, offices) are edited in
+ * the CMS; see lib/site-content.ts.
  */
 
 export const SITE = {
@@ -11,36 +11,6 @@ export const SITE = {
   url: "https://sinaispark.com",
   description:
     "Sinai Spark Global handles company formation, MISA registration, licensing and PRO services in Saudi Arabia, the UAE, the UK, India and Bahrain.",
-  email: "info@sinaispark.com",
-  /** PENDING_CLIENT_DATA — seeded from current live site; confirm with client. */
-  phone: "+966 51 001 3160",
-  whatsappNumber: "966510013160",
-  socials: {
-    instagram: "https://instagram.com/sinaispark",
-    linkedin: "https://linkedin.com/company/sinaispark",
-    youtube: "https://youtube.com/@sinaispark",
-  },
-  /** MOCK addresses — replace with real office locations (PENDING_CLIENT_DATA.md). */
-  offices: [
-    {
-      city: "Riyadh",
-      label: "Riyadh",
-      note: "Capital & economic center",
-      address: "King Fahd Road, Olaya District, Riyadh",
-    },
-    {
-      city: "Jeddah",
-      label: "Jeddah",
-      note: "Kingdom's trade gateway",
-      address: "Tahlia Street, Al Ruwais District, Jeddah",
-    },
-    {
-      city: "Dammam",
-      label: "Dammam",
-      note: "Eastern Province industrial hub",
-      address: "Corniche Road, Al Shati District, Dammam",
-    },
-  ],
 } as const
 
 export interface ServiceNavItem {

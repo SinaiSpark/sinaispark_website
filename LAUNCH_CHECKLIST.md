@@ -14,22 +14,24 @@
 
 ## 0. Where things stand
 
-| Area              | State                                                                                                       |
-| ----------------- | ----------------------------------------------------------------------------------------------------------- |
-| Website (Next.js) | All 18 pages built. Blog and research read from the CMS.                                                    |
-| Admin (Strapi)    | Articles, enquiries, subscribers, SEO, site switches, preview and scheduling all work. Notion-style editor. |
-| Runs on           | Local machine only: Postgres in Docker, media files on disk.                                                |
-| Code              | Branch `feat/strapi-cms`, **not committed yet**.                                                            |
+| Area              | State                                                                                                                                                                                                                  |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Website (Next.js) | All 19 pages built, including the new FAQs page (`/faqs/`). Blog, research, FAQs, team, testimonials (incl. the 54 Google reviews) and contact details read from the CMS. More than four team members scroll sideways. |
+| Home page         | Slimmed down: the FAQ, India, licence finder and Insights sections are gone. Each has its own page (`/faqs/`, `/india/`, `/licences/`, `/research/`).                                                                  |
+| Admin (Strapi)    | Articles, enquiries, subscribers, FAQs, team, testimonials, contact details, SEO, site switches, preview and scheduling all work. Enquiries and subscribers export to CSV. Notion-style editor.                        |
+| Runs on           | Local machine only: Postgres in Docker, media files on disk.                                                                                                                                                           |
+| Code              | Branch `feat/strapi-cms`, committed and pushed. Pull request into `main` still to open (1.1).                                                                                                                          |
 
 ---
 
 ## 1. Code housekeeping
 
-| #   | Task                                                                                                                                            | Who     | Status |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ |
-| 1.1 | Commit `feat/strapi-cms` and open a pull request into `main`                                                                                    | 🛠      | 🔴     |
-| 1.2 | Run a production build of both apps (`strapi build`, `next build`) and fix anything it finds. Not done yet so the dev server wasn't interrupted | 🛠      | 🔴     |
-| 1.3 | Delete the test draft "misa" and the sample articles (`seed:samples`) before real content goes in                                               | 👤 / 🛠 | 🔴     |
+| #   | Task                                                                                                                                                                                                    | Who     | Status |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ |
+| 1.1 | Commit `feat/strapi-cms` and open a pull request into `main`                                                                                                                                            | 🛠      | 🔴     |
+| 1.2 | Run a production build of both apps (`strapi build`, `next build`) and fix anything it finds. Not done yet so the dev server wasn't interrupted                                                         | 🛠      | 🔴     |
+| 1.3 | Delete the test draft "misa" and the sample articles (`seed:samples`) before real content goes in                                                                                                       | 👤 / 🛠 | 🔴     |
+| 1.4 | Click-test **Export CSV** in the admin on enquiries and subscribers, with and without a filter, and open the file in Excel. The CSV builder is tested; the button has not been clicked in a browser yet | 🛠      | 🟡     |
 
 ---
 
@@ -124,38 +126,42 @@ Waiting on the plan: Hetzner CX23 or Hostinger KVM 2.
 
 ## 7. Admin features still to build
 
-| #   | Task                                                                                                                                                                                            | Who | Status |
-| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------ |
-| 7.1 | Move FAQs, team, testimonials, office addresses and contact details into Strapi, so they can be edited without a developer                                                                      | 🛠  | 🟡     |
-| 7.2 | Home page "Insights" section to read its articles from the CMS. It still shows fixed placeholder cards (`content/insights.ts`), so this is needed before **Show Insights** is switched on (9.4) | 🛠  | 🟡     |
-| 7.3 | Export enquiries and subscribers to CSV from the admin                                                                                                                                          | 🛠  | 🟡     |
-| 7.4 | Decide how newsletters are sent. Resend Broadcasts is free up to 1,000 subscribers (no limit on sends), then $40/month for 5,000; or export the list to another tool                            | 👤  | 🟢     |
+| #   | Task                                                                                                                                                                                                                                                                                                            | Who | Status |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------ |
+| 7.1 | Move FAQs, team, testimonials, office addresses and contact details into Strapi, so they can be edited without a developer. Done: **FAQ**, **Team member**, **Testimonial** and **Contact details**, filled with the current copy. Office opening hours and the live clocks stay in code (`content/contact.ts`) | 🛠  | ✅     |
+| 7.2 | Home page "Insights" section to read its articles from the CMS. No longer needed: the section was removed from the home page                                                                                                                                                                                    | 🛠  | ✅     |
+| 7.3 | Export enquiries and subscribers to CSV from the admin. Done: **Export CSV** on both lists exports every row matching the current filters. Click-test pending (1.4)                                                                                                                                             | 🛠  | ✅     |
+| 7.4 | Decide how newsletters are sent. Resend Broadcasts is free up to 1,000 subscribers (no limit on sends), then $40/month for 5,000; or export the list to another tool                                                                                                                                            | 👤  | 🟢     |
 
 ---
 
 ## 8. Content (client)
 
-| #   | Task                                                                                                                                         | Who | Status |
-| --- | -------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------ |
-| 8.1 | Everything in [PENDING_CLIENT_DATA.md](PENDING_CLIENT_DATA.md): real stats, testimonials, team, office addresses, phone, socials, India fees | 👤  | 🔴     |
-| 8.2 | Replace the services hero photo: it has a fake "RIYADH ADVISORY GROUP" logo baked in (`service-business-setup.jpg`)                          | 👤  | 🔴     |
-| 8.3 | Replace or license the placeholder photos (`apps/web/lib/images.ts` marks each one's status)                                                 | 👤  | 🟡     |
-| 8.4 | Write the first real blog posts and research articles                                                                                        | 👤  | 🟡     |
+| #   | Task                                                                                                                                                                                                                                | Who | Status |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ------ |
+| 8.1 | Everything in [PENDING_CLIENT_DATA.md](PENDING_CLIENT_DATA.md): real stats, testimonials, team, office addresses, phone, socials, India fees. Testimonials, team, FAQs and contact details can now be entered directly in the admin | 👤  | 🔴     |
+| 8.5 | Review and approve the FAQs (8 general, drafted from service copy; 7 India, client-supplied) in **FAQ**, and pick which pages each one appears on                                                                                   | 👤  | 🔴     |
+| 8.6 | Once the real phone and addresses are in, switch off **Contact details → Still placeholder details** so the contact page stops marking them as pending                                                                              | 👤  | 🔴     |
+| 8.7 | Choose which of the 54 Google reviews (in **Testimonial**, as drafts) to show and publish them. The home page shows no testimonial section until one is published. (The 3 mock testimonials are deleted.)                           | 👤  | 🔴     |
+| 8.8 | Confirm the phone and Dammam address: the Google listing shows +966 51 180 1991 and AZD Business Centre, Al Khobar, not what the site has                                                                                           | 👤  | 🔴     |
+| 8.2 | Replace the services hero photo: it has a fake "RIYADH ADVISORY GROUP" logo baked in (`service-business-setup.jpg`)                                                                                                                 | 👤  | 🔴     |
+| 8.3 | Replace or license the placeholder photos (`apps/web/lib/images.ts` marks each one's status)                                                                                                                                        | 👤  | 🟡     |
+| 8.4 | Write the first real blog posts and research articles                                                                                                                                                                               | 👤  | 🟡     |
 
 ---
 
 ## 9. Launch day
 
-| #   | Task                                                                                                                     | Who     | Status |
-| --- | ------------------------------------------------------------------------------------------------------------------------ | ------- | ------ |
-| 9.1 | Fill in **SEO settings** (site name, description, share image, company details) and check **Page SEO** for the key pages | 👤 / 🛠 | 🔴     |
-| 9.2 | Verify the site in Google Search Console and Bing Webmaster (the codes go in SEO settings)                               | 👤 / 🛠 | 🔴     |
-| 9.3 | Switch on **SEO settings → Allow search engines** (off until now, so nothing is indexed early)                           | 👤      | 🔴     |
-| 9.4 | Switch on **Site settings → Show Insights** once there are real articles                                                 | 👤      | 🟡     |
-| 9.5 | Submit the sitemap (`/sitemap.xml`) in Search Console                                                                    | 🛠      | 🔴     |
-| 9.6 | If an old site exists at this domain, redirect its old page addresses to the new ones                                    | 👤 / 🛠 | 🟡     |
-| 9.7 | Live test: every form, an email of each kind, preview, a scheduled post, image upload, a gated research article          | 🛠      | 🔴     |
-| 9.8 | Speed and accessibility check (Lighthouse) on the live site                                                              | 🛠      | 🟡     |
+| #   | Task                                                                                                                                                                         | Who     | Status |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ |
+| 9.1 | Fill in **SEO settings** (site name, description, share image, company details) and check **Page SEO** for the key pages                                                     | 👤 / 🛠 | 🔴     |
+| 9.2 | Verify the site in Google Search Console and Bing Webmaster (the codes go in SEO settings)                                                                                   | 👤 / 🛠 | 🔴     |
+| 9.3 | Switch on **SEO settings → Allow search engines** (off until now, so nothing is indexed early)                                                                               | 👤      | 🔴     |
+| 9.4 | Switch on **Site settings → Show Insights** once there are real articles                                                                                                     | 👤      | 🟡     |
+| 9.5 | Submit the sitemap (`/sitemap.xml`) in Search Console                                                                                                                        | 🛠      | 🔴     |
+| 9.6 | If an old site exists at this domain, redirect its old page addresses to the new ones                                                                                        | 👤 / 🛠 | 🟡     |
+| 9.7 | Live test: every form, an email of each kind, preview, a scheduled post, image upload, a gated research article, a CSV export, and an FAQ/testimonial edit reaching the site | 🛠      | 🔴     |
+| 9.8 | Speed and accessibility check (Lighthouse) on the live site                                                                                                                  | 🛠      | 🟡     |
 
 ---
 
@@ -175,4 +181,4 @@ Waiting on the plan: Hetzner CX23 or Hostinger KVM 2.
 4. **Cloudflare** account, R2 enabled (a card is needed even on the free plan) — 3.1, 3.2, 4.1
 5. **Addresses:** site and admin domains, sender/reply-to email, enquiry alert inboxes — 2.3, 2.4, 5.2
 6. **People:** who gets admin accounts — 6.1
-7. **Content:** [PENDING_CLIENT_DATA.md](PENDING_CLIENT_DATA.md), the hero photo, the first articles — section 8
+7. **Content:** [PENDING_CLIENT_DATA.md](PENDING_CLIENT_DATA.md), the hero photo, the first articles, FAQ approval — section 8

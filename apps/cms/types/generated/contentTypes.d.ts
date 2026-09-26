@@ -515,6 +515,59 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface ApiContactDetailContactDetail extends Struct.SingleTypeSchema {
+  collectionName: "contact_details"
+  info: {
+    description: "Email, phone, WhatsApp, social links and office addresses shown on the contact page. Changes go live straight away."
+    displayName: "Contact details"
+    pluralName: "contact-details"
+    singularName: "contact-detail"
+  }
+  options: {
+    draftAndPublish: false
+  }
+  attributes: {
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    email: Schema.Attribute.Email & Schema.Attribute.Required
+    instagram: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+    linkedin: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::contact-detail.contact-detail"
+    > &
+      Schema.Attribute.Private
+    offices: Schema.Attribute.Component<"contact.office", true>
+    phone: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 32
+      }>
+    placeholder: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>
+    publishedAt: Schema.Attribute.DateTime
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    whatsapp: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20
+      }>
+    youtube: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+  }
+}
+
 export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
   collectionName: "enquiries"
   info: {
@@ -568,6 +621,57 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
     service: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 120
+      }>
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+  }
+}
+
+export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
+  collectionName: "faqs"
+  info: {
+    description: "Questions and answers. Every published one is on the FAQ page; tick pages under Show on to repeat it there too."
+    displayName: "FAQ"
+    pluralName: "faqs"
+    singularName: "faq"
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    answer: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200
+      }>
+    category: Schema.Attribute.Enumeration<
+      [
+        "General",
+        "Company setup",
+        "Licensing",
+        "PRO & visas",
+        "Compliance",
+        "India",
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"General">
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<"oneToMany", "api::faq.faq"> &
+      Schema.Attribute.Private
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<10>
+    pages: Schema.Attribute.Relation<"manyToMany", "api::page-seo.page-seo">
+    publishedAt: Schema.Attribute.DateTime
+    question: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
       }>
     updatedAt: Schema.Attribute.DateTime
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
@@ -811,6 +915,127 @@ export interface ApiSubscriberSubscriber extends Struct.CollectionTypeSchema {
       "api::research-article.research-article"
     >
     unsubscribedAt: Schema.Attribute.DateTime
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+  }
+}
+
+export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
+  collectionName: "team_members"
+  info: {
+    description: "The people in the team section on the home and about pages."
+    displayName: "Team member"
+    pluralName: "team-members"
+    singularName: "team-member"
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    bio: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 240
+      }>
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    linkedin: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::team-member.team-member"
+    > &
+      Schema.Attribute.Private
+    name: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80
+      }>
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<10>
+    photo: Schema.Attribute.Media<"images">
+    publishedAt: Schema.Attribute.DateTime
+    role: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80
+      }>
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+  }
+}
+
+export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
+  collectionName: "testimonials"
+  info: {
+    description: "Client reviews in the scrolling band on the home page: imported Google reviews and ones added by hand. Only published reviews with text are shown."
+    displayName: "Testimonial"
+    pluralName: "testimonials"
+    singularName: "testimonial"
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    googleReviewId: Schema.Attribute.String &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<
+      "oneToMany",
+      "api::testimonial.testimonial"
+    > &
+      Schema.Attribute.Private
+    market: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40
+      }>
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80
+      }>
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<10>
+    publishedAt: Schema.Attribute.DateTime
+    quote: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 1200
+      }>
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5
+          min: 1
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<5>
+    reviewDate: Schema.Attribute.Date
+    reviewUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 600
+      }>
+    role: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120
+      }>
+    source: Schema.Attribute.Enumeration<["Google", "Manual"]> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Manual">
     updatedAt: Schema.Attribute.DateTime
     updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
       Schema.Attribute.Private
@@ -1334,12 +1559,16 @@ declare module "@strapi/strapi" {
       "admin::transfer-token-permission": AdminTransferTokenPermission
       "admin::user": AdminUser
       "api::blog-post.blog-post": ApiBlogPostBlogPost
+      "api::contact-detail.contact-detail": ApiContactDetailContactDetail
       "api::enquiry.enquiry": ApiEnquiryEnquiry
+      "api::faq.faq": ApiFaqFaq
       "api::page-seo.page-seo": ApiPageSeoPageSeo
       "api::research-article.research-article": ApiResearchArticleResearchArticle
       "api::seo-setting.seo-setting": ApiSeoSettingSeoSetting
       "api::site-setting.site-setting": ApiSiteSettingSiteSetting
       "api::subscriber.subscriber": ApiSubscriberSubscriber
+      "api::team-member.team-member": ApiTeamMemberTeamMember
+      "api::testimonial.testimonial": ApiTestimonialTestimonial
       "plugin::content-releases.release": PluginContentReleasesRelease
       "plugin::content-releases.release-action": PluginContentReleasesReleaseAction
       "plugin::i18n.locale": PluginI18NLocale

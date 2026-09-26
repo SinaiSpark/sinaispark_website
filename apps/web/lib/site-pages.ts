@@ -30,6 +30,7 @@ export const SITE_PAGES: SitePage[] = [
   { page: "India", path: ROUTES.india },
   { page: "About", path: ROUTES.about },
   { page: "Contact", path: ROUTES.contact },
+  { page: "FAQs", path: ROUTES.faq },
   { page: "Blog (index)", path: ROUTES.blog },
   { page: "Research (index)", path: ROUTES.research },
 ]

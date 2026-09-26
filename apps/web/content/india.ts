@@ -156,46 +156,6 @@ export const INDIA = {
       },
     ],
   },
-  faqs: [
-    {
-      question:
-        "Can an NRI living in Saudi Arabia register a company in India?",
-      answer:
-        "Yes. NRIs are fully eligible to incorporate a company in India, and the entire process can be completed online without visiting India.",
-    },
-    {
-      question: "How long does registration take?",
-      answer:
-        "A Private Limited Company typically takes 7 to 10 working days once all documents are submitted.",
-    },
-    {
-      question: "What documents does an NRI need?",
-      answer:
-        "A passport, OCI or PIO card, overseas address proof, and Indian address proof if available. A full personalized checklist is provided after the free consultation.",
-    },
-    {
-      question: "Private Limited Company or LLP, which is right for me?",
-      answer:
-        "A Private Limited Company suits businesses planning to raise investment and scale quickly. An LLP suits professionals and small partnerships with lower compliance needs.",
-    },
-    {
-      question: "Is GST registration mandatory?",
-      answer:
-        "GST registration is required once annual turnover crosses 20 lakh rupees, or 10 lakh in special category states, or for businesses selling goods or services online.",
-    },
-    {
-      question:
-        "Can a Saudi national or company hold shares in an Indian company?",
-      answer:
-        "Yes, subject to FDI guidelines under FEMA. Most sectors permit full FDI, and the right structure is confirmed during the free consultation.",
-    },
-    {
-      question:
-        "Does Sinai Spark Global India handle ongoing compliance after registration?",
-      answer:
-        "Yes. ROC compliance, annual filings, GST filings and director KYC updates are all handled on an ongoing basis.",
-    },
-  ] satisfies Array<{ question: string; answer: string }>,
   closingCta: {
     title: "Ready to Register Your Indian Company?",
     subheadline:

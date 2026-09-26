@@ -17,6 +17,7 @@ import { INDIA_PAGE } from "@/content/india-page"
 import { ROUTES } from "@/content/site"
 import { PageJsonLd } from "@/components/seo/json-ld"
 import { pageMetadata } from "@/lib/seo"
+import { getFaqsFor } from "@/lib/site-content"
 
 export function generateMetadata() {
   return pageMetadata({
@@ -29,9 +30,12 @@ export function generateMetadata() {
 /**
  * India landing page. The client supplied this copy verbatim, so the sections
  * follow their document: who it is for, choosing a structure, what we handle,
- * how it works, the NRI case, why us, packages and FAQs.
+ * how it works, the NRI case, why us, packages and FAQs. The FAQs are the
+ * CMS questions marked for this page.
  */
-export default function IndiaPage() {
+export default async function IndiaPage() {
+  const faqs = await getFaqsFor(ROUTES.india)
+
   return (
     <PageMotion variant="india">
       <PageJsonLd path={ROUTES.india} />
@@ -56,23 +60,22 @@ export default function IndiaPage() {
       <IndiaWhy />
       <IndiaPricing />
 
-      <Faq
-        eyebrow={INDIA_PAGE.faq.eyebrow}
-        headline={INDIA_PAGE.faq.headline}
-        lede={INDIA_PAGE.faq.lede}
-        link={INDIA_PAGE.faq.link}
-        items={INDIA.faqs.map((f) => ({
-          question: f.question,
-          answer: f.answer,
-        }))}
-        style={{ background: "#fff" }}
-      />
+      {faqs.length ? (
+        <Faq
+          eyebrow={INDIA_PAGE.faq.eyebrow}
+          headline={INDIA_PAGE.faq.headline}
+          lede={INDIA_PAGE.faq.lede}
+          link={INDIA_PAGE.faq.link}
+          items={faqs.map(({ question, answer }) => ({ question, answer }))}
+          style={{ background: "#fff" }}
+        />
+      ) : null}
 
       <CtaSection
         eyebrow={INDIA_PAGE.cta.eyebrow}
         headline={INDIA.closingCta.title}
         lede={INDIA.closingCta.subheadline}
-        secondary={INDIA_PAGE.cta.secondary}
+        secondary={faqs.length ? INDIA_PAGE.cta.secondary : undefined}
         primary={INDIA_PAGE.cta.primary}
       >
         <ul className="trust cta-trust" data-reveal>

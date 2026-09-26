@@ -15,6 +15,7 @@ import { CONTACT } from "@/content/contact"
 import { ROUTES } from "@/content/site"
 import { PageJsonLd } from "@/components/seo/json-ld"
 import { pageMetadata } from "@/lib/seo"
+import { getContactDetails, getFaqsFor } from "@/lib/site-content"
 
 export function generateMetadata() {
   return pageMetadata({
@@ -27,9 +28,15 @@ export function generateMetadata() {
 /**
  * Contact page. The form is the same component the home page carries, given
  * the page's own framing; everything after it is for people who would rather
- * not fill anything in.
+ * not fill anything in. The details and FAQs come from the CMS.
  */
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [details, faqs] = await Promise.all([
+    getContactDetails(),
+    getFaqsFor(ROUTES.contact),
+  ])
+  const whatsapp = details.whatsapp
+
   return (
     <PageMotion variant="company">
       <PageJsonLd path={ROUTES.contact} />
@@ -51,21 +58,26 @@ export default function ContactPage() {
             >
               {CONTACT.hero.primary.label} <ButtonArrow down />
             </SmartLink>
-            <a
-              className="btn btn--ghost"
-              href={CONTACT.hero.secondary.href}
-              target="_blank"
-              rel="noreferrer noopener"
-              data-magnetic
-            >
-              {CONTACT.hero.secondary.label} <ButtonArrow />
-            </a>
+            {whatsapp ? (
+              <a
+                className="btn btn--ghost"
+                href={whatsapp}
+                target="_blank"
+                rel="noreferrer noopener"
+                data-magnetic
+              >
+                {CONTACT.hero.secondary.label} <ButtonArrow />
+              </a>
+            ) : null}
           </div>
         }
         side={<DeskCard />}
       />
 
-      <SpyNav items={[...CONTACT.spy]} extra={CONTACT.spyExtra} />
+      <SpyNav
+        items={CONTACT.spy.filter((s) => s.id !== "faq" || faqs.length)}
+        extra={CONTACT.spyExtra}
+      />
 
       <ConsultForm
         id="form"
@@ -74,27 +86,28 @@ export default function ContactPage() {
         spy
       />
 
-      <DirectLines />
-      <Offices />
+      <DirectLines details={details} />
+      <Offices details={details} />
 
-      <Faq
-        className="faq dfaq"
-        eyebrow={CONTACT.faq.eyebrow}
-        headline={CONTACT.faq.headline}
-        lede={CONTACT.faq.lede}
-        link={CONTACT.faq.link}
-        items={CONTACT.faq.items.map((item) => ({
-          question: item.question,
-          answer: item.answer,
-        }))}
-        spy
-      />
+      {faqs.length ? (
+        <Faq
+          className="faq dfaq"
+          eyebrow={CONTACT.faq.eyebrow}
+          headline={CONTACT.faq.headline}
+          lede={CONTACT.faq.lede}
+          link={CONTACT.faq.link}
+          items={faqs.map(({ question, answer }) => ({ question, answer }))}
+          spy
+        />
+      ) : null}
 
       <CtaSection
         eyebrow={CONTACT.cta.eyebrow}
         headline={CONTACT.cta.headline}
         lede={CONTACT.cta.lede}
-        secondary={CONTACT.cta.secondary}
+        secondary={
+          whatsapp ? { ...CONTACT.cta.secondary, href: whatsapp } : undefined
+        }
         primary={CONTACT.cta.primary}
       />
     </PageMotion>

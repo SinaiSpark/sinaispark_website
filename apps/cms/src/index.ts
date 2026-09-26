@@ -3,6 +3,7 @@ import type { Core } from "@strapi/strapi"
 import { applyAdminLabels } from "./lib/admin-labels"
 import { applyAdminLayouts } from "./lib/admin-layouts"
 import { registerSiteRefresh } from "./lib/revalidate"
+import { importGoogleReviews, seedSiteContent } from "./lib/site-content"
 import { ensureSiteDefaults } from "./lib/site-defaults"
 import { registerSlugFill } from "./lib/slugs"
 
@@ -16,6 +17,8 @@ export default {
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     await ensureSiteDefaults(strapi)
+    await seedSiteContent(strapi)
+    await importGoogleReviews(strapi)
     await applyAdminLabels(strapi)
     await applyAdminLayouts(strapi)
   },

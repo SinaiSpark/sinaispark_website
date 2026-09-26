@@ -57,7 +57,6 @@ export function initHomeMotion(signal: AbortSignal) {
     brandMarkDraw()
     statsDots(signal)
     initMarkDraw("#ctaMark", ".cta")
-    indiaParallax()
     initSurfaceNav(nav)
     initReveals()
     initSplits(":not(.hero-h)")
@@ -70,7 +69,6 @@ export function initHomeMotion(signal: AbortSignal) {
     initTeamCards()
     testimonialCards()
     regionTiles()
-    insightCards()
     initMarqueeVelocity(".gov-track, .marquee-track", opts)
 
     ScrollTrigger.sort()
@@ -399,21 +397,6 @@ function statsDots(signal: AbortSignal) {
   )
 }
 
-function indiaParallax() {
-  qa<HTMLElement>("[data-parallax] [data-speed]").forEach((el) =>
-    gsap.to(el, {
-      yPercent: (parseFloat(el.dataset.speed ?? "1") - 1) * -80,
-      ease: "none",
-      scrollTrigger: {
-        trigger: el.closest("[data-parallax]") as Element,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    })
-  )
-}
-
 /** Markets scroll sideways while the section is pinned. */
 function marketsStrip() {
   const track = q("#mkTrack")
@@ -555,7 +538,8 @@ function testimonialCards() {
     y: 28,
     autoAlpha: 0,
     duration: 0.8,
-    stagger: 0.06,
+    // Many published reviews: the whole stagger still lands within a second.
+    stagger: Math.min(0.06, 0.9 / cards.length),
     ease: "power3.out",
     scrollTrigger: { trigger: ".marquee", start: "top 88%" },
     onComplete: () => {
@@ -602,73 +586,5 @@ function regionTiles() {
         },
       }
     )
-  })
-}
-
-/**
- * Insight cards: the cover fills in from the card's top edge and the tag chips
- * follow it, one trigger driving the feature card and the two rows in turn.
- */
-function insightCards() {
-  const cards = qa(".ins")
-  if (!cards.length) return
-
-  const tl = gsap.timeline({
-    scrollTrigger: { trigger: ".ins-grid", start: "top 86%" },
-  })
-
-  cards.forEach((card, i) => {
-    const at = i * 0.12
-    const img = q<HTMLImageElement>(".ph img", card)
-    const tags = qa(".tags span", card)
-
-    tl.from(
-      card,
-      {
-        y: 28,
-        autoAlpha: 0,
-        duration: 0.7,
-        ease: "power3.out",
-        onComplete: () => {
-          gsap.set(card, { clearProps: "transform" })
-        },
-      },
-      at
-    )
-
-    if (img) {
-      tl.fromTo(
-        img,
-        { clipPath: "inset(0 0 100% 0)", scale: 1.12 },
-        {
-          clipPath: "inset(0 0 0% 0)",
-          scale: 1,
-          duration: 1.1,
-          ease: "power3.out",
-          // Hand the image back to `.ins:hover .ph img`, which zooms it.
-          onComplete: () => {
-            gsap.set(img, { clearProps: "transform,clipPath" })
-          },
-        },
-        at + 0.06
-      )
-    }
-
-    if (tags.length) {
-      tl.from(
-        tags,
-        {
-          y: 10,
-          autoAlpha: 0,
-          duration: 0.5,
-          stagger: 0.05,
-          ease: "power3.out",
-          onComplete: () => {
-            gsap.set(tags, { clearProps: "transform" })
-          },
-        },
-        at + 0.3
-      )
-    }
   })
 }

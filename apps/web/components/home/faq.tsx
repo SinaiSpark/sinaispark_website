@@ -64,7 +64,7 @@ export function Faq({
           </SmartLink>
         </div>
 
-        <ul className="faq-list" id="faqList" data-reveal>
+        <ul className="faq-list" data-reveal>
           {items.map((item, i) => {
             const isOpen = open === i
             return (

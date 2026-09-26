@@ -1,0 +1,210 @@
+{
+  "faqs": [
+    {
+      "question": "What happens on the free consultation call?",
+      "answer": "Thirty minutes with the specialist for your market. We map the structure, the licence class and a realistic timeline, then follow up in writing with a clear scope and clear pricing. No obligation.",
+      "category": "General",
+      "order": 10,
+      "pages": ["/contact/"]
+    },
+    {
+      "question": "What does it take to register a company in Saudi Arabia?",
+      "answer": "Foreign investors need a MISA (Ministry of Investment) investment license, commercial registration with the Ministry of Commerce, and the right entity structure — typically an LLC, branch or representative office. Sinai Spark Global manages the full process, including document preparation, attestation and government submission.",
+      "category": "Company setup",
+      "order": 20,
+      "pages": [
+        "/services/administrative-solutions/",
+        "/services/legal-services/",
+        "/services/compliance/",
+        "/services/property-management/",
+        "/licences/commercial-license/",
+        "/licences/industrial-license/",
+        "/licences/entrepreneurial-license/",
+        "/licences/service-license/",
+        "/contact/"
+      ]
+    },
+    {
+      "question": "How long does company formation in Saudi Arabia usually take?",
+      "answer": "Timelines depend on entity type and activity, but most formations complete within a few weeks once documents are in order. We give you a realistic timeline at the free consultation and track every milestone for you.",
+      "category": "Company setup",
+      "order": 30,
+      "pages": [
+        "/services/administrative-solutions/",
+        "/services/pro-visa-services/",
+        "/services/property-management/",
+        "/licences/commercial-license/",
+        "/licences/industrial-license/",
+        "/licences/entrepreneurial-license/",
+        "/licences/service-license/",
+        "/licences/real-estate-license/",
+        "/contact/"
+      ]
+    },
+    {
+      "question": "Which Saudi license types exist, and which one do I need?",
+      "answer": "Saudi Arabia issues several distinct license types depending on business activity: Commercial, Industrial, Entrepreneurial, Service and Real Estate licenses. Picking the wrong category costs time later, so we assess your activity first. See our licensing pages for details on each.",
+      "category": "Licensing",
+      "order": 40,
+      "pages": [
+        "/services/legal-services/",
+        "/licences/commercial-license/",
+        "/licences/industrial-license/",
+        "/licences/entrepreneurial-license/",
+        "/licences/service-license/",
+        "/licences/real-estate-license/"
+      ]
+    },
+    {
+      "question": "Can I own 100% of my Saudi company as a foreign investor?",
+      "answer": "In many sectors, yes — full foreign ownership is available, notably under the industrial license. The right structure is confirmed during your consultation based on your specific activity.",
+      "category": "Company setup",
+      "order": 50,
+      "pages": [
+        "/services/administrative-solutions/",
+        "/services/legal-services/",
+        "/services/property-management/",
+        "/licences/commercial-license/",
+        "/licences/industrial-license/",
+        "/licences/entrepreneurial-license/",
+        "/licences/service-license/",
+        "/licences/real-estate-license/"
+      ]
+    },
+    {
+      "question": "What are PRO services, and do I need them?",
+      "answer": "PRO (Public Relations Officer) services mean ongoing government liaison: work visa processing, labor documentation and Ministry paperwork. If you employ staff in Saudi Arabia, keeping these current is mandatory — this is exactly what our PRO & Visa service handles.",
+      "category": "PRO & visas",
+      "order": 60,
+      "pages": ["/services/pro-visa-services/", "/services/compliance/"]
+    },
+    {
+      "question": "What happens after my company is formed?",
+      "answer": "Formation is a one-time event; staying compliant is not. Our compliance service tracks renewal dates, filing deadlines and regulatory changes so nothing is missed after launch.",
+      "category": "Compliance",
+      "order": 70,
+      "pages": [
+        "/services/administrative-solutions/",
+        "/services/pro-visa-services/",
+        "/services/compliance/"
+      ]
+    },
+    {
+      "question": "Do you operate outside Saudi Arabia?",
+      "answer": "Yes. Sinai Spark Global is a global business setup partner with active operations across Saudi Arabia, the UAE, the UK, India and Bahrain. Saudi Arabia remains our flagship and most detailed practice.",
+      "category": "General",
+      "order": 80,
+      "pages": [
+        "/services/legal-services/",
+        "/services/pro-visa-services/",
+        "/services/compliance/",
+        "/services/property-management/",
+        "/licences/real-estate-license/",
+        "/contact/"
+      ]
+    },
+    {
+      "question": "Can an NRI living in Saudi Arabia register a company in India?",
+      "answer": "Yes. NRIs are fully eligible to incorporate a company in India, and the entire process can be completed online without visiting India.",
+      "category": "India",
+      "order": 10,
+      "pages": ["/india/"]
+    },
+    {
+      "question": "How long does registration take?",
+      "answer": "A Private Limited Company typically takes 7 to 10 working days once all documents are submitted.",
+      "category": "India",
+      "order": 20,
+      "pages": ["/india/"]
+    },
+    {
+      "question": "What documents does an NRI need?",
+      "answer": "A passport, OCI or PIO card, overseas address proof, and Indian address proof if available. A full personalized checklist is provided after the free consultation.",
+      "category": "India",
+      "order": 30,
+      "pages": ["/india/"]
+    },
+    {
+      "question": "Private Limited Company or LLP, which is right for me?",
+      "answer": "A Private Limited Company suits businesses planning to raise investment and scale quickly. An LLP suits professionals and small partnerships with lower compliance needs.",
+      "category": "India",
+      "order": 40,
+      "pages": ["/india/"]
+    },
+    {
+      "question": "Is GST registration mandatory?",
+      "answer": "GST registration is required once annual turnover crosses 20 lakh rupees, or 10 lakh in special category states, or for businesses selling goods or services online.",
+      "category": "India",
+      "order": 50,
+      "pages": ["/india/"]
+    },
+    {
+      "question": "Can a Saudi national or company hold shares in an Indian company?",
+      "answer": "Yes, subject to FDI guidelines under FEMA. Most sectors permit full FDI, and the right structure is confirmed during the free consultation.",
+      "category": "India",
+      "order": 60,
+      "pages": ["/india/"]
+    },
+    {
+      "question": "Does Sinai Spark Global India handle ongoing compliance after registration?",
+      "answer": "Yes. ROC compliance, annual filings, GST filings and director KYC updates are all handled on an ongoing basis.",
+      "category": "India",
+      "order": 70,
+      "pages": ["/india/"]
+    }
+  ],
+  "team": [
+    {
+      "role": "Founder & Managing Director",
+      "bio": "Sets the strategy for every engagement and leads the Saudi practice from Riyadh.",
+      "order": 10
+    },
+    {
+      "role": "Head of Legal & Regulatory",
+      "bio": "Reads the regulation in its own language and turns it into a structure that holds.",
+      "order": 20
+    },
+    {
+      "role": "Head of PRO & Government Relations",
+      "bio": "Owns the daily relationship with MISA, the ministries and the labour offices.",
+      "order": 30
+    },
+    {
+      "role": "Head of India Desk",
+      "bio": "Cross-border structuring and FEMA for NRI founders registering in India.",
+      "order": 40
+    }
+  ],
+  "contact": {
+    "email": "info@sinaispark.com",
+    "phone": "+966 51 001 3160",
+    "whatsapp": "966510013160",
+    "linkedin": "https://linkedin.com/company/sinaispark",
+    "instagram": "https://instagram.com/sinaispark",
+    "youtube": "https://youtube.com/@sinaispark",
+    "placeholder": true,
+    "offices": [
+      {
+        "city": "Riyadh",
+        "kicker": "Capital · HQ",
+        "timeZone": "Asia/Riyadh",
+        "description": "The Kingdom's capital and economic centre. Licensing, PRO and GRO, project support.",
+        "address": "King Fahd Road, Olaya District"
+      },
+      {
+        "city": "Jeddah",
+        "kicker": "Trade gateway",
+        "timeZone": "Asia/Riyadh",
+        "description": "Tax, compliance and corporate advisory for import- and export-facing businesses.",
+        "address": "Tahlia Street, Al Ruwais District"
+      },
+      {
+        "city": "Dammam",
+        "kicker": "Industrial hub",
+        "timeZone": "Asia/Riyadh",
+        "description": "The Eastern Province's industrial hub. Complete legal and operational support.",
+        "address": "Corniche Road, Al Shati District"
+      }
+    ]
+  }
+}

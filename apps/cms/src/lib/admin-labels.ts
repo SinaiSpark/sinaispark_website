@@ -35,6 +35,11 @@ const DATE: Field = {
   description: "The publication date readers see.",
 }
 const BODY: Field = { label: "Article" }
+const ORDER: Field = {
+  label: "Order",
+  description:
+    "Lower numbers come first. Steps of 10 leave room to slot one in.",
+}
 const COMMON: Record<string, Field> = {
   title: { label: "Title" },
   slug: {
@@ -150,6 +155,97 @@ const LABELS: Record<string, Record<string, Field>> = {
       label: "SEO",
       description:
         "Leave empty to keep the page's built-in title and description.",
+    },
+  },
+  "api::faq.faq": {
+    question: { label: "Question" },
+    answer: { label: "Answer" },
+    category: {
+      label: "Category",
+      description: "The heading it sits under on the FAQ page.",
+    },
+    order: ORDER,
+    pages: {
+      label: "Also show on",
+      description:
+        "Every published question is on the FAQ page. Pick pages here to show it in their FAQ section too.",
+    },
+  },
+  "api::team-member.team-member": {
+    name: {
+      label: "Name",
+      description: 'Leave empty to show "Name pending" until it is confirmed.',
+    },
+    role: { label: "Role" },
+    bio: { label: "Short bio", description: "One sentence." },
+    photo: {
+      label: "Photo",
+      description: "Portrait, 4:5. Without one the card shows the brand mark.",
+    },
+    linkedin: { label: "LinkedIn profile URL" },
+    order: ORDER,
+  },
+  "api::testimonial.testimonial": {
+    quote: {
+      label: "Review text",
+      description:
+        "Reviews without text aren't shown on the site. Long ones are cut to six lines on the card; the link opens the full review.",
+      replaces: "Quote",
+    },
+    name: {
+      label: "Name",
+      description: "As shown on the card, e.g. Ahmed K.",
+    },
+    rating: { label: "Stars (1–5)" },
+    role: {
+      label: "Role and company",
+      description:
+        'Optional. Google reviews show "Google review" here instead.',
+    },
+    market: { label: "Market", description: "Optional, e.g. Saudi Arabia." },
+    source: {
+      label: "Source",
+      description: "Google for imported reviews, Manual for ones added here.",
+    },
+    reviewUrl: {
+      label: "Link to the review",
+      description:
+        "Clicking the card opens this in a new tab. Set for every imported Google review; optional for manual ones.",
+    },
+    reviewDate: {
+      label: "Review date",
+      description:
+        'For imported Google reviews this is approximate: Google only shows "4 months ago".',
+    },
+    googleReviewId: {
+      label: "Google review ID",
+      description: "Set by the import, so a review is never imported twice.",
+      editable: false,
+    },
+    order: ORDER,
+  },
+  "api::contact-detail.contact-detail": {
+    email: { label: "Email" },
+    phone: {
+      label: "Phone",
+      description: "As it should read, e.g. +966 51 001 3160.",
+    },
+    whatsapp: {
+      label: "WhatsApp number",
+      description:
+        "Digits only with the country code, e.g. 966510013160. Empty hides WhatsApp.",
+    },
+    linkedin: { label: "LinkedIn URL", description: "Empty hides it." },
+    instagram: { label: "Instagram URL", description: "Empty hides it." },
+    youtube: { label: "YouTube URL", description: "Empty hides it." },
+    offices: {
+      label: "Offices",
+      description: "The office tiles on the contact page, in this order.",
+    },
+    placeholder: {
+      label: "Still placeholder details",
+      description:
+        "On: the contact page marks the phone and addresses as pending. Switch off once the real details are in.",
     },
   },
   "api::enquiry.enquiry": {

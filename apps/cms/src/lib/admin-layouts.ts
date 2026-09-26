@@ -7,7 +7,7 @@ import type { Core } from "@strapi/strapi"
  * Applied once per LAYOUT_VERSION, so anything changed afterwards in the
  * admin's "Configure the view" stays. Bump the version to re-apply.
  */
-const LAYOUT_VERSION = 2
+const LAYOUT_VERSION = 4
 
 type Layout = {
   columns: string[]
@@ -16,6 +16,8 @@ type Layout = {
   sortBy: string
   order: "ASC" | "DESC"
   pageSize?: number
+  /** The field shown when an entry is picked in a relation, e.g. an FAQ's pages. */
+  mainField?: string
 }
 
 const LAYOUTS: Record<string, Layout> = {
@@ -66,6 +68,27 @@ const LAYOUTS: Record<string, Layout> = {
     sortBy: "path",
     order: "ASC",
     pageSize: 50,
+    mainField: "page",
+  },
+  "api::faq.faq": {
+    columns: ["question", "category", "order", "pages"],
+    sortBy: "order",
+    order: "ASC",
+    pageSize: 50,
+    mainField: "question",
+  },
+  "api::team-member.team-member": {
+    columns: ["photo", "name", "role", "order"],
+    sortBy: "order",
+    order: "ASC",
+    mainField: "role",
+  },
+  "api::testimonial.testimonial": {
+    columns: ["name", "rating", "source", "reviewDate", "order"],
+    sortBy: "order",
+    order: "ASC",
+    pageSize: 100,
+    mainField: "name",
   },
 }
 
@@ -104,6 +127,7 @@ export async function applyAdminLayouts(strapi: Core.Strapi) {
         defaultSortBy: layout.sortBy,
         defaultSortOrder: layout.order,
         ...(layout.pageSize ? { pageSize: layout.pageSize } : {}),
+        ...(layout.mainField ? { mainField: layout.mainField } : {}),
       },
       layouts: { ...rest.layouts, list: layout.columns.filter(known) },
     })

@@ -1,7 +1,16 @@
 import { revalidateTag } from "next/cache"
 
 /** Tags the CMS may refresh; see SITE_TAGS in apps/cms/src/lib/revalidate.ts. */
-const TAGS = new Set(["blog", "research", "settings", "seo"])
+const TAGS = new Set([
+  "blog",
+  "research",
+  "settings",
+  "seo",
+  "faqs",
+  "team",
+  "testimonials",
+  "contact",
+])
 
 /**
  * Called by the CMS whenever content is published, unpublished or deleted,

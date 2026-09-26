@@ -1,62 +1,63 @@
-/**
- * General FAQ content — seeded from the revised content document's service
- * copy. PENDING_CLIENT_DATA: the client has not yet supplied the general FAQ
- * set; these are drafted from approved service descriptions and must be
- * reviewed before launch. (The India page FAQs ARE client-supplied verbatim.)
- */
-
-export interface Faq {
-  question: string
-  answer: string
-}
-
-export const faqs: Faq[] = [
-  {
-    question: "What does it take to register a company in Saudi Arabia?",
-    answer:
-      "Foreign investors need a MISA (Ministry of Investment) investment license, commercial registration with the Ministry of Commerce, and the right entity structure — typically an LLC, branch or representative office. Sinai Spark Global manages the full process, including document preparation, attestation and government submission.",
-  },
-  {
-    question: "How long does company formation in Saudi Arabia usually take?",
-    answer:
-      "Timelines depend on entity type and activity, but most formations complete within a few weeks once documents are in order. We give you a realistic timeline at the free consultation and track every milestone for you.",
-    // PENDING_CLIENT_DATA — confirm official turnaround figures.
-  },
-  {
-    question: "Which Saudi license types exist, and which one do I need?",
-    answer:
-      "Saudi Arabia issues several distinct license types depending on business activity: Commercial, Industrial, Entrepreneurial, Service and Real Estate licenses. Picking the wrong category costs time later, so we assess your activity first. See our licensing pages for details on each.",
-  },
-  {
-    question: "Can I own 100% of my Saudi company as a foreign investor?",
-    answer:
-      "In many sectors, yes — full foreign ownership is available, notably under the industrial license. The right structure is confirmed during your consultation based on your specific activity.",
-  },
-  {
-    question: "What are PRO services, and do I need them?",
-    answer:
-      "PRO (Public Relations Officer) services mean ongoing government liaison: work visa processing, labor documentation and Ministry paperwork. If you employ staff in Saudi Arabia, keeping these current is mandatory — this is exactly what our PRO & Visa service handles.",
-  },
-  {
-    question: "What happens after my company is formed?",
-    answer:
-      "Formation is a one-time event; staying compliant is not. Our compliance service tracks renewal dates, filing deadlines and regulatory changes so nothing is missed after launch.",
-  },
-  {
-    question: "Do you operate outside Saudi Arabia?",
-    answer:
-      "Yes. Sinai Spark Global is a global business setup partner with active operations across Saudi Arabia, the UAE, the UK, India and Bahrain. Saudi Arabia remains our flagship and most detailed practice.",
-  },
-]
+import { ROUTES } from "@/content/site"
+import type { FaqCategory } from "@/lib/site-content"
 
 /**
- * The home page shows a short set; the detail pages pick their own four via
- * FAQ_PICK in content/pages.ts. Indices refer to the `faqs` array above.
+ * FAQ page copy. The questions themselves live in the CMS (FAQ), where each
+ * one has a category, which decides its section here, and the pages that
+ * repeat it in their own FAQ block.
  */
-export const HOME_FAQ = {
-  eyebrow: "FAQ",
-  headline: "Questions we hear every week.",
-  lede: "Short answers here; the full set lives on the FAQ page.",
-  link: { label: "Ask your own question", href: "/contact/#form" },
-  pick: [0, 1, 3, 4, 5],
+export const FAQ_PAGE = {
+  hero: {
+    image: "/images/services/licensing-documents.jpg",
+    crumb: "FAQs",
+    headline: "Questions we hear every week.",
+    lede: "Straight answers on company setup, licences, visas and compliance across Saudi Arabia, the UAE, the UK, India and Bahrain. If yours isn't here, ask us directly.",
+    primary: { label: "Ask your own question", href: ROUTES.consult },
+    secondary: { label: "All services", href: ROUTES.services },
+  },
+  spyExtra: { label: "Contact", href: ROUTES.contact },
+  link: { label: "Ask your own question", href: ROUTES.consult },
+  /** Each category's section, keyed by the CMS category. */
+  sections: {
+    General: {
+      id: "general",
+      headline: "Working with us.",
+      lede: "How the first call runs and where we operate.",
+    },
+    "Company setup": {
+      id: "setup",
+      headline: "Setting up in Saudi Arabia.",
+      lede: "What registration takes, how long it runs and who can own what.",
+    },
+    Licensing: {
+      id: "licensing",
+      headline: "Choosing the right licence.",
+      lede: "The licence classes and how we match one to your activity.",
+    },
+    "PRO & visas": {
+      id: "pro",
+      headline: "Government relations and visas.",
+      lede: "What PRO services cover and when you need them.",
+    },
+    Compliance: {
+      id: "compliance",
+      headline: "Staying compliant.",
+      lede: "What happens after formation: renewals, filings and deadlines.",
+    },
+    India: {
+      id: "india",
+      headline: "Registering in India.",
+      lede: "For NRIs and Gulf-based founders setting up an Indian company.",
+    },
+  } satisfies Record<
+    FaqCategory,
+    { id: string; headline: string; lede: string }
+  >,
+  cta: {
+    eyebrow: "Still have questions?",
+    headline: "Ask the specialist for your market.",
+    lede: "A free thirty-minute call answers the questions specific to your business.",
+    secondary: { label: "All services", href: ROUTES.services },
+    primary: { label: "Book the call", href: ROUTES.consult },
+  },
 } as const

@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testimonials",
+  "info": {
+    "singularName": "testimonial",
+    "pluralName": "testimonials",
+    "displayName": "Testimonial",
+    "description": "Client reviews in the scrolling band on the home page: imported Google reviews and ones added by hand. Only published reviews with text are shown."
+  },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "name": { "type": "string", "required": true, "maxLength": 80 },
+    "rating": {
+      "type": "integer",
+      "required": true,
+      "default": 5,
+      "min": 1,
+      "max": 5
+    },
+    "quote": { "type": "text", "maxLength": 1200 },
+    "role": { "type": "string", "maxLength": 120 },
+    "market": { "type": "string", "maxLength": 40 },
+    "source": {
+      "type": "enumeration",
+      "enum": ["Google", "Manual"],
+      "required": true,
+      "default": "Manual"
+    },
+    "reviewUrl": { "type": "string", "maxLength": 600 },
+    "reviewDate": { "type": "date" },
+    "order": { "type": "integer", "default": 10, "required": true },
+    "googleReviewId": { "type": "string", "unique": true, "maxLength": 200 }
+  }
+}

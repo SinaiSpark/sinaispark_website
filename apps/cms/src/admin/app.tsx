@@ -14,6 +14,7 @@ import "@fontsource-variable/schibsted-grotesk"
 import logo from "./extensions/logo.svg"
 import mark from "./extensions/mark.svg"
 import { applyAdminStyles } from "./admin-styles"
+import { ExportCsvButton } from "./export/ExportCsvButton"
 import { SchedulePanel } from "./panels/SchedulePanel"
 
 /** Brand teal (#16959f) as Strapi's primary scale. */
@@ -182,11 +183,22 @@ export default {
           reducer: (panels: unknown[]) => unknown[]
         ) => void
       }
+      injectComponent: (
+        view: string,
+        zone: string,
+        component: { name: string; Component: ComponentType }
+      ) => void
     }
     cm.apis.addEditViewSidePanel((panels) => [
       ...panels.slice(0, 1),
       SchedulePanel,
       ...panels.slice(1),
     ])
+
+    // "Export CSV" on the list view; it shows itself on enquiries and subscribers only.
+    cm.injectComponent("listView", "actions", {
+      name: "export-csv",
+      Component: ExportCsvButton,
+    })
   },
 }

@@ -179,7 +179,7 @@ export const DETAIL_PAGE = {
   faq: {
     eyebrow: "FAQ",
     headline: (subject: string) => `Questions about ${subject}.`,
-    lede: "Short answers here; the full set lives on the homepage FAQ.",
+    lede: "Short answers here; the full set lives on the FAQ page.",
     link: { label: "All FAQs", href: ROUTES.faq },
   },
   next: {
@@ -299,18 +299,4 @@ export function placesFor(jurisdictions: readonly string[]) {
     else if (/GCC/.test(j)) add("gcc")
   }
   return keys.flatMap((k) => PLACES[k] ?? [])
-}
-
-/** Which FAQs each detail page shows, by index into content/faqs.ts. */
-export const FAQ_PICK: Record<string, number[]> = {
-  "administrative-solutions": [0, 1, 3, 5],
-  "legal-services": [0, 3, 6, 2],
-  "pro-visa-services": [4, 5, 6, 1],
-  compliance: [5, 4, 6, 0],
-  "property-management": [3, 6, 1, 0],
-  "commercial-license": [2, 0, 1, 3],
-  "industrial-license": [3, 2, 1, 0],
-  "entrepreneurial-license": [2, 1, 0, 3],
-  "service-license": [2, 3, 0, 1],
-  "real-estate-license": [2, 3, 6, 1],
 }

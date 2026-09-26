@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_details",
+  "info": {
+    "singularName": "contact-detail",
+    "pluralName": "contact-details",
+    "displayName": "Contact details",
+    "description": "Email, phone, WhatsApp, social links and office addresses shown on the contact page. Changes go live straight away."
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "email": { "type": "email", "required": true },
+    "phone": { "type": "string", "maxLength": 32 },
+    "whatsapp": {
+      "type": "string",
+      "maxLength": 20,
+      "regex": "^[0-9]{8,15}$"
+    },
+    "linkedin": { "type": "string", "maxLength": 200 },
+    "instagram": { "type": "string", "maxLength": 200 },
+    "youtube": { "type": "string", "maxLength": 200 },
+    "offices": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.office"
+    },
+    "placeholder": { "type": "boolean", "default": true, "required": true }
+  }
+}

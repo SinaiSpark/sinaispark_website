@@ -59,7 +59,7 @@ App-level scripts (dev/build/test/watch) also live in `apps/web/package.json`.
 
 All page copy lives in `apps/web/lib/content/` rather than being hardcoded in components — edit there to change headlines, service descriptions, stats or testimonials.
 
-`apps/web/lib/site-config.ts` holds site name, contact details, socials, office locations and navigation/service routes.
+`apps/web/lib/site-config.ts` holds the site name and navigation/service routes. Contact details, socials, offices, FAQs, team and testimonials are edited in the CMS.
 
 > Values marked `PENDING_CLIENT_DATA` are placeholders that must be confirmed before launch — see `PENDING_CLIENT_DATA.md`.
 

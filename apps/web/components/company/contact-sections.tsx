@@ -13,10 +13,12 @@ import { SmartLink } from "@/components/ui/smart-link"
 import { SplitText } from "@/components/ui/split-text"
 import { CONTACT, type Desk } from "@/content/contact"
 import { cx } from "@/lib/cx"
+import type { ContactDetails } from "@/lib/site-content"
 
 /**
  * Contact page sections: the live desk card in the hero, the direct lines, and
  * the offices band. The consultation form itself is the shared ConsultForm.
+ * The lines and offices are the CMS's Contact details (lib/site-content.ts).
  */
 
 /** Short weekday names as en-GB formats them, indexed the way Date does. */
@@ -122,8 +124,29 @@ const SOCIAL_ICONS: Record<string, React.ReactNode> = {
 }
 
 /** Email, phone, WhatsApp and the social handles, set at headline size. */
-export function DirectLines() {
+export function DirectLines({ details }: { details: ContactDetails }) {
   const copy = CONTACT.direct
+  const lines = [
+    {
+      ...copy.email,
+      value: details.email,
+      href: `mailto:${details.email}`,
+      pending: false,
+    },
+    ...(details.phone
+      ? [
+          {
+            ...copy.phone,
+            value: details.phone,
+            href: `tel:+${details.phone.replace(/\D/g, "")}`,
+            pending: details.placeholder,
+          },
+        ]
+      : []),
+    ...(details.whatsapp
+      ? [{ ...copy.whatsapp, href: details.whatsapp, pending: false }]
+      : []),
+  ]
 
   return (
     <section
@@ -140,13 +163,15 @@ export function DirectLines() {
             </p>
             <SplitText as="h2" className="h2" text={copy.headline} />
           </div>
-          <span className="mock" data-reveal>
-            {copy.note}
-          </span>
+          {details.placeholder ? (
+            <span className="mock" data-reveal>
+              {copy.note}
+            </span>
+          ) : null}
         </div>
 
         <ul className="ct-line-list">
-          {[copy.email, copy.phone, copy.whatsapp].map((line) => {
+          {lines.map((line) => {
             const external = line.href.startsWith("http")
             return (
               <li key={line.kicker}>
@@ -166,7 +191,7 @@ export function DirectLines() {
                   </span>
                   <span className="v">
                     {line.value}
-                    {"pending" in line && line.pending ? (
+                    {line.pending ? (
                       <span className="pend">{copy.pendingLabel}</span>
                     ) : null}
                   </span>
@@ -178,36 +203,38 @@ export function DirectLines() {
             )
           })}
 
-          <li>
-            <div className="ct-line">
-              <span className="k">
-                {copy.social.kicker}
-                <small>{copy.social.note}</small>
-              </span>
-              <div className="ct-social">
-                {copy.social.links.map((social) => (
-                  <a
-                    href={social.href}
-                    key={social.label}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    {SOCIAL_ICONS[social.label]}
-                    {social.label}
-                  </a>
-                ))}
+          {details.socials.length ? (
+            <li>
+              <div className="ct-line">
+                <span className="k">
+                  {copy.social.kicker}
+                  <small>{copy.social.note}</small>
+                </span>
+                <div className="ct-social">
+                  {details.socials.map((social) => (
+                    <a
+                      href={social.href}
+                      key={social.label}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {SOCIAL_ICONS[social.label]}
+                      {social.label}
+                    </a>
+                  ))}
+                </div>
+                <span />
               </div>
-              <span />
-            </div>
-          </li>
+            </li>
+          ) : null}
         </ul>
       </div>
     </section>
   )
 }
 
-/** Three Saudi offices as photo tiles, then the four desks abroad. */
-export function Offices() {
+/** The offices as photo tiles, then the four desks abroad. */
+export function Offices({ details }: { details: ContactDetails }) {
   const copy = CONTACT.offices
 
   return (
@@ -225,23 +252,34 @@ export function Offices() {
             </p>
             <SplitText as="h2" className="h2" text={copy.headline} />
           </div>
-          <span className="mock" data-reveal>
-            {copy.note}
-          </span>
+          {details.placeholder ? (
+            <span className="mock" data-reveal>
+              {copy.note}
+            </span>
+          ) : null}
         </div>
 
         <div className="reg-row">
-          {copy.items.map((office) => (
-            <SmartLink className="region" href="#form" key={office.name}>
-              <img src={office.image} alt="" />
+          {details.offices.map((office, i) => (
+            <SmartLink
+              className="region"
+              href="#form"
+              key={`${i}-${office.city}`}
+            >
+              <img
+                src={
+                  office.photo ?? copy.images[office.city] ?? copy.defaultImage
+                }
+                alt=""
+              />
               <span className="tz">
                 <i />
                 <Clock as="span" timeZone={office.timeZone} />
               </span>
               <div className="in">
                 <span className="k">{office.kicker}</span>
-                <h3>{office.name}</h3>
-                <p>{office.body}</p>
+                <h3>{office.city}</h3>
+                {office.description ? <p>{office.description}</p> : null}
                 <span className="addr">{office.address}</span>
               </div>
             </SmartLink>

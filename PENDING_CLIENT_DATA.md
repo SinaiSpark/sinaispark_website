@@ -19,17 +19,18 @@
 | Countries Served      | 5                | ☐ (5 per PDF) | 🟡     |
 | Skilled Professionals | 40+              | ☐             | 🔴     |
 
-## 2. Home — Testimonials (`HOME.testimonials.items`)
+## 2. Home — Testimonials (CMS → **Testimonial**)
 
-⚠️ Client PDF forbids publishing invented quotes. These three are **mock** and
-must be replaced with verified client quotes (name + company/title + market +
-photo ideally) before launch.
+The three mock quotes (Ahmed K., Sarah M., Rajesh P.) have been deleted.
 
-| #   | Mock quote shown for                      | Real testimonial | Status |
-| --- | ----------------------------------------- | ---------------- | ------ |
-| 1   | Ahmed K. — Industrial Group, Saudi Arabia | ☐                | 🔴     |
-| 2   | Sarah M. — Tech Consultancy, UAE          | ☐                | 🔴     |
-| 3   | Rajesh P. — Trading Company, India        | ☐                | 🔴     |
+The 54 real Google reviews (Dammam listing, 4.9★) are in the admin as
+**drafts**. Pick the ones to show and publish them; each card links to the
+review on Google. Until at least one is published, the home page has no
+testimonial section. Reviews added later on Google are added by hand.
+
+| Item                              | Status |
+| --------------------------------- | ------ |
+| Publish the chosen Google reviews | 🔴     |
 
 ## 3. India Landing Page — Package Fees (`lib/content/india.ts` → INDIA.pricing)
 
@@ -44,18 +45,21 @@ actual pricing."
 
 Also confirm: are fees one-time? Do they include government fees?
 
-## 4. Contact Details (`lib/site-config.ts` → SITE)
+## 4. Contact Details (CMS → **Contact details**)
 
-| Field                  | Value shown                       | Source                          | Status           |
-| ---------------------- | --------------------------------- | ------------------------------- | ---------------- |
-| Email                  | info@sinaispark.com               | PDF                             | 🟡 confirm       |
-| Phone (displayed)      | +966 51 001 3160                  | Old live site — may be outdated | 🔴               |
-| WhatsApp click-to-chat | 966510013160 (derived from phone) | Derived                         | 🔴 same as phone |
-| Instagram URL          | instagram.com/sinaispark          | Guessed handle                  | 🔴               |
-| LinkedIn URL           | linkedin.com/company/sinaispark   | Guessed handle                  | 🔴               |
-| YouTube URL            | youtube.com/@sinaispark           | Guessed handle                  | 🔴               |
+| Field                  | Value shown                       | Source                                                                         | Status           |
+| ---------------------- | --------------------------------- | ------------------------------------------------------------------------------ | ---------------- |
+| Email                  | info@sinaispark.com               | PDF                                                                            | 🟡 confirm       |
+| Phone (displayed)      | +966 51 001 3160                  | Old live site — may be outdated. The Google listing shows **+966 51 180 1991** | 🔴               |
+| WhatsApp click-to-chat | 966510013160 (derived from phone) | Derived                                                                        | 🔴 same as phone |
+| Instagram URL          | instagram.com/sinaispark          | Guessed handle                                                                 | 🔴               |
+| LinkedIn URL           | linkedin.com/company/sinaispark   | Guessed handle                                                                 | 🔴               |
+| YouTube URL            | youtube.com/@sinaispark           | Guessed handle                                                                 | 🔴               |
 
-## 5. Office Addresses (`SITE.offices`)
+## 5. Office Addresses (CMS → **Contact details → Offices**)
+
+The Google listing gives the Dammam office as **402, AZD Business Centre, Al
+Rakah Al Junubiyah 34226, Al Khobar**. Confirm with the client.
 
 Street addresses are **mock**:
 
@@ -65,16 +69,22 @@ Street addresses are **mock**:
 | Jeddah | Tahlia Street, Al Ruwais District | ☐            | 🔴     |
 | Dammam | Corniche Road, Al Shati District  | ☐            | 🔴     |
 
-(Used on Contact page, footer, and LocalBusiness schema.)
+(Used on the contact page. Once the real phone and addresses are in, switch
+off **Still placeholder details** so the page stops marking them as pending.)
+
+## 5b. Team (CMS → **Team member**)
+
+Names, photos, LinkedIn links and bios for the four roles shown. A card
+without a name or photo shows "pending". Status: 🔴
 
 ## 6. Copy Decisions to Confirm
 
-| Item                            | Current implementation              | PDF original                          | Status                                |
-| ------------------------------- | ----------------------------------- | ------------------------------------- | ------------------------------------- |
-| Contact H1                      | "Let's Start Your Market Entry"     | "Let's Start Your Saudi Market Entry" | 🟡 deliberate globalization — confirm |
-| Business Setup meta description | "handled end to end"                | PDF has typo "end to start"           | 🟡 treated as typo — confirm          |
-| General FAQs page               | 7 FAQs drafted from service copy    | PDF supplies only India FAQs          | 🔴 client must review/approve set     |
-| Blog posts                      | None published (honest empty state) | —                                     | 🟡 content owner TBD                  |
+| Item                               | Current implementation              | PDF original                          | Status                                |
+| ---------------------------------- | ----------------------------------- | ------------------------------------- | ------------------------------------- |
+| Contact H1                         | "Let's Start Your Market Entry"     | "Let's Start Your Saudi Market Entry" | 🟡 deliberate globalization — confirm |
+| Business Setup meta description    | "handled end to end"                | PDF has typo "end to start"           | 🟡 treated as typo — confirm          |
+| General FAQs (`/faqs/`, CMS → FAQ) | 8 FAQs drafted from service copy    | PDF supplies only India FAQs          | 🔴 client must review/approve set     |
+| Blog posts                         | None published (honest empty state) | —                                     | 🟡 content owner TBD                  |
 
 ## 7. Legal Pages
 
@@ -104,4 +114,5 @@ Status: 🔴 at least one real report or explicit launch-with-empty decision.
 ---
 
 **Sign-off:** once every 🔴 row above is answered, this file becomes the record
-of approved launch data. Update values in code and tick ☑ here.
+of approved launch data. Update values in the CMS (or code, for sections 1
+and 3) and tick ☑ here.

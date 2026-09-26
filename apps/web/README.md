@@ -1,9 +1,9 @@
 # Sinai Spark Global — web
 
-The site is a direct build of the approved animation-heavy design. Eighteen
+The site is a direct build of the approved animation-heavy design. Nineteen
 pages: the home page, the services and licences hubs, ten per-service and
-per-licence pages, the India landing page, and four company and content pages
-— about, contact, blog and research.
+per-licence pages, the India landing page, and five company and content pages
+— about, contact, FAQs, blog and research.
 
 ## Where things live
 
@@ -14,20 +14,24 @@ app/                     routes only — each page composes sections, holds no c
   licences/                hub + [licence] detail pages
   india/                   India landing page
   about/ contact/          the firm, and how to reach it
+  faqs/                    every FAQ from the CMS, grouped by category
   blog/ research/          short regulatory notes, and long-form reports
   globals.css              imports styles/ in order, then re-points the font tokens
 
 content/                 ALL copy. Edit here, not in components.
   site.ts                  nav, mega menu, mobile sheet, footer, clocks, ROUTES
   home.ts                  every home section, in page order
-  pages.ts                 hub + detail framing, licence facts, market tiles, FAQ picks
+  pages.ts                 hub + detail framing, licence facts, market tiles
   services.ts              the ten services and licences (client-approved, verbatim)
   india.ts                 India copy (client-supplied, verbatim)
   india-page.ts            the framing the design added around it
   licence-finder.ts        the finder's chips and answers
   about.ts contact.ts      the two company pages
   blog.ts  research.ts     posts and reports — both still sample content
-  faqs.ts  team.ts  testimonials.ts  insights.ts  newsletter.ts  markets.ts
+  faqs.ts  team.ts  testimonials.ts  newsletter.ts  markets.ts
+                           (FAQ, team and testimonial section copy only: the
+                           entries, and contact details, live in the CMS;
+                           lib/site-content.ts reads them)
 
 components/
   chrome/                  header, mobile sheet, footer, loader, cursor, closing CTA

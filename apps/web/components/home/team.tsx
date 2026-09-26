@@ -1,23 +1,33 @@
+import { TeamRail } from "@/components/home/team-rail"
 import { LinkedInIcon } from "@/components/ui/icons"
 import { SplitText } from "@/components/ui/split-text"
 import { TEAM } from "@/content/team"
 import { cx } from "@/lib/cx"
+import type { TeamMember } from "@/lib/site-content"
 
 /**
  * "The minds behind Sinai Spark".
  *
- * Names, portraits and LinkedIn links are still pending from the client, so a
- * card falls back to the brand mark and a "pending" chip. Fill in `name`,
- * `photo` or `linkedin` in content/team.ts and that card upgrades itself.
+ * The people come from the CMS (lib/site-content.ts). A card without a
+ * photo falls back to the brand mark and a "pending" chip, and one without a
+ * name says so; filling either in the admin upgrades that card. More than
+ * four members turn the grid into a sideways-scrolling row (TeamRail).
  */
+const VISIBLE = 4
+
 export function Team({
+  members,
   className,
   spy = false,
 }: {
+  members: TeamMember[]
   className?: string
   /** Registers the section with the sticky sub-nav on pages that have one. */
   spy?: boolean
-} = {}) {
+}) {
+  if (!members.length) return null
+  const pending = members.some((member) => !member.name || !member.photo)
+
   return (
     <section
       className={cx("team", className)}
@@ -38,9 +48,9 @@ export function Team({
           </p>
         </div>
 
-        <div className="team-grid">
-          {TEAM.members.map((member, i) => (
-            <article className="member" key={member.role}>
+        <TeamRail scroll={members.length > VISIBLE}>
+          {members.map((member, i) => (
+            <article className="member" key={`${i}-${member.role}`}>
               <div className="member-ph">
                 {member.photo ? (
                   <img src={member.photo} alt={member.name ?? member.role} />
@@ -73,11 +83,13 @@ export function Team({
               </div>
             </article>
           ))}
-        </div>
+        </TeamRail>
 
-        <p className="team-note" data-reveal>
-          {TEAM.note}
-        </p>
+        {pending ? (
+          <p className="team-note" data-reveal>
+            {TEAM.note}
+          </p>
+        ) : null}
       </div>
     </section>
   )

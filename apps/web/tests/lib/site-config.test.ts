@@ -78,34 +78,16 @@ describe("site config integrity", () => {
     }
   })
 
-  it("lists exactly the three Saudi offices used by LocalBusiness schema", () => {
-    expect(SITE.offices.map((office) => office.city)).toEqual([
-      "Riyadh",
-      "Jeddah",
-      "Dammam",
-    ])
-  })
-
-  it("derives the WhatsApp number from the displayed phone digits", () => {
-    const phoneDigits = SITE.phone.replace(/\D/g, "")
-    expect(SITE.whatsappNumber).toBe(phoneDigits)
-  })
-
   it("keeps brand copy exact", () => {
     expect(SITE.name).toBe("Sinai Spark Global")
     expect(SITE.tagline).toBe("Your Vision, Our Mission")
   })
 
-  it("has valid metadata for SEO and external links", () => {
+  it("has valid metadata for SEO", () => {
     expect(SITE.url.startsWith("https://")).toBe(true)
-    expect(SITE.email).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
     expect(typeof SITE.description).toBe("string")
     expect(SITE.description.length).toBeGreaterThan(0)
     expect(SITE.description.length).toBeLessThanOrEqual(200)
-
-    for (const link of Object.values(SITE.socials)) {
-      expect(link.startsWith("https://")).toBe(true)
-    }
   })
 
   it("includes all primary navigation links with valid titles", () => {

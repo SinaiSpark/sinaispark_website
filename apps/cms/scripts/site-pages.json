@@ -64,6 +64,10 @@
     "path": "/contact/"
   },
   {
+    "page": "FAQs",
+    "path": "/faqs/"
+  },
+  {
     "page": "Blog (index)",
     "path": "/blog/"
   },

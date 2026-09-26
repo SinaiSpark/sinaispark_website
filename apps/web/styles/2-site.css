@@ -519,26 +519,7 @@
   }
 }
 
-/* ============ INDIA ============ */
-.india {
-  background: var(--deep);
-  padding: clamp(90px, 12vw, 160px) 0;
-  position: relative;
-  overflow: hidden;
-}
-.india .wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 90px);
-  align-items: center;
-}
-.india .h2 {
-  margin: 22px 0 22px;
-  max-width: 14ch;
-}
-.india .lede {
-  max-width: 44ch;
-}
+/* Trust chips: the India page's closing CTA. */
 .trust {
   list-style: none;
   display: flex;
@@ -566,226 +547,6 @@
   border-radius: 50%;
   background: var(--spark);
 }
-.india-ctas {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.india-visual {
-  position: relative;
-  aspect-ratio: 4/4.6;
-  border-radius: 26px;
-  overflow: hidden;
-  background: var(--abyss);
-}
-.india-visual img {
-  position: absolute;
-  inset: -8% 0;
-  width: 100%;
-  height: 116%;
-  object-fit: cover;
-  will-change: transform;
-}
-.india-visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(7, 21, 40, 0.05),
-    rgba(7, 21, 40, 0.7)
-  );
-  pointer-events: none;
-}
-.struct {
-  position: absolute;
-  left: 22px;
-  right: 22px;
-  display: grid;
-  gap: 8px;
-  bottom: 22px;
-  z-index: 2;
-}
-.struct div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: rgba(11, 33, 64, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--line-d);
-  font-weight: 600;
-  font-size: 14.5px;
-}
-.struct div small {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--on-dark-2);
-  font-weight: 400;
-}
-.struct div .pop {
-  color: var(--abyss);
-  background: var(--spark);
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-family: var(--mono);
-  font-size: 9.5px;
-  letter-spacing: 0.14em;
-}
-@media (max-width: 900px) {
-  .india .wrap {
-    grid-template-columns: 1fr;
-  }
-  .india-visual {
-    aspect-ratio: 4/4;
-  }
-}
-
-/* ============ INSIGHTS ============ */
-.insights {
-  padding: clamp(90px, 12vw, 160px) 0;
-}
-.ins-head {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 30px;
-  align-items: end;
-  margin-bottom: 46px;
-}
-.ins-head .h2 {
-  margin-top: 22px;
-  max-width: 14ch;
-}
-.ins-grid {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 16px;
-}
-.ins-side {
-  display: grid;
-  gap: 16px;
-}
-.ins {
-  position: relative;
-  display: grid;
-  border-radius: 22px;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid var(--line-l);
-  transition:
-    transform 0.5s var(--ease-out),
-    box-shadow 0.5s var(--ease-out);
-}
-.ins:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 30px 50px -34px rgba(11, 27, 43, 0.35);
-}
-.ins .ph {
-  position: relative;
-  overflow: hidden;
-  background: var(--mist-2);
-}
-.ins .ph img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 1.2s var(--ease-out);
-}
-.ins:hover .ph img {
-  transform: scale(1.05);
-}
-.ins .tx {
-  padding: 22px 24px 24px;
-  display: grid;
-  gap: 10px;
-  align-content: start;
-}
-.ins .tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--teal);
-}
-.ins .tags span + span {
-  color: var(--ink-2);
-}
-.ins h3 {
-  font-family: var(--display);
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-.ins p {
-  font-size: 14.5px;
-  color: var(--ink-2);
-}
-.ins .meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-2);
-  letter-spacing: 0.06em;
-  margin-top: 6px;
-}
-.ins .meta .lock {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--navy);
-}
-.ins .meta .lock svg {
-  width: 12px;
-  height: 12px;
-}
-.ins--feat .ph {
-  aspect-ratio: 16/10;
-}
-.ins--feat h3 {
-  font-size: clamp(24px, 2.2vw, 30px);
-}
-.ins--row {
-  grid-template-columns: 150px 1fr;
-}
-.ins--row .ph {
-  aspect-ratio: auto;
-  height: 100%;
-}
-.ins--row .ph img {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-}
-@media (max-width: 900px) {
-  .ins-head {
-    grid-template-columns: 1fr;
-  }
-  .ins-grid {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 520px) {
-  .ins--row {
-    grid-template-columns: 1fr;
-  }
-  .ins--row .ph {
-    aspect-ratio: 16/9;
-  }
-}
-
 /* ============ CONSULTATION FORM ============ */
 .consult {
   background: var(--mist-2);
@@ -2254,6 +2015,68 @@ body.is-sheet .nav .nav-burger {
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
+/* More than four members: one row that scrolls sideways, a card at a time.
+   The padding gives the hover lift and shadow room inside the scroller. */
+.team-grid.is-scroll {
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 3 * 16px) / 4);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 10px 0 44px;
+  margin: -10px 0 -44px;
+}
+.team-grid.is-scroll::-webkit-scrollbar {
+  display: none;
+}
+.team-grid.is-scroll > .member {
+  scroll-snap-align: start;
+}
+.team-grid.is-scroll:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 6px;
+}
+.team-ctrl {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+.team-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line-l);
+  background: #fff;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    color 0.3s,
+    border-color 0.3s,
+    opacity 0.3s;
+}
+.team-arrow svg {
+  width: 14px;
+  height: 14px;
+  transform: rotate(-90deg);
+}
+.team-arrow.is-prev svg {
+  transform: rotate(90deg);
+}
+.team-arrow:hover:not(:disabled) {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.team-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
 .member {
   background: #fff;
   border: 1px solid var(--line-l);
@@ -2377,10 +2200,18 @@ body.is-sheet .nav .nav-burger {
   .team-grid {
     grid-template-columns: 1fr 1fr;
   }
+  .team-grid.is-scroll {
+    grid-template-columns: none;
+    grid-auto-columns: calc((100% - 16px) / 2);
+  }
 }
 @media (max-width: 520px) {
   .team-grid {
     grid-template-columns: 1fr;
+  }
+  .team-grid.is-scroll {
+    grid-template-columns: none;
+    grid-auto-columns: 86%;
   }
   .member {
     display: grid;
@@ -3031,6 +2862,43 @@ body.is-sheet .nav .nav-burger {
   font-size: 20px;
   line-height: 1.35;
   letter-spacing: -0.02em;
+  /* Long reviews stop at six lines; the full text is a click away. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  overflow: hidden;
+  white-space: pre-line;
+}
+/* Linked cards open the review on Google. The name, stars and quote keep
+   their own colours; the card border already answers the hover. */
+.tcard.is-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tcard.is-link:focus-visible {
+  outline: 2px solid var(--spark);
+  outline-offset: 3px;
+}
+/* A column, so the author row sits at the bottom of every card whatever
+   the length of the review. */
+.tcard {
+  display: flex;
+  flex-direction: column;
+}
+.tcard .tby {
+  margin-top: auto;
+}
+.tstars {
+  display: flex;
+  gap: 3px;
+  font-size: 15px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.18);
+}
+.tstars .on {
+  color: #f5b82e;
 }
 .tcard .tby {
   display: flex;

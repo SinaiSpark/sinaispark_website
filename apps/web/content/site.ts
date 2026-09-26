@@ -26,6 +26,7 @@ export const ROUTES = {
   blog: "/blog/",
   research: "/research/",
   contact: "/contact/",
+  faq: "/faqs/",
   service: (slug: string) => `/services/${slug}/`,
   licence: (slug: string) => `/licences/${slug}/`,
   blogPost: (slug: string) => `/blog/${slug}/`,
@@ -38,7 +39,6 @@ export const ROUTES = {
   consult: "/contact/#form",
   team: "/about/#team",
   markets: "/#markets",
-  faq: "/#faq",
 } as const
 
 /**

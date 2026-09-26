@@ -1,4 +1,4 @@
-import { consultHref, ROUTES } from "@/content/site"
+import { ROUTES } from "@/content/site"
 
 /**
  * Home page copy, section by section, in the order the page renders them.
@@ -338,30 +338,6 @@ export const REGIONS = {
   ],
 } as const
 
-export const INDIA_SPOTLIGHT = {
-  eyebrow: "Sinai Spark India",
-  headline: "Register your Indian company, from anywhere in the world.",
-  lede: "Set up a Private Limited Company, LLP or OPC in India without visiting a government office. Fully online, NRI friendly, with support in Hindi and English.",
-  trust: ["100% Online", "MCA Compliant", "NRI Friendly", "Hindi Support"],
-  primary: {
-    label: "Register my Indian company",
-    href: consultHref({
-      service: "Indian company registration (NRI)",
-      market: "India",
-    }),
-  },
-  secondary: { label: "See how it works", href: `${ROUTES.india}#how` },
-  image: {
-    src: "/images/india/mumbai-business-district.jpg",
-    alt: "Mumbai business district",
-  },
-  structures: [
-    { name: "Private Limited Company", badge: "Most popular" },
-    { name: "Limited Liability Partnership", note: "Professionals" },
-    { name: "One Person Company", note: "Solo founders" },
-  ],
-} as const
-
 export const CONSULT = {
   eyebrow: "Book a free consultation",
   headline: "Tell us where you're headed.",
@@ -419,6 +395,6 @@ export const CLOSING_CTA = {
   eyebrow: "Start the conversation",
   headline: "Still have questions?",
   lede: "Explore our detailed FAQs or speak to our experts for personalised guidance.",
-  secondary: { label: "View FAQs", href: "#faq" },
+  secondary: { label: "View FAQs", href: ROUTES.faq },
   primary: { label: "Contact us", href: ROUTES.consult },
 } as const

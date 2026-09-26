@@ -1,15 +1,11 @@
-import { faqs } from "@/content/faqs"
 import { ROUTES } from "@/content/site"
 
 /**
- * Contact page copy.
- *
- * PENDING_CLIENT_DATA: the phone number is the one on the current live site
- * and the street addresses are placeholders. Both are flagged on the page
- * itself rather than presented as confirmed.
+ * Contact page copy. The details themselves (email, phone, WhatsApp, social
+ * links and the offices) are edited in the CMS under Contact details; while
+ * its "Still placeholder details" switch is on, the page flags them as
+ * pending rather than presenting them as confirmed.
  */
-
-const WHATSAPP = "https://wa.me/966510013160"
 
 /**
  * A desk's working week, used to show "open now" or "closed" beside its clock.
@@ -36,7 +32,8 @@ export const CONTACT = {
     headline: "Tell us where you're headed.",
     lede: "A free thirty-minute consultation with the specialist for your market, then a clear scope and clear pricing in writing. Or just pick up the phone.",
     primary: { label: "Book the call", href: "#form" },
-    secondary: { label: "WhatsApp us", href: WHATSAPP },
+    /** Links to WhatsApp; left out when no number is set. */
+    secondary: { label: "WhatsApp us" },
   },
 
   spy: [
@@ -109,34 +106,14 @@ export const CONTACT = {
     headline: "Or skip the form.",
     note: "Number and handles pending client confirmation",
     pendingLabel: "Pending",
-    email: {
-      kicker: "Email",
-      note: "Answered within one business day",
-      value: "info@sinaispark.com",
-      href: "mailto:info@sinaispark.com",
-    },
-    phone: {
-      kicker: "Phone",
-      note: "Riyadh office, Sun–Thu 09:00–18:00 AST",
-      value: "+966 51 001 3160",
-      href: "tel:+966510013160",
-      pending: true,
-    },
+    email: { kicker: "Email", note: "Answered within one business day" },
+    phone: { kicker: "Phone", note: "Riyadh office, Sun–Thu 09:00–18:00 AST" },
     whatsapp: {
       kicker: "WhatsApp",
       note: "Fastest for quick questions",
       value: "Chat on WhatsApp",
-      href: WHATSAPP,
     },
-    social: {
-      kicker: "Follow",
-      note: "Regulatory updates as they land",
-      links: [
-        { label: "LinkedIn", href: "https://linkedin.com/company/sinaispark" },
-        { label: "Instagram", href: "https://instagram.com/sinaispark" },
-        { label: "YouTube", href: "https://youtube.com/@sinaispark" },
-      ],
-    },
+    social: { kicker: "Follow", note: "Regulatory updates as they land" },
   },
 
   offices: {
@@ -146,32 +123,17 @@ export const CONTACT = {
     hoursLabel: "Hours",
     hoursNote:
       "Saudi Arabia and Bahrain run Sunday to Thursday; Dubai, Mumbai and London Monday to Friday. The clocks above are live.",
-    items: [
-      {
-        name: "Riyadh",
-        kicker: "Capital · HQ",
-        image: "/images/countries/saudi-arabia-riyadh.jpg",
-        timeZone: "Asia/Riyadh",
-        body: "The Kingdom's capital and economic centre. Licensing, PRO and GRO, project support.",
-        address: "King Fahd Road, Olaya District",
-      },
-      {
-        name: "Jeddah",
-        kicker: "Trade gateway",
-        image: "/images/regional/jeddah-corniche.jpg",
-        timeZone: "Asia/Riyadh",
-        body: "Tax, compliance and corporate advisory for import- and export-facing businesses.",
-        address: "Tahlia Street, Al Ruwais District",
-      },
-      {
-        name: "Dammam",
-        kicker: "Industrial hub",
-        image: "/images/regional/dammam-waterfront.jpg",
-        timeZone: "Asia/Riyadh",
-        body: "The Eastern Province's industrial hub. Complete legal and operational support.",
-        address: "Corniche Road, Al Shati District",
-      },
-    ],
+    /** The site's own photo for an office with none uploaded in the CMS. */
+    images: {
+      Riyadh: "/images/countries/saudi-arabia-riyadh.jpg",
+      Jeddah: "/images/regional/jeddah-corniche.jpg",
+      Dammam: "/images/regional/dammam-waterfront.jpg",
+      Dubai: "/images/countries/uae-dubai.jpg",
+      London: "/images/countries/uk-london.jpg",
+      Manama: "/images/countries/bahrain-manama.jpg",
+      Mumbai: "/images/india/mumbai-business-district.jpg",
+    } as Record<string, string>,
+    defaultImage: "/images/home/riyadh-skyline-kafd-dusk.jpg",
     remote: [
       { city: "Dubai", market: "UAE desk", timeZone: "Asia/Dubai" },
       { city: "Mumbai", market: "India desk", timeZone: "Asia/Kolkata" },
@@ -183,24 +145,16 @@ export const CONTACT = {
   faq: {
     eyebrow: "Before you write",
     headline: "Questions we answer on the first call.",
-    lede: "Short answers here; the full set lives on the homepage FAQ.",
+    lede: "Short answers here; the full set lives on the FAQ page.",
     link: { label: "All FAQs", href: ROUTES.faq },
-    /** One question specific to this page, then three from the approved set. */
-    items: [
-      {
-        question: "What happens on the free consultation call?",
-        answer:
-          "Thirty minutes with the specialist for your market. We map the structure, the licence class and a realistic timeline, then follow up in writing with a clear scope and clear pricing. No obligation.",
-      },
-      ...[1, 0, 6].flatMap((i) => faqs[i] ?? []),
-    ],
   },
 
   cta: {
     eyebrow: "Prefer to talk first?",
     headline: "We're one message away.",
     lede: "WhatsApp is fastest for a quick question; the form is best when you want a written scope.",
-    secondary: { label: "Chat on WhatsApp", href: WHATSAPP },
+    /** Links to WhatsApp; left out when no number is set. */
+    secondary: { label: "Chat on WhatsApp" },
     primary: { label: "Book the call", href: "#form" },
   },
 } as const

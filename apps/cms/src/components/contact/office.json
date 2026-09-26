@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_contact_offices",
+  "info": {
+    "displayName": "Office",
+    "icon": "house",
+    "description": "One office tile on the contact page."
+  },
+  "options": {},
+  "attributes": {
+    "city": { "type": "string", "required": true, "maxLength": 40 },
+    "kicker": { "type": "string", "maxLength": 40 },
+    "description": { "type": "text", "maxLength": 200 },
+    "address": { "type": "string", "required": true, "maxLength": 160 },
+    "timeZone": {
+      "type": "enumeration",
+      "enum": [
+        "Asia/Riyadh",
+        "Asia/Dubai",
+        "Asia/Bahrain",
+        "Asia/Kolkata",
+        "Europe/London"
+      ],
+      "required": true,
+      "default": "Asia/Riyadh"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

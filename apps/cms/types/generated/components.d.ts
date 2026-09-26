@@ -1,5 +1,46 @@
 import type { Schema, Struct } from "@strapi/strapi"
 
+export interface ContactOffice extends Struct.ComponentSchema {
+  collectionName: "components_contact_offices"
+  info: {
+    description: "One office tile on the contact page."
+    displayName: "Office"
+    icon: "house"
+  }
+  attributes: {
+    address: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160
+      }>
+    city: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40
+      }>
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200
+      }>
+    kicker: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40
+      }>
+    photo: Schema.Attribute.Media<"images">
+    timeZone: Schema.Attribute.Enumeration<
+      [
+        "Asia/Riyadh",
+        "Asia/Dubai",
+        "Asia/Bahrain",
+        "Asia/Kolkata",
+        "Europe/London",
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Asia/Riyadh">
+  }
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: "components_shared_open_graphs"
   info: {
@@ -56,6 +97,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
 declare module "@strapi/strapi" {
   export namespace Public {
     export interface ComponentSchemas {
+      "contact.office": ContactOffice
       "shared.open-graph": SharedOpenGraph
       "shared.seo": SharedSeo
     }
