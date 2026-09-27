@@ -89,6 +89,61 @@ const LABELS: Record<string, Record<string, Field>> = {
         "How many paragraphs, headings, lists or tables readers see before the email form.",
     },
   },
+  "api::event.event": {
+    ...COMMON,
+    cover: {
+      label: "Cover image",
+      description: "The main photo, on the card and behind the title.",
+    },
+    role: {
+      label: "Our role",
+      description:
+        "Organised: an event we hosted. Attended: one our team went to or spoke at.",
+    },
+    format: { label: "Format" },
+    summary: {
+      label: "Summary",
+      description: "One or two sentences, shown under the title and on cards.",
+    },
+    startDate: {
+      label: "Date",
+      description:
+        "The (first) day of the event. Future dates are listed under Coming up.",
+    },
+    endDate: {
+      label: "End date",
+      description: "Only for events longer than a day.",
+    },
+    city: { label: "City" },
+    venue: { label: "Venue", description: "Optional, e.g. Hilton Riyadh." },
+    gallery: {
+      label: "Photos and video clips",
+      description:
+        "Drag in as many as you like, in the order they should appear. Add alt text to each photo in the media library.",
+    },
+    videos: {
+      label: "YouTube or Vimeo videos",
+      description:
+        "Paste the video's link as you copy it from the browser or the Share button.",
+    },
+    highlights: {
+      label: "In numbers",
+      description:
+        "Up to four figures shown above the write-up, e.g. 120 + Attendees.",
+    },
+    body: {
+      label: "Write-up",
+      description: "Optional. What happened, who spoke, what we took away.",
+    },
+    registrationUrl: {
+      label: "Registration link",
+      description:
+        "For upcoming events: the organiser's sign-up page. Shown until the event has passed.",
+    },
+    publishAt: PUBLISH_AT,
+    featured: FEATURED,
+    seo: SEO,
+  },
   "api::site-setting.site-setting": {
     insightsEnabled: {
       label: "Show Insights (research)",

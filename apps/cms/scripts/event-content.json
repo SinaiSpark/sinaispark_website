@@ -1,0 +1,295 @@
+{
+  "_comment": "Sample events for local development. Photos are from Unsplash and clips from Pexels (both free to use); the YouTube link is a public FII Institute video standing in for the client's own. Replace everything before launch.",
+  "media": {
+    "stage-panel": {
+      "url": "https://images.unsplash.com/photo-1561489396-888724a1543d?w=1800&q=80&fm=jpg",
+      "alt": "Panel of speakers on a lit stage in front of a seated business audience"
+    },
+    "audience-speaker": {
+      "url": "https://images.unsplash.com/photo-1544531586-fde5298cdd40?w=1800&q=80&fm=jpg",
+      "alt": "Speaker addressing a full conference hall, seen from behind"
+    },
+    "audience-seated": {
+      "url": "https://images.unsplash.com/photo-1559223607-a43c990c692c?w=1800&q=80&fm=jpg",
+      "alt": "Attendees seated in rows listening to a presentation"
+    },
+    "microphone": {
+      "url": "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1800&q=80&fm=jpg",
+      "alt": "Microphone on a stand in front of a blurred audience"
+    },
+    "evening-networking": {
+      "url": "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=1800&q=80&fm=jpg",
+      "alt": "Guests talking in small groups at an evening networking reception"
+    },
+    "meeting-notes": {
+      "url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1800&q=80&fm=jpg",
+      "alt": "Participants taking notes around a meeting table"
+    },
+    "packed-atrium": {
+      "url": "https://images.unsplash.com/photo-1560439514-4e9645039924?w=1800&q=80&fm=jpg",
+      "alt": "Crowded exhibition floor seen from above during a conference break"
+    },
+    "big-screen": {
+      "url": "https://images.unsplash.com/photo-1582192730841-2a682d7375f9?w=1800&q=80&fm=jpg",
+      "alt": "Large auditorium with a panel discussion shown on the main screen"
+    },
+    "dark-audience": {
+      "url": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1800&q=80&fm=jpg",
+      "alt": "Audience in a darkened auditorium facing the stage"
+    },
+    "hall-audience": {
+      "url": "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=1800&q=80&fm=jpg",
+      "alt": "Delegates filling a high-ceilinged conference hall"
+    },
+    "event-hall": {
+      "url": "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1800&q=80&fm=jpg",
+      "alt": "Business audience at tables in a wide event hall with a stage at the far end"
+    },
+    "riyadh-skyline": {
+      "url": "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?w=1800&q=80&fm=jpg",
+      "alt": "Riyadh skyline in daylight"
+    },
+    "roundtable": {
+      "url": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1800&q=80&fm=jpg",
+      "alt": "Roundtable discussion with laptops around a conference table"
+    },
+    "dubai-skyline": {
+      "url": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1800&q=80&fm=jpg",
+      "alt": "Dubai skyline with the Burj Khalifa at sunset"
+    },
+    "handshake": {
+      "url": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1800&q=80&fm=jpg",
+      "alt": "Two colleagues celebrating an agreement at a meeting table"
+    },
+    "dinner-networking": {
+      "url": "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=1800&q=80&fm=jpg",
+      "alt": "Guests in conversation around a long dinner table"
+    },
+    "brick-presentation": {
+      "url": "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1800&q=80&fm=jpg",
+      "alt": "Presenter speaking to a seated group in a brick-walled venue"
+    },
+    "casual-panel": {
+      "url": "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1800&q=80&fm=jpg",
+      "alt": "Panellists answering questions from an audience seated close by"
+    },
+    "banquet": {
+      "url": "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1800&q=80&fm=jpg",
+      "alt": "Banquet tables laid with flowers before a dinner"
+    },
+    "small-room-speaker": {
+      "url": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1800&q=80&fm=jpg",
+      "alt": "Speaker presenting to a small group in a workshop room"
+    },
+    "dinner-table": {
+      "url": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1800&q=80&fm=jpg",
+      "alt": "Long dinner table set with glasses and flowers"
+    },
+    "empty-hall": {
+      "url": "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1800&q=80&fm=jpg",
+      "alt": "Conference hall with round tables set before guests arrive"
+    },
+    "stage-screen": {
+      "url": "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1800&q=80&fm=jpg",
+      "alt": "Presenter on stage beside a large projection screen"
+    },
+    "clip-applause": {
+      "url": "https://videos.pexels.com/video-files/9034892/9034892-hd_1280_720_24fps.mp4",
+      "alt": "Audience applauding at the end of a session",
+      "video": true
+    },
+    "clip-applause-portrait": {
+      "url": "https://videos.pexels.com/video-files/32822009/13990456_1080_1920_24fps.mp4",
+      "alt": "Attendees clapping during a business event, filmed on a phone",
+      "video": true
+    },
+    "clip-meeting": {
+      "url": "https://videos.pexels.com/video-files/7648408/7648408-hd_1280_720_30fps.mp4",
+      "alt": "Participants clapping around a meeting table",
+      "video": true
+    }
+  },
+  "events": [
+    {
+      "title": "Founders' briefing: setting up a company in Saudi Arabia",
+      "role": "Organised",
+      "format": "Seminar",
+      "summary": "An evening for founders weighing the Kingdom: licensing routes, the first ninety days after MISA, and what the ministries ask for that nobody warns you about.",
+      "startDate": "2026-09-10",
+      "city": "Riyadh",
+      "venue": "Olaya district",
+      "market": "Saudi Arabia",
+      "featured": true,
+      "cover": "audience-speaker",
+      "gallery": [
+        "audience-speaker",
+        "clip-applause",
+        "audience-seated",
+        "microphone",
+        "evening-networking",
+        "clip-applause-portrait",
+        "meeting-notes",
+        "brick-presentation",
+        "casual-panel",
+        "handshake",
+        "small-room-speaker",
+        "dark-audience"
+      ],
+      "highlights": [
+        { "value": 140, "suffix": "+", "label": "Founders attended" },
+        { "value": 6, "suffix": "", "label": "Speakers" },
+        { "value": 3, "suffix": "", "label": "Panels" }
+      ]
+    },
+    {
+      "title": "Gulf investment and infrastructure forum",
+      "role": "Attended",
+      "format": "Conference",
+      "summary": "Three days of plenaries and side meetings on the Kingdom's giga-projects, and what the next procurement cycle means for foreign contractors.",
+      "startDate": "2026-06-16",
+      "endDate": "2026-06-18",
+      "city": "Riyadh",
+      "venue": "King Abdullah Financial District",
+      "market": "Saudi Arabia",
+      "cover": "packed-atrium",
+      "gallery": [
+        "packed-atrium",
+        "stage-panel",
+        "big-screen",
+        "dark-audience",
+        "hall-audience",
+        "event-hall",
+        "riyadh-skyline"
+      ],
+      "videos": [
+        {
+          "title": "Sample video link: a plenary session",
+          "url": "https://www.youtube.com/watch?v=iHB7AtpOnZk"
+        }
+      ]
+    },
+    {
+      "title": "UAE to Saudi expansion roundtable",
+      "role": "Organised",
+      "format": "Roundtable",
+      "summary": "Twelve UAE-based companies compared notes on opening a Saudi entity: regional HQ rules, Saudization and running two sets of books.",
+      "startDate": "2026-05-21",
+      "city": "Dubai",
+      "venue": "DIFC",
+      "market": "UAE",
+      "cover": "roundtable",
+      "gallery": [
+        "roundtable",
+        "meeting-notes",
+        "clip-meeting",
+        "dubai-skyline",
+        "handshake",
+        "dinner-networking"
+      ],
+      "highlights": [
+        { "value": 12, "suffix": "", "label": "Companies at the table" },
+        { "value": 2, "suffix": "h", "label": "Of open questions" }
+      ]
+    },
+    {
+      "title": "Trade mission: Indian manufacturers in the Kingdom",
+      "role": "Attended",
+      "format": "Trade mission",
+      "summary": "We joined a delegation of Indian manufacturers for four days of site visits and ministry meetings, advising on industrial licensing along the way.",
+      "startDate": "2026-03-02",
+      "endDate": "2026-03-05",
+      "city": "Jeddah",
+      "venue": "",
+      "market": "India",
+      "cover": "event-hall",
+      "gallery": [
+        "event-hall",
+        "brick-presentation",
+        "casual-panel",
+        "banquet",
+        "audience-seated"
+      ]
+    },
+    {
+      "title": "Compliance clinic: ZATCA e-invoicing and GOSI",
+      "role": "Organised",
+      "format": "Workshop",
+      "summary": "A hands-on morning for finance teams: integrating with ZATCA's e-invoicing platform and getting GOSI registrations right the first time.",
+      "startDate": "2026-01-28",
+      "city": "Riyadh",
+      "venue": "Olaya district",
+      "market": "Saudi Arabia",
+      "cover": "small-room-speaker",
+      "gallery": [
+        "small-room-speaker",
+        "brick-presentation",
+        "meeting-notes",
+        "roundtable"
+      ],
+      "highlights": [
+        { "value": 35, "suffix": "", "label": "Finance leads" },
+        { "value": 4, "suffix": "h", "label": "Hands-on" }
+      ]
+    },
+    {
+      "title": "Business networking evening in Manama",
+      "role": "Attended",
+      "format": "Networking",
+      "summary": "An evening with Bahrain's business community, and a chance to talk through the causeway route into the Eastern Province.",
+      "startDate": "2025-11-12",
+      "city": "Manama",
+      "venue": "",
+      "market": "Bahrain",
+      "cover": "evening-networking",
+      "gallery": [
+        "evening-networking",
+        "dinner-networking",
+        "dinner-table",
+        "banquet"
+      ]
+    },
+    {
+      "title": "London investor dinner: the Saudi opportunity",
+      "role": "Organised",
+      "format": "Networking",
+      "summary": "A private dinner for UK investors and operators looking at the Kingdom, with a short talk on ownership rules and the regional HQ programme.",
+      "startDate": "2025-10-08",
+      "city": "London",
+      "venue": "Mayfair",
+      "market": "United Kingdom",
+      "cover": "dinner-table",
+      "gallery": [
+        "dinner-table",
+        "banquet",
+        "dinner-networking",
+        "audience-speaker"
+      ]
+    },
+    {
+      "title": "Founders' briefing: Riyadh, winter edition",
+      "role": "Organised",
+      "format": "Seminar",
+      "summary": "Our next briefing for founders entering the Kingdom, with a new session on the regional HQ programme.",
+      "startDate": "2026-11-18",
+      "city": "Riyadh",
+      "venue": "Olaya district",
+      "market": "Saudi Arabia",
+      "cover": "stage-screen",
+      "registrationUrl": "https://example.com/register-sample",
+      "gallery": []
+    },
+    {
+      "title": "Gulf real estate and property exhibition",
+      "role": "Attended",
+      "format": "Exhibition",
+      "summary": "Find our property management team on the exhibition floor, all three days.",
+      "startDate": "2026-12-08",
+      "endDate": "2026-12-10",
+      "city": "Dubai",
+      "venue": "",
+      "market": "UAE",
+      "cover": "empty-hall",
+      "gallery": []
+    }
+  ]
+}

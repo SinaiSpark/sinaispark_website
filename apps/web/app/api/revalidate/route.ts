@@ -7,6 +7,7 @@ import { scheduleIngest } from "@/lib/assistant/knowledge"
 const TAGS = new Set([
   "blog",
   "research",
+  "events",
   "settings",
   "seo",
   "faqs",

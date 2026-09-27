@@ -1,6 +1,6 @@
 /**
  * Creates the "Website" API token the Next.js site uses, scoped to exactly
- * what the site does: read blog, research, settings, page SEO, FAQs, team,
+ * what the site does: read blog, research, events, settings, page SEO, FAQs, team,
  * testimonials, contact details, the home page stats and the assistant's
  * menu, settings and documents, create enquiries (and the assistant's) and
  * add emails to the list. Prints the key once; put it in the site's env
@@ -18,6 +18,8 @@ const PERMISSIONS = [
   "api::blog-post.blog-post.findOne",
   "api::research-article.research-article.find",
   "api::research-article.research-article.findOne",
+  "api::event.event.find",
+  "api::event.event.findOne",
   "api::site-setting.site-setting.find",
   "api::seo-setting.seo-setting.find",
   "api::page-seo.page-seo.find",

@@ -4,6 +4,7 @@ import type { Core } from "@strapi/strapi"
 const SLUGGED = new Set([
   "api::blog-post.blog-post",
   "api::research-article.research-article",
+  "api::event.event",
 ])
 
 /**

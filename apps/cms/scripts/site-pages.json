@@ -72,6 +72,10 @@
     "path": "/blog/"
   },
   {
+    "page": "Events (index)",
+    "path": "/events/"
+  },
+  {
     "page": "Research (index)",
     "path": "/research/"
   }

@@ -9,7 +9,12 @@ import { MessageText } from "@/components/assistant/message-text"
 import { BrandMark } from "@/components/ui/brand-mark"
 import { PhoneField, type PhoneValue } from "@/components/ui/phone-field"
 import { consultHref } from "@/content/site"
-import { announceHandoff, saveHandoff } from "@/lib/assistant/handoff"
+import {
+  announceHandoff,
+  RESET_EVENT,
+  saveHandoff,
+  SESSION_KEY,
+} from "@/lib/assistant/handoff"
 import type {
   BotMessage,
   ClientEvent,
@@ -31,10 +36,10 @@ import type { CountryCode } from "libphonenumber-js"
  *
  * The conversation lives on the server (app/api/assistant); this keeps only
  * the session id, in localStorage, so a returning visitor picks up where
- * they left off and isn't asked for their details twice.
+ * they left off and isn't asked for their details twice. Once the enquiry a
+ * handoff led to is sent, that memory is cleared (lib/assistant/handoff.ts)
+ * and the next open starts afresh.
  */
-
-const SESSION_KEY = "ss:assistant-session"
 
 const PLACEHOLDER: Record<InputKind, string> = {
   text: "Type your question…",
@@ -191,6 +196,22 @@ export function Assistant({
     } finally {
       setBusy(false)
     }
+  }, [])
+
+  // The handoff's enquiry was sent: drop the finished conversation, so the
+  // next open greets the visitor again under a new session.
+  useEffect(() => {
+    const reset = () => {
+      started.current = false
+      setMessages([])
+      setStreaming(null)
+      setInput("text")
+      setDraft("")
+      setPhone({ country: "SA", number: "" })
+      setHandoff(null)
+    }
+    window.addEventListener(RESET_EVENT, reset)
+    return () => window.removeEventListener(RESET_EVENT, reset)
   }, [])
 
   // First open: the greeting, or the conversation so far.

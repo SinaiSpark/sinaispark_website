@@ -17,6 +17,7 @@ import {
 export const SCHEDULABLE = [
   "api::blog-post.blog-post",
   "api::research-article.research-article",
+  "api::event.event",
 ]
 
 type Props = {

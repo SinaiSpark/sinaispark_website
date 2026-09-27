@@ -782,6 +782,100 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: "events"
+  info: {
+    description: "Events we organise and events we attend: a write-up with photos and video."
+    displayName: "Event"
+    pluralName: "events"
+    singularName: "event"
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    body: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<"global::rich-text">
+    city: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 80
+      }>
+    cover: Schema.Attribute.Media<"images"> & Schema.Attribute.Required
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    endDate: Schema.Attribute.Date
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>
+    format: Schema.Attribute.Enumeration<
+      [
+        "Conference",
+        "Roundtable",
+        "Seminar",
+        "Workshop",
+        "Networking",
+        "Trade mission",
+        "Exhibition",
+        "Webinar",
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Conference">
+    gallery: Schema.Attribute.Media<"images" | "videos", true>
+    highlights: Schema.Attribute.Component<"home.stat", true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4
+        },
+        number
+      >
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<"oneToMany", "api::event.event"> &
+      Schema.Attribute.Private
+    market: Schema.Attribute.Enumeration<
+      ["Saudi Arabia", "UAE", "India", "United Kingdom", "Bahrain", "GCC"]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Saudi Arabia">
+    publishAt: Schema.Attribute.DateTime
+    publishedAt: Schema.Attribute.DateTime
+    registrationUrl: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300
+      }>
+    role: Schema.Attribute.Enumeration<["Organised", "Attended"]> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Attended">
+    seo: Schema.Attribute.Component<"shared.seo", false>
+    slug: Schema.Attribute.UID<
+      "title",
+      {
+        decamelize: false
+      }
+    > &
+      Schema.Attribute.Required
+    startDate: Schema.Attribute.Date & Schema.Attribute.Required
+    summary: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 320
+      }>
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160
+      }>
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<"oneToOne", "admin::user"> &
+      Schema.Attribute.Private
+    venue: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120
+      }>
+    videos: Schema.Attribute.Component<"event.video-link", true>
+  }
+}
+
 export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
   collectionName: "faqs"
   info: {
@@ -1793,6 +1887,7 @@ declare module "@strapi/strapi" {
       "api::blog-post.blog-post": ApiBlogPostBlogPost
       "api::contact-detail.contact-detail": ApiContactDetailContactDetail
       "api::enquiry.enquiry": ApiEnquiryEnquiry
+      "api::event.event": ApiEventEvent
       "api::faq.faq": ApiFaqFaq
       "api::home-page.home-page": ApiHomePageHomePage
       "api::knowledge-document.knowledge-document": ApiKnowledgeDocumentKnowledgeDocument

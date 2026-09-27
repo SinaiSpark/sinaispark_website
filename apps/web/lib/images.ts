@@ -132,6 +132,14 @@ export const IMAGES = {
     license: "CC BY 2.0 via Wikimedia Commons",
     status: "placeholder",
   },
+  eventsHero: {
+    src: "/images/events/events-hero.jpg",
+    alt: "Audience seated in a darkened conference hall facing a lit stage",
+    focal: "center",
+    credit: "Unsplash (photo-1540575467063)",
+    license: "Unsplash License",
+    status: "placeholder",
+  },
   aboutTeam: {
     src: "/images/about/team-strategy-meeting.jpg",
     alt: "Advisor presenting a market-entry strategy to an audience of professionals",

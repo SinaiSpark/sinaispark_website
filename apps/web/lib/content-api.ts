@@ -1,15 +1,17 @@
 import type { PostFormat } from "@/content/blog"
+import type { EventRole } from "@/content/events"
 import type { Market, Topic } from "@/content/research"
 import { ROUTES } from "@/content/site"
-import { cms } from "@/lib/cms"
+import { cms, CmsError } from "@/lib/cms"
+import { formatEventDates, isUpcoming, todayIso } from "@/lib/event-dates"
 import type { Seo } from "@/lib/seo"
 import { SEO_POPULATE } from "@/lib/settings"
 
 /**
- * Blog posts and research articles from the CMS, shaped for the site.
+ * Blog posts, research articles and events from the CMS, shaped for the site.
  *
  * Every fetch is cached under a tag the CMS refreshes on publish ("blog",
- * "research"; see app/api/revalidate), with an hourly fallback in case a
+ * "research", "events"; see app/api/revalidate), with an hourly fallback in case a
  * refresh is ever missed. Errors are thrown, not swallowed: at build time
  * that stops an empty blog from shipping, and at runtime Next keeps serving
  * the last good page.
@@ -160,7 +162,7 @@ const BASE_FIELDS = [
 ]
 
 /** Newest first, with the one marked featured (or the newest) leading. */
-function featuredFirst<T extends Common>(items: T[]) {
+function featuredFirst<T extends { featured: boolean }>(items: T[]) {
   const i = items.findIndex((item) => item.featured)
   if (i <= 0) return items
   return [items[i]!, ...items.slice(0, i), ...items.slice(i + 1)]
@@ -211,5 +213,169 @@ export async function getReport(
     body: (raw.body as string | null) ?? "",
     seo: (raw.seo as Seo) ?? null,
     previewBlocks: (raw.previewBlocks as number | null) ?? 3,
+  }
+}
+
+/* ============ EVENTS ============ */
+
+export interface EventMedia {
+  kind: "image" | "video"
+  src: string
+  alt: string
+  caption: string
+  width: number | null
+  height: number | null
+}
+
+export interface EventVideoLink {
+  title: string
+  url: string
+}
+
+export interface EventItem {
+  id: string
+  slug: string
+  href: string
+  title: string
+  summary: string
+  image: string
+  imageAlt: string
+  role: EventRole
+  format: string
+  market: string
+  city: string
+  venue: string
+  /** yyyy-mm-dd; the end date is empty for a one-day event. */
+  isoDate: string
+  isoEnd: string
+  /** The dates as printed, e.g. "12–14 Mar 2026". */
+  date: string
+  featured: boolean
+  upcoming: boolean
+  registrationUrl: string
+  /** Photos and uploaded clips, in the editor's order. */
+  gallery: EventMedia[]
+  /** YouTube or Vimeo links. */
+  videos: EventVideoLink[]
+  photoCount: number
+  videoCount: number
+}
+
+export interface EventDetail extends EventItem, Article {
+  highlights: { value: number; suffix: string; label: string }[]
+}
+
+type RawMedia = StrapiMedia & {
+  mime?: string | null
+  caption?: string | null
+}
+
+const GALLERY =
+  "populate[gallery][fields][0]=url&populate[gallery][fields][1]=alternativeText&populate[gallery][fields][2]=caption&populate[gallery][fields][3]=mime&populate[gallery][fields][4]=width&populate[gallery][fields][5]=height"
+
+const EVENT_FIELDS = [
+  "documentId",
+  "slug",
+  "title",
+  "summary",
+  "role",
+  "format",
+  "market",
+  "city",
+  "venue",
+  "startDate",
+  "endDate",
+  "featured",
+  "registrationUrl",
+]
+
+const toMedia = (raw: RawMedia): EventMedia => ({
+  kind: raw.mime?.startsWith("video/") ? "video" : "image",
+  src: mediaUrl(raw.url),
+  alt: raw.alternativeText ?? "",
+  caption: raw.caption ?? "",
+  width: raw.width ?? null,
+  height: raw.height ?? null,
+})
+
+function toEvent(raw: Raw, today: string): EventItem {
+  const gallery = ((raw.gallery as RawMedia[] | null) ?? [])
+    .filter((item) => item?.url)
+    .map(toMedia)
+  const videos = ((raw.videos as EventVideoLink[] | null) ?? []).filter(
+    (video) => video?.url
+  )
+  const start = (raw.startDate as string | null) ?? ""
+  const end = (raw.endDate as string | null) ?? ""
+  const uploadedClips = gallery.filter((item) => item.kind === "video").length
+
+  return {
+    id: raw.documentId,
+    slug: raw.slug,
+    href: ROUTES.event(raw.slug),
+    title: raw.title || "Untitled draft",
+    summary: (raw.summary as string | null) ?? "",
+    image: mediaUrl(raw.cover?.url),
+    imageAlt: raw.cover?.alternativeText ?? "",
+    role: ((raw.role as EventRole | null) ?? "Attended") as EventRole,
+    format: (raw.format as string | null) ?? "",
+    market: (raw.market as string | null) ?? "",
+    city: (raw.city as string | null) ?? "",
+    venue: (raw.venue as string | null) ?? "",
+    isoDate: start,
+    isoEnd: end,
+    date: formatEventDates(start, end),
+    featured: Boolean(raw.featured),
+    upcoming: isUpcoming(start, end, today),
+    registrationUrl: (raw.registrationUrl as string | null) ?? "",
+    gallery,
+    videos,
+    photoCount: gallery.length - uploadedClips,
+    videoCount: uploadedClips + videos.length,
+  }
+}
+
+/**
+ * Every published event, newest first. The one marked featured (or the
+ * newest past event) leads; upcoming events are split out by the page.
+ */
+/**
+ * A 404 on the whole collection means the CMS has no Event type yet (it is
+ * older than this page). Treat that as "no events" so the page shows its
+ * empty state; any other failure still throws, like the blog.
+ */
+const noEventsYet = (error: unknown) => {
+  if (error instanceof CmsError && error.status === 404) return { data: [] }
+  throw error
+}
+
+export async function getEvents(): Promise<EventItem[]> {
+  const res = await cms<{ data: Raw[] }>(
+    `/events?sort[0]=startDate:desc&sort[1]=id:desc&pagination[pageSize]=100&${LIST_FIELDS(EVENT_FIELDS)}&${COVER}&${GALLERY}&populate[videos]=true`,
+    { cache: "force-cache", next: { tags: ["events"], revalidate: HOUR } }
+  ).catch(noEventsYet)
+  const today = todayIso()
+  return featuredFirst(res.data.map((raw) => toEvent(raw, today)))
+}
+
+export async function getEvent(
+  slug: string,
+  { draft = false } = {}
+): Promise<EventDetail | null> {
+  const res = await cms<{ data: Raw[] }>(
+    `/events?filters[slug][$eq]=${encodeURIComponent(slug)}&pagination[pageSize]=1&${COVER}&${GALLERY}&populate[videos]=true&populate[highlights]=true&${SEO_POPULATE}${draft ? "&status=draft" : ""}`,
+    draft
+      ? { cache: "no-store" }
+      : { cache: "force-cache", next: { tags: ["events"], revalidate: HOUR } }
+  ).catch(noEventsYet)
+  const raw = res.data[0]
+  if (!raw) return null
+  return {
+    ...toEvent(raw, todayIso()),
+    body: (raw.body as string | null) ?? "",
+    seo: (raw.seo as Seo) ?? null,
+    highlights: (
+      (raw.highlights as EventDetail["highlights"] | null) ?? []
+    ).map((h) => ({ value: h.value, suffix: h.suffix ?? "", label: h.label })),
   }
 }

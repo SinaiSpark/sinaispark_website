@@ -4,6 +4,7 @@ import type { Core } from "@strapi/strapi"
 const PREVIEW_PATHS: Record<string, (slug: string) => string> = {
   "api::blog-post.blog-post": (slug) => `/blog/${slug}/`,
   "api::research-article.research-article": (slug) => `/research/${slug}/`,
+  "api::event.event": (slug) => `/events/${slug}/`,
 }
 
 const config = ({
@@ -24,9 +25,9 @@ const config = ({
     encryptionKey: env("ENCRYPTION_KEY")!,
   },
   /**
-   * The "Open preview" button on blog posts and research articles. It opens
-   * the real page through the site's /api/preview/ route, which switches on
-   * Next.js draft mode so the unpublished version is shown.
+   * The "Open preview" button on blog posts, research articles and events.
+   * It opens the real page through the site's /api/preview/ route, which
+   * switches on Next.js draft mode so the unpublished version is shown.
    */
   preview: {
     enabled: true,

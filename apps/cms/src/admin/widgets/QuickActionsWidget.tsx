@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { Badge, Box, Flex, LinkButton, Typography } from "@strapi/design-system"
-import { ExternalLink, Feather, Images, Plus } from "@strapi/icons"
+import { Calendar, ExternalLink, Feather, Images, Plus } from "@strapi/icons"
 import { useFetchClient } from "@strapi/strapi/admin"
 
 const CM = "/content-manager"
@@ -55,6 +55,14 @@ export const QuickActionsWidget = () => {
           variant="secondary"
         >
           New research
+        </LinkButton>
+        <LinkButton
+          tag={NavLink}
+          to={`${CM}/collection-types/api::event.event/create`}
+          startIcon={<Calendar />}
+          variant="secondary"
+        >
+          New event
         </LinkButton>
         <LinkButton
           tag={NavLink}

@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit",
     "token:web": "node scripts/create-web-token.js",
     "seed:samples": "node scripts/seed-samples.js",
+    "seed:events": "node scripts/seed-events.js",
     "media:webp": "node scripts/convert-media-to-webp.js"
   },
   "dependencies": {

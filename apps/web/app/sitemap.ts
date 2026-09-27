@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-import { getPosts, getReports } from "@/lib/content-api"
+import { getEvents, getPosts, getReports } from "@/lib/content-api"
 import { isInsightsLink } from "@/lib/insights-links"
 import { getPageSeo, getSiteSettings } from "@/lib/settings"
 import { SITE } from "@/lib/site-config"
@@ -35,14 +35,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // A sitemap without the articles beats no sitemap, so a CMS outage only
   // drops them from this copy. Research is listed only while Insights is on.
-  const [posts, reports] = await Promise.all([
+  const [posts, reports, events] = await Promise.all([
     getPosts().catch(() => []),
     insightsEnabled ? getReports().catch(() => []) : [],
+    getEvents().catch(() => []),
   ])
 
   return [
     ...pages,
     ...reports.map((r) => entry(r.href, new Date(r.isoDate))),
     ...posts.map((p) => entry(p.href, new Date(p.isoDate))),
+    ...events.map((e) => entry(e.href, new Date(e.isoDate))),
   ]
 }

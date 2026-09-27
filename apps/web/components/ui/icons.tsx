@@ -67,6 +67,62 @@ export function LockIcon() {
   )
 }
 
+/** Solid play triangle, on video tiles. */
+export function PlayIcon() {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5Z" />
+    </svg>
+  )
+}
+
+/** Map pin, beside an event's city. */
+export function PinIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      <path d="M8 14.5s4.5-4.2 4.5-7.8a4.5 4.5 0 0 0-9 0c0 3.6 4.5 7.8 4.5 7.8Z" />
+      <circle cx="8" cy="6.6" r="1.6" />
+    </svg>
+  )
+}
+
+/** Camera, beside an event's photo and video count. */
+export function CameraIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      <path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h1.6l1-1.5h3.8l1 1.5h1.6A1.5 1.5 0 0 1 14 5.5v6a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 11.5Z" />
+      <circle cx="8" cy="8.4" r="2.4" />
+    </svg>
+  )
+}
+
+/** Thin cross, closing the gallery. */
+export function CloseIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      aria-hidden="true"
+    >
+      <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" />
+    </svg>
+  )
+}
+
 export function LinkedInIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor">

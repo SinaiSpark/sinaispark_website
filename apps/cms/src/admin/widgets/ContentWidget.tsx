@@ -7,6 +7,7 @@ const CM = "/content-manager/collection-types"
 const TYPES = [
   { uid: "api::blog-post.blog-post", label: "Blog posts" },
   { uid: "api::research-article.research-article", label: "Research" },
+  { uid: "api::event.event", label: "Events" },
 ] as const
 
 type Counts = { live: number | null; drafts: number | null }

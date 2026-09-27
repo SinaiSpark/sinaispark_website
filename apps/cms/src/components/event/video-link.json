@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_event_video_links",
+  "info": {
+    "displayName": "Video link",
+    "icon": "play",
+    "description": "A YouTube or Vimeo video shown on an event's page."
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "maxLength": 120 },
+    "url": { "type": "string", "required": true, "maxLength": 300 }
+  }
+}

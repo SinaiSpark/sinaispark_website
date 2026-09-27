@@ -8,6 +8,7 @@ import type { Core } from "@strapi/strapi"
 export const SITE_TAGS: Record<string, string> = {
   "api::blog-post.blog-post": "blog",
   "api::research-article.research-article": "research",
+  "api::event.event": "events",
   "api::site-setting.site-setting": "settings",
   "api::seo-setting.seo-setting": "seo",
   "api::page-seo.page-seo": "seo",

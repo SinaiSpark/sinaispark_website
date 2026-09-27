@@ -11,8 +11,14 @@ import type { Handoff } from "@/lib/assistant/protocol"
  */
 const KEY = "ss:assistant-handoff"
 
+/** The chat's session id, kept so a returning visitor resumes the chat. */
+export const SESSION_KEY = "ss:assistant-session"
+
 /** Fired on window when the chat sends the visitor to the form. */
 export const HANDOFF_EVENT = "assistant:handoff"
+
+/** Fired on window once the enquiry the chat led to has been sent. */
+export const RESET_EVENT = "assistant:reset"
 
 export function saveHandoff(handoff: Handoff) {
   try {
@@ -35,4 +41,20 @@ export function readHandoff(): Handoff | null {
 /** Tells a form already on screen to pick up the latest details. */
 export function announceHandoff() {
   window.dispatchEvent(new Event(HANDOFF_EVENT))
+}
+
+/**
+ * The chat has done its job once its enquiry is sent: forget the details
+ * carried to the form and the session id, so the next visit (or the next
+ * open of the panel) starts a fresh conversation instead of replaying this
+ * one. The conversation itself stays on the enquiry in the CMS.
+ */
+export function endAssistantSession() {
+  try {
+    sessionStorage.removeItem(KEY)
+    localStorage.removeItem(SESSION_KEY)
+  } catch {
+    // Storage blocked: nothing was kept in the first place.
+  }
+  window.dispatchEvent(new Event(RESET_EVENT))
 }

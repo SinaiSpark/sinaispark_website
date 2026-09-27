@@ -1,0 +1,125 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event",
+    "description": "Events we organise and events we attend: a write-up with photos and video."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 160
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true,
+      "options": {
+        "decamelize": false
+      }
+    },
+    "role": {
+      "type": "enumeration",
+      "enum": ["Organised", "Attended"],
+      "required": true,
+      "default": "Attended"
+    },
+    "format": {
+      "type": "enumeration",
+      "enum": [
+        "Conference",
+        "Roundtable",
+        "Seminar",
+        "Workshop",
+        "Networking",
+        "Trade mission",
+        "Exhibition",
+        "Webinar"
+      ],
+      "required": true,
+      "default": "Conference"
+    },
+    "summary": {
+      "type": "text",
+      "required": true,
+      "maxLength": 320
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date"
+    },
+    "city": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "venue": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "market": {
+      "type": "enumeration",
+      "enum": [
+        "Saudi Arabia",
+        "UAE",
+        "India",
+        "United Kingdom",
+        "Bahrain",
+        "GCC"
+      ],
+      "required": true,
+      "default": "Saudi Arabia"
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images", "videos"]
+    },
+    "videos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "event.video-link"
+    },
+    "highlights": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.stat",
+      "max": 4
+    },
+    "body": {
+      "type": "customField",
+      "customField": "global::rich-text"
+    },
+    "registrationUrl": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "publishAt": {
+      "type": "datetime"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

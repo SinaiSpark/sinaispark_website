@@ -2,8 +2,8 @@ import { initStoryStack, initTeamCards, initWhyRows } from "@/lib/motion/core"
 import { gsap, isFinePointer, q, qa, ScrollTrigger } from "@/lib/motion/gsap"
 
 /**
- * Motion for the four company and content pages: about, contact, blog and
- * research.
+ * Motion for the company and content pages: about, contact, blog, research
+ * and events.
  *
  * Everything shared with the rest of the site — the hero intro, reveals, word
  * masks, the spy bar and the process track — is already running by the time
@@ -23,6 +23,7 @@ export function initCompanyMotion(signal: AbortSignal) {
   blogCards()
   reportCover(signal)
   reportCards()
+  eventMotion()
 }
 
 /**
@@ -239,6 +240,72 @@ function reportCards() {
       delay: i * 0.08,
       ease: "power3.out",
       scrollTrigger: { trigger: ".rs-inside", start: "top 85%" },
+    })
+  )
+}
+
+/**
+ * Events: the featured event rises in, archive cards and gallery tiles
+ * arrive in batches, and the upcoming rows slide in one after another.
+ *
+ * Cards animate through `onEnter`, like the blog grid, because a card the
+ * filter hides never enters and must not be left pre-hidden.
+ */
+function eventMotion() {
+  if (q(".ev-feat-card")) {
+    gsap.from(".ev-feat-card", {
+      y: 50,
+      autoAlpha: 0,
+      duration: 1.1,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".ev-archive", start: "top 80%" },
+      clearProps: "transform",
+    })
+  }
+
+  for (const selector of [".ev-archive .ev-card", ".ar-more .ev-card"]) {
+    if (!q(selector)) continue
+    ScrollTrigger.batch(selector, {
+      start: "top 90%",
+      onEnter: (batch) =>
+        gsap.from(batch, {
+          y: 30,
+          autoAlpha: 0,
+          stagger: 0.08,
+          duration: 0.7,
+          ease: "power3.out",
+          overwrite: true,
+          clearProps: "transform",
+        }),
+    })
+  }
+
+  if (q(".ev-bento")) {
+    ScrollTrigger.batch(".ev-bento li", {
+      start: "top 92%",
+      onEnter: (batch) =>
+        gsap.from(batch, {
+          y: 24,
+          scale: 0.97,
+          autoAlpha: 0,
+          stagger: 0.05,
+          duration: 0.7,
+          ease: "power3.out",
+          overwrite: true,
+          clearProps: "transform",
+        }),
+    })
+  }
+
+  qa(".ev-next-list li").forEach((row, i) =>
+    gsap.from(row, {
+      x: -18,
+      autoAlpha: 0,
+      duration: 0.7,
+      delay: i * 0.08,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".ev-next-list", start: "top 85%" },
+      clearProps: "transform",
     })
   )
 }

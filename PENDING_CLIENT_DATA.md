@@ -134,3 +134,18 @@ quote prices.
 **Sign-off:** once every 🔴 row above is answered, this file becomes the record
 of approved launch data. Update values in the CMS (or code, for sections 1
 and 3) and tick ☑ here.
+
+## 11. Events (CMS → **Event**)
+
+The events page (`/events/`) and each event's page are built and fed from the
+CMS. Locally they show nine **sample** events from `pnpm --filter cms
+seed:events`: stock photos from Unsplash, clips from Pexels and a public
+YouTube video, each write-up marked as sample text. Before launch:
+
+| Item                                                                   | Status |
+| ---------------------------------------------------------------------- | ------ |
+| Real events: title, date, city, our role, summary and cover photo      | 🔴     |
+| Photos and clips for each gallery (with alt text in the media library) | 🔴     |
+| YouTube or Vimeo links, if any                                         | 🟡     |
+| Delete the sample events and their `event-*` media files               | 🔴     |
+| Replace the stock hero photo (`public/images/events/events-hero.jpg`)  | 🟡     |

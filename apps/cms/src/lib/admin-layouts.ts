@@ -7,7 +7,7 @@ import type { Core } from "@strapi/strapi"
  * Applied once per LAYOUT_VERSION, so anything changed afterwards in the
  * admin's "Configure the view" stays. Bump the version to re-apply.
  */
-const LAYOUT_VERSION = 5
+const LAYOUT_VERSION = 6
 
 type Layout = {
   columns: string[]
@@ -29,6 +29,11 @@ const LAYOUTS: Record<string, Layout> = {
   "api::research-article.research-article": {
     columns: ["cover", "title", "topic", "market", "date", "emailGate"],
     sortBy: "date",
+    order: "DESC",
+  },
+  "api::event.event": {
+    columns: ["cover", "title", "role", "city", "startDate", "publishAt"],
+    sortBy: "startDate",
     order: "DESC",
   },
   "api::enquiry.enquiry": {

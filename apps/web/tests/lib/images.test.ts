@@ -42,7 +42,7 @@ describe("image asset manifest", () => {
   it("records license + credit for placeholder photography", () => {
     for (const [, asset] of Object.entries(IMAGES)) {
       if (asset.status === "placeholder") {
-        expect(asset.license).toMatch(/CC|Public|FAL/)
+        expect(asset.license).toMatch(/CC|Public|FAL|Unsplash License/)
         expect(asset.credit?.length ?? 0).toBeGreaterThan(0)
       }
     }

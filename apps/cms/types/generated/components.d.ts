@@ -41,6 +41,26 @@ export interface ContactOffice extends Struct.ComponentSchema {
   }
 }
 
+export interface EventVideoLink extends Struct.ComponentSchema {
+  collectionName: "components_event_video_links"
+  info: {
+    description: "A YouTube or Vimeo video shown on an event's page."
+    displayName: "Video link"
+    icon: "play"
+  }
+  attributes: {
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 120
+      }>
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 300
+      }>
+  }
+}
+
 export interface HomeStat extends Struct.ComponentSchema {
   collectionName: "components_home_stats"
   info: {
@@ -126,6 +146,7 @@ declare module "@strapi/strapi" {
   export namespace Public {
     export interface ComponentSchemas {
       "contact.office": ContactOffice
+      "event.video-link": EventVideoLink
       "home.stat": HomeStat
       "shared.open-graph": SharedOpenGraph
       "shared.seo": SharedSeo

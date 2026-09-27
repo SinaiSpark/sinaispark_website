@@ -5,6 +5,7 @@ import { useFetchClient } from "@strapi/strapi/admin"
 const TYPES = [
   { uid: "api::blog-post.blog-post", label: "Blog" },
   { uid: "api::research-article.research-article", label: "Research" },
+  { uid: "api::event.event", label: "Events" },
 ] as const
 
 type Item = {

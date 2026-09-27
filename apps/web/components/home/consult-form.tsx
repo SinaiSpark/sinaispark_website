@@ -12,7 +12,11 @@ import {
 } from "@/components/ui/phone-field"
 import { SplitText } from "@/components/ui/split-text"
 import { CONSULT } from "@/content/home"
-import { HANDOFF_EVENT, readHandoff } from "@/lib/assistant/handoff"
+import {
+  endAssistantSession,
+  HANDOFF_EVENT,
+  readHandoff,
+} from "@/lib/assistant/handoff"
 import { cx } from "@/lib/cx"
 import {
   prefillFor,
@@ -190,6 +194,8 @@ export function ConsultForm({
         return
       }
       setDone(true)
+      // Sent from a chat handoff: the chat is finished, forget it.
+      if (chat) endAssistantSession()
     } catch {
       setFailure(CONSULT.failure)
     } finally {
